@@ -5,6 +5,21 @@ using Interfaces;
 namespace Interfaces{
     public class OpcionesAdmin : Window
     {
+        //Instanciar 1 vez la ventana, para poder reutilizarla y no destruir y luego volver a crearla
+        private static OpcionesAdmin _instance;
+
+        public static OpcionesAdmin Instance
+        {
+            get
+            {
+                if(_instance == null)
+                {
+                    _instance = new OpcionesAdmin();
+                }
+                return _instance;
+            }
+        }
+
         public OpcionesAdmin() : base("Options")
         {
             SetDefaultSize(300, 400);
@@ -34,58 +49,71 @@ namespace Interfaces{
             buttonCancel.MarginBottom = 5;
             buttonCancel.Clicked += goCancelBill;
             
+            Button buttonBack = new Button("Regresar");
+            buttonBack.MarginBottom = 5;
+            buttonBack.Clicked += goBack;
+
             buttons.PackStart(buttonAll, true, true, 0);
             buttons.PackStart(buttonOne, true, true, 0);
             buttons.PackStart(buttonManagement, true, true, 0);
             buttons.PackStart(buttonService, true, true, 0);
             buttons.PackStart(buttonCancel, true, true, 0);
+            buttons.PackStart(buttonBack, true, true, 0);
 
             Add(buttons);
         }
 
         private void goBulkUpload(object sender, EventArgs e)
         {
-            cargaMasiva bulkUpload = new cargaMasiva();
+            cargaMasiva bulkUpload = cargaMasiva.Instance;
             bulkUpload.DeleteEvent += OnWindowDelete;
             bulkUpload.ShowAll();
-            this.Destroy();
+            this.Hide();
         }
 
         private void goManualEntry(object sender, EventArgs e)
         {
-            ingresoManual manualEntry = new ingresoManual();
+            ingresoManual manualEntry = ingresoManual.Instance;
             manualEntry.DeleteEvent += OnWindowDelete;
             manualEntry.ShowAll();
-            this.Destroy();
+            this.Hide();
         }
 
         private void goManagementUser(object sender, EventArgs e)
         {
-            manejoUsuarios manageUser = new manejoUsuarios();
+            manejoUsuarios manageUser = manejoUsuarios.Instance;
             manageUser.DeleteEvent += OnWindowDelete;
             manageUser.ShowAll();
-            this.Destroy();
+            this.Hide();
         }
 
         private void goService(object sender, EventArgs e)
         {
-            generarServicios generateService = new generarServicios();
+            generarServicios generateService = generarServicios.Instance;
             generateService.DeleteEvent += OnWindowDelete;
             generateService.ShowAll();
-            this.Destroy();
+            this.Hide();
         }
 
         private void goCancelBill(object sender, EventArgs e)
         {
-            cancelarFacturas cancelBill = new cancelarFacturas();
+            cancelarFacturas cancelBill = cancelarFacturas.Instance;
             cancelBill.DeleteEvent += OnWindowDelete;
             cancelBill.ShowAll();
-            this.Destroy();
+            this.Hide();
+        }
+
+        private void goBack(Object sender, EventArgs e)
+        {
+            inicioSesion inicio = inicioSesion.Instance;
+            inicio.DeleteEvent += OnWindowDelete;
+            inicio.ShowAll();
+            this.Hide();
         }
 
         static void OnWindowDelete(object sender, DeleteEventArgs args)
         {
-            Application.Quit();
+            ((Window)sender).Hide();
             args.RetVal = true;
         }
     }

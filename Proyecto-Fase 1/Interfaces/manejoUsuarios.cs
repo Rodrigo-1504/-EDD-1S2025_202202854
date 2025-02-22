@@ -4,6 +4,21 @@ namespace Interfaces
 {
     public class manejoUsuarios : Window
     {
+
+        private static manejoUsuarios _instance;
+
+        public static manejoUsuarios Instance
+        {
+            get
+            {
+                if(_instance == null)
+                {
+                    _instance = new manejoUsuarios();
+                }
+                return _instance;
+            }
+        }
+
         public manejoUsuarios() : base("Users management")
         {
             SetDefaultSize(500, 400);
@@ -104,12 +119,31 @@ namespace Interfaces
             Button deleteData = new Button("Eliminar");
             deleteData.MarginBottom = 5;
 
+            Button back = new Button("Regresar");
+            back.MarginBottom = 5;
+            back.Clicked += goBack;
+
             joinAll.PackStart(dataUsers, true, true, 0);
             joinAll.PackStart(updateData, true, true, 0);
             joinAll.PackStart(deleteData, true, true, 0);
+            joinAll.PackStart(back, true, true, 0);
 
             Add(joinAll);
 
+        }
+
+        private void goBack(Object sender, EventArgs e)
+        {
+            OpcionesAdmin opciones = OpcionesAdmin.Instance;
+            opciones.DeleteEvent += OnWindowDelete;
+            opciones.ShowAll();
+            this.Hide();
+        }
+
+        static void OnWindowDelete(object sender, DeleteEventArgs args)
+        {
+            ((Window)sender).Hide();
+            args.RetVal = true;
         }
     }
 }

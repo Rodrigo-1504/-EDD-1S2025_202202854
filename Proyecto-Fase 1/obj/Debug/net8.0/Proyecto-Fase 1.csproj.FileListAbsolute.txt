@@ -21,3 +21,27 @@
 /home/rodrigo-linux/Documentos/EDD_LAB/Proyecto-Fase 1/obj/Debug/net8.0/Proyecto-Fase 1.pdb
 /home/rodrigo-linux/Documentos/EDD_LAB/Proyecto-Fase 1/obj/Debug/net8.0/Proyecto-Fase 1.genruntimeconfig.cache
 /home/rodrigo-linux/Documentos/EDD_LAB/Proyecto-Fase 1/obj/Debug/net8.0/ref/Proyecto-Fase 1.dll
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/bin/Debug/net8.0/Proyecto-Fase 1
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/bin/Debug/net8.0/Proyecto-Fase 1.deps.json
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/bin/Debug/net8.0/Proyecto-Fase 1.runtimeconfig.json
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/bin/Debug/net8.0/Proyecto-Fase 1.dll
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/bin/Debug/net8.0/Proyecto-Fase 1.pdb
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/bin/Debug/net8.0/AtkSharp.dll
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/bin/Debug/net8.0/CairoSharp.dll
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/bin/Debug/net8.0/GdkSharp.dll
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/bin/Debug/net8.0/GioSharp.dll
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/bin/Debug/net8.0/GLibSharp.dll
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/bin/Debug/net8.0/GtkSharp.dll
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/bin/Debug/net8.0/PangoSharp.dll
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/obj/Debug/net8.0/Proyecto-Fase 1.csproj.AssemblyReference.cache
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/obj/Debug/net8.0/Proyecto-Fase 1.GeneratedMSBuildEditorConfig.editorconfig
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/obj/Debug/net8.0/Proyecto-Fase 1.AssemblyInfoInputs.cache
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/obj/Debug/net8.0/Proyecto-Fase 1.AssemblyInfo.cs
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/obj/Debug/net8.0/Proyecto-Fase 1.csproj.CoreCompileInputs.cache
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/obj/Debug/net8.0/Proyecto-Fase 1.sourcelink.json
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/obj/Debug/net8.0/Proyecto-Fase 1.csproj.CopyComplete
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/obj/Debug/net8.0/Proyecto-Fase 1.dll
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/obj/Debug/net8.0/refint/Proyecto-Fase 1.dll
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/obj/Debug/net8.0/Proyecto-Fase 1.pdb
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/obj/Debug/net8.0/Proyecto-Fase 1.genruntimeconfig.cache
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/obj/Debug/net8.0/ref/Proyecto-Fase 1.dll

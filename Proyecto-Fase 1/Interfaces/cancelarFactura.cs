@@ -4,6 +4,21 @@ namespace Interfaces
 {
     public class cancelarFacturas : Window 
     {
+
+        private static cancelarFacturas _instance;
+
+        public static cancelarFacturas Instance
+        {
+            get
+            {
+                if(_instance == null)
+                {
+                    _instance = new cancelarFacturas();
+                }
+                return _instance;
+            }
+        }
+
         public cancelarFacturas() : base("Cancel")
         {
             SetDefaultSize(300, 200);
@@ -44,15 +59,33 @@ namespace Interfaces
             Label totalLabelData = new Label("");
             totalLabelData.MarginBottom = 20;
 
+            Button back = new Button("Regresar");
+            back.MarginBottom = 5;
+            back.Clicked += goBack;
+
             service.PackStart(idLabelData, false, false, 0);
             service.PackStart(idOrdenLabelData, false, false, 0);
             service.PackStart(totalLabelData, false, false, 0);
-
+            service.PackStart(back, true, true, 0);
 
             bill.PackStart(service, true, true, 0);
             bill.PackStart(serviceData, true, true, 0);
 
             Add(bill);
+        }
+
+        private void goBack(Object sender, EventArgs e)
+        {
+            OpcionesAdmin opciones = OpcionesAdmin.Instance;
+            opciones.DeleteEvent += OnWindowDelete;
+            opciones.ShowAll();
+            this.Hide();
+        }
+
+        static void OnWindowDelete(object sender, DeleteEventArgs args)
+        {
+            ((Window)sender).Hide();
+            args.RetVal = true;
         }
     }
 }

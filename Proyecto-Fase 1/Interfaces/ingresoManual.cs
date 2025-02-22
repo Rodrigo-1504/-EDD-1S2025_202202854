@@ -4,6 +4,21 @@ namespace Interfaces
 {
     public class ingresoManual : Window
     {
+
+        private static ingresoManual _instance;
+
+        public static ingresoManual Instance
+        {
+            get
+            {
+                if(_instance == null)
+                {
+                    _instance = new ingresoManual();
+                }
+                return _instance;
+            }
+        }
+
         public ingresoManual() : base("Manual entry")
         {
             SetDefaultSize(500, 300);
@@ -73,10 +88,29 @@ namespace Interfaces
             save.MarginTop = 5;
             save.MarginBottom = 5;
 
+            Button back = new Button("Regresar");
+            back.MarginBottom = 5;
+            back.Clicked += goBack;
+
             joinBoxes.PackStart(boxes, true, true, 0);
             joinBoxes.PackStart(save, true, true, 0);
+            joinBoxes.PackStart(back, true, true, 0);
 
             Add(joinBoxes);
+        }
+
+        private void goBack(Object sender, EventArgs e)
+        {
+            OpcionesAdmin opciones = OpcionesAdmin.Instance;
+            opciones.DeleteEvent += OnWindowDelete;
+            opciones.ShowAll();
+            this.Hide();
+        }
+
+        static void OnWindowDelete(object sender, DeleteEventArgs args)
+        {
+            ((Window)sender).Hide();
+            args.RetVal = true;
         }
     }
 }
