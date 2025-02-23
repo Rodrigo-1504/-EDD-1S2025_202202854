@@ -19,7 +19,7 @@ class Program
             ListaSimple listaUsuarios = ListaSimple.Instance;
 
             //Agregar al admin
-            listaUsuarios.AgregarUsuarios(new Usuarios(1, "Rodrigo Alejandro", "Tahuite Soria", "root@gmail.com", "root123"));
+            listaUsuarios.AgregarUsuarios(new Usuarios(0, "Rodrigo Alejandro", "Tahuite Soria", "root@gmail.com", "root123"));
 
             //Terminar el programa al cerrar la aplicación
             iniciar.DeleteEvent += OnWindowDelete;

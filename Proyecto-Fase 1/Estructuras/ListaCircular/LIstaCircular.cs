@@ -151,7 +151,7 @@ namespace List
             return null;
         }
 
-        public bool actualizarRepuesto(int id, string repuesto, string detalles, int costo)
+        public bool actualizarRepuesto(int id, string repuesto, string detalles, double costo)
         {
             Repuestos buscar = buscarRepuesto(id);
 
@@ -165,6 +165,22 @@ namespace List
             }
 
             return false;
+        }
+
+        public void imprimirListaCircular()
+        {
+            if(cabeza == null)
+            {
+                Console.WriteLine("Lista vacia");
+                return;
+            }
+
+            NodoCircular* temp = cabeza;
+            do
+            {
+                Console.WriteLine($"ID: {temp->repuesto.id}, Repuesto: {temp->repuesto.repuesto}, Detalles: {temp->repuesto.detalles}, Costo: {temp->repuesto.costo}");
+                temp = temp->siguiente;
+            }while(temp != cabeza);
         }
         
     }

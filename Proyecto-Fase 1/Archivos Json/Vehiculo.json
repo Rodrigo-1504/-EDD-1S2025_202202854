@@ -2,15 +2,15 @@
     {
         "ID": 1,
         "ID_Usuario": 1,
-        "Marca": "Toyota",
-        "Modelo": "Corolla",
+        "Marca": "Toyota Corolla",
+        "Modelo": "2012",
         "Placa": "ABC123"
     },
     {
         "ID": 2,
         "ID_Usuario": 2,
-        "Marca": "Ford",
-        "Modelo": "Focus",
+        "Marca": "Ford Focus",
+        "Modelo": "2011",
         "Placa": "XYZ456"
     }
 ]

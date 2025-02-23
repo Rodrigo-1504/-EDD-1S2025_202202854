@@ -6,10 +6,10 @@ namespace List
         public int id{ get; set; }
         public string repuesto{ get; set; }
         public string detalles{ get; set; }
-        public int costo{ get; set; }
+        public double costo{ get; set; }
 
         //Constructor
-        public Repuestos(int ID, string Repuesto, string Detalles, int Costo)
+        public Repuestos(int ID, string Repuesto, string Detalles, double Costo)
         {
             id = ID;
             repuesto = Repuesto;

@@ -139,7 +139,7 @@ namespace List
             return null;
         }
 
-        public bool actualizarVehiculo(int id, int id_User, string marcaNueva, string modeloNuevo, string placaNueva)
+        public bool actualizarVehiculo(int id, int id_User, string marcaNueva, int modeloNuevo, string placaNueva)
         {
             Vehiculos vehiculoBuscado = buscarVehiculo(id);
             if(vehiculoBuscado != null)

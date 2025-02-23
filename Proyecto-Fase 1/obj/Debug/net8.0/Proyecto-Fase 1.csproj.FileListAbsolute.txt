@@ -45,3 +45,4 @@
 /home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/obj/Debug/net8.0/Proyecto-Fase 1.pdb
 /home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/obj/Debug/net8.0/Proyecto-Fase 1.genruntimeconfig.cache
 /home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/obj/Debug/net8.0/ref/Proyecto-Fase 1.dll
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 1/bin/Debug/net8.0/Newtonsoft.Json.dll
