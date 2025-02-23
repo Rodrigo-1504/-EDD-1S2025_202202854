@@ -49,7 +49,7 @@ namespace Interfaces{
             buttonCancel.MarginBottom = 5;
             buttonCancel.Clicked += goCancelBill;
             
-            Button buttonBack = new Button("Regresar");
+            Button buttonBack = new Button("Salir");
             buttonBack.MarginBottom = 5;
             buttonBack.Clicked += goBack;
 

@@ -14,6 +14,22 @@ namespace List
 {
     public unsafe class ListaSimple
     {
+
+        //Instanciar
+        private static ListaSimple _instance;
+
+        public static ListaSimple Instance
+        {
+            get
+            {
+                if(_instance == null)
+                {
+                    _instance = new ListaSimple();
+                }
+                return _instance;
+            }
+        }
+
         //Características de la Lista
         private Nodo* cabeza;
 
@@ -113,6 +129,21 @@ namespace List
                 temp = temp->siguiente;
             }
 
+            return null;
+        }
+
+        public Usuarios BuscarCorreoUsuario(string mail, string pw)
+        {
+            Nodo* temp = cabeza;
+
+            while(temp != null)
+            {
+                if(temp->usuarios.correo == mail && temp->usuarios.contraseña == pw)
+                {
+                    return temp->usuarios;
+                }
+                temp = temp->siguiente;
+            }
             return null;
         }
 

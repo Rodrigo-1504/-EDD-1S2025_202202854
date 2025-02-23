@@ -1,12 +1,26 @@
 using System;
 using System.Runtime.InteropServices;
-using Gtk;
-using List;
 
-namespace Circular
+namespace List
 {
     public unsafe class ListaCircular
     {
+
+        //Instanciar
+        private static ListaCircular _instance;
+
+        public static ListaCircular Instance
+        {
+            get
+            {
+                if(_instance == null)
+                {
+                    _instance = new ListaCircular();
+                }
+                return _instance;
+            }
+        }
+
         //Características de la lista Circular
         private NodoCircular* cabeza;
         private NodoCircular* cola;

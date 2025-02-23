@@ -1,4 +1,4 @@
-namespace Circular
+namespace List
 {
     public class Repuestos
     {

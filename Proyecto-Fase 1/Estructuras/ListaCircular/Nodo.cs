@@ -1,6 +1,6 @@
 //PODRIAMOS USAR EL MISMO NODO QUE USAMOS PARA LA LISTA SIMPLE, PERO LO HAREMOS DE NUEVO :)
 
-namespace Circular
+namespace List
 {
     public unsafe struct NodoCircular
     {

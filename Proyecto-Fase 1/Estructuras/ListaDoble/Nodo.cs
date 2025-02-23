@@ -1,4 +1,4 @@
-namespace DoubleList
+namespace List
 {
     public unsafe struct NodoDoble
     {

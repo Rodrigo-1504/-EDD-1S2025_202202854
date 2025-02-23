@@ -1,5 +1,6 @@
 ﻿using Gtk;
 using Interfaces;
+using List;
 
 class Program
 {
@@ -10,9 +11,15 @@ class Program
         {
             //Inicializar Gtk
             Application.Init();
-
+            
             //Creacion de una ventana
-            inicioSesion iniciar = new inicioSesion();
+            inicioSesion iniciar = inicioSesion.Instance;
+
+            //Que todas las ventanas tengan la misma lista simple
+            ListaSimple listaUsuarios = ListaSimple.Instance;
+
+            //Agregar al admin
+            listaUsuarios.AgregarUsuarios(new Usuarios(1, "Rodrigo Alejandro", "Tahuite Soria", "root@gmail.com", "root123"));
 
             //Terminar el programa al cerrar la aplicación
             iniciar.DeleteEvent += OnWindowDelete;
@@ -32,7 +39,9 @@ class Program
     //Funcion para terminar el programa
     public static void OnWindowDelete(object sender, DeleteEventArgs args)
     {
-        Application.Quit();
+        ((Window)sender).Hide();
         args.RetVal = true;
     }
 }
+
+//Cualquier caso Ctrl + c para matar el programa

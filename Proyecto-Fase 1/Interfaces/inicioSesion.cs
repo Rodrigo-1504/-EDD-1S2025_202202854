@@ -1,10 +1,12 @@
 using Gtk;
+using Interfaces;
+using List;
 
 namespace Interfaces
 {
     public class inicioSesion : Window
     {
-        
+        //IN
         private static inicioSesion _instance;
 
         public static inicioSesion Instance
@@ -20,8 +22,10 @@ namespace Interfaces
         }
 
         Entry mail, password;
+
         public inicioSesion() : base("Login")
         {
+
             //Tamaño de la ventana
             SetDefaultSize(400,250);
             
@@ -73,25 +77,33 @@ namespace Interfaces
 
         private void OnButtonClicked(object sender, EventArgs e)
         {
-            if(mail.Text != "root@gmail.com" || password.Text != "root123")
-                {
-                    MessageDialog error = new MessageDialog(
-                        this, 
-                        DialogFlags.Modal,
-                        MessageType.Info,
-                        ButtonsType.Ok,
-                        "Error, correo o contraseña incorrectas"
-                    );
+            //Instanciando la lista simple
+            ListaSimple listaUsuarios = ListaSimple.Instance;
 
-                    error.Run();
-                    error.Destroy();
-                }else{
-                    //Arreglar para ingresar como usuario o como administrador
-                    OpcionesAdmin opciones = OpcionesAdmin.Instance;
-                    opciones.DeleteEvent += OnWindowDelete;
-                    opciones.ShowAll();
-                    this.Hide();
-                }
+            //Buscando al usuario
+            Usuarios user = listaUsuarios.BuscarCorreoUsuario(mail.Text, password.Text);
+            
+            if(user != null)
+            {
+                Console.WriteLine($"Bienvenido: {user.nombres}"); //Debugeo para ver que todo salga bien
+                
+                OpcionesAdmin opciones = OpcionesAdmin.Instance;
+                opciones.DeleteEvent += OnWindowDelete;
+                opciones.ShowAll();
+                this.Hide();
+            }else
+            {
+                MessageDialog error = new MessageDialog(
+                    this, 
+                    DialogFlags.Modal,
+                    MessageType.Info,
+                    ButtonsType.Ok,
+                    "Error, correo o contraseña incorrectas"
+                );
+
+                error.Run();
+                error.Destroy();
+            }
         }
     }
 }

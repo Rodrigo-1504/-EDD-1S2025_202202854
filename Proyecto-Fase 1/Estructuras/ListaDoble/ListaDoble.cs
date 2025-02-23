@@ -1,7 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
-using GLib;
-using List;
+
 
 /*PARA AGREGAR LOS VEHICULOOS VAMOS A REALIZAR LO SIGUIENTE: 
     UNA LISTA DOBLE ES SIMILAR A UNA LISTA SIMPLE, CON LA DIFERENCIA QUE
@@ -10,10 +9,25 @@ using List;
     Y LO QUE COMPONE A LOS DATOS DEL NODO FUE HECHO EN Vehiculos.cs*/
 
 
-namespace DoubleList
+namespace List
 {
     public unsafe class ListaDoble
     {
+        //Instanciar
+        private static ListaDoble _instance;
+
+        public static ListaDoble Instance
+        {
+            get
+            {
+                if(_instance == null)
+                {
+                    _instance = new ListaDoble();
+                }
+                return _instance;
+            }
+        }
+
         //Caracteristicas de la Lista Doble
         private NodoDoble* cabeza;
 
