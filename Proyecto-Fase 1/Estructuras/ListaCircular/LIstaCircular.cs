@@ -182,6 +182,51 @@ namespace List
                 temp = temp->siguiente;
             }while(temp != cabeza);
         }
-        
+
+        public string graphvizCircular()
+        {
+            if(cabeza == null)
+            {
+                return "digraph G {\n\tnode[shape=record];\n\tNULL[label = \"{NULL}\"];\n}\n";
+            }
+
+            string graphviz = "digraph {\n";
+            graphviz += "\tnode[shape=record];\n";
+            graphviz += "\tgraph[pencolor=transparent];\n";
+            graphviz += "\trankdir=LR;\n";
+            graphviz += "\tsubgraph cluster_0{\n";
+            graphviz += "\t\tlabel = \"Lista Circular (Rodrigo Tahuite)\";\n";
+
+            NodoCircular* temp = cabeza;
+            int index = 0;
+
+            do
+            {
+                graphviz += $"\t\t\tn{index} [label = \"{{ID: {temp->repuesto.id} \\n Repuesto: {temp->repuesto.repuesto} \\n Detalles: {temp->repuesto.detalles} \\n Costo: {temp->repuesto.costo}}}\"];\n";
+                temp = temp->siguiente;
+                index ++;
+            }while(temp != cabeza);
+
+            temp = cabeza;
+            int i = 0;
+            do
+            {   
+                if(temp->siguiente == cabeza)
+                {
+                    graphviz += $"\t\t\tn{i}->n0;\n";
+                }
+                else
+                {
+                    graphviz += $"\t\t\tn{i} -> n{i +1};\n";
+                }
+                temp = temp->siguiente;
+                i++;
+            }while(temp != cabeza);
+
+            graphviz += "\t\t}\n";
+            graphviz += "}\n";
+            return graphviz;
+        }
+
     }
 }

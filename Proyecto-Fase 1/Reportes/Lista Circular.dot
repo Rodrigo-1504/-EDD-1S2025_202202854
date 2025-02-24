@@ -1,0 +1,14 @@
+digraph {
+	node[shape=record];
+	graph[pencolor=transparent];
+	rankdir=LR;
+	subgraph cluster_0{
+		label = "Lista Circular (Rodrigo Tahuite)";
+			n0 [label = "{ID: 1 \n Repuesto: Pastillas de Freno \n Detalles: Cambio de las pastillas de freno \n Costo: 20,5}"];
+			n1 [label = "{ID: 2 \n Repuesto: Bateria \n Detalles: Cambio de la bateria del carro \n Costo: 100,75}"];
+			n2 [label = "{ID: 3 \n Repuesto: Llantas \n Detalles: Llantas nuevas, se hizo cambio de las 4 llantas \n Costo: 575,8}"];
+			n0 -> n1;
+			n1 -> n2;
+			n2->n0;
+		}
+}
