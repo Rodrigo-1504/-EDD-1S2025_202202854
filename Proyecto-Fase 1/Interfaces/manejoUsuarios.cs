@@ -1,25 +1,27 @@
 using Gtk;
 using List;
+using System;
 
 namespace Interfaces
 {
     public class manejoUsuarios : Window
     {
+        // Instancia de la lista de usuarios
+        private ListaSimple listaUsuarios = ListaSimple.Instance;
 
-        ListaSimple listaUsuarios = ListaSimple.Instance;
-
+        // Labels y Entries
         private Label idLabel, nameLabel, lastnameLabel, mailLabel;
         private Label nameLabel2, lastnameLabel2, mailLabel2;
-        private Entry nameEntry, lastnameEntry, mailEntry;
-        private Entry idEntry;
+        private Entry idEntry, nameEntry, lastnameEntry, mailEntry;
 
+        // Singleton para la ventana de manejo de usuarios
         private static manejoUsuarios _instance;
 
         public static manejoUsuarios Instance
         {
             get
             {
-                if(_instance == null)
+                if (_instance == null)
                 {
                     _instance = new manejoUsuarios();
                 }
@@ -27,109 +29,141 @@ namespace Interfaces
             }
         }
 
+        // Constructor
         public manejoUsuarios() : base("Users management")
         {
+            // Configuración de la ventana
             SetDefaultSize(500, 400);
-            this.SetPosition(WindowPosition.Center);
+            SetPosition(WindowPosition.Center);
 
-            HBox dataUsers = new HBox();
-            
-
-            VBox labels = new VBox();
-            labels.BorderWidth = 20;
-            labels.Spacing = 10;
-
-            idLabel = new Label("Id");
-            idLabel.MarginTop = 15;
-            idLabel.MarginBottom = 20;
-
-            nameLabel = new Label("Nombres");
-            nameLabel.MarginBottom = 20;
-
-            lastnameLabel = new Label("Apellidos");
-            lastnameLabel.MarginBottom = 20;
-            
-            mailLabel = new Label("Correo");
-            mailLabel.MarginBottom = 20;
-
-            labels.PackStart(idLabel, false, false, 0);
-            labels.PackStart(nameLabel, false, false, 0);
-            labels.PackStart(lastnameLabel, false, false, 0);
-            labels.PackStart(mailLabel, false, false, 0);
-
-            VBox labels2 = new VBox();
-            labels2.BorderWidth = 20;
-            labels2.Spacing = 10;
-
-            idEntry = new Entry();
-            idEntry.MarginBottom = 5;
-
-            nameLabel2 = new Label("");
-            nameLabel2.MarginBottom = 20;
-
-            lastnameLabel2 = new Label("");
-            lastnameLabel2.MarginBottom = 20;
-            
-            mailLabel2 = new Label("");
-            mailLabel2.MarginBottom = 20;
-
-            labels2.PackStart(idEntry, false, false, 0);
-            labels2.PackStart(nameLabel2, false, false, 0);
-            labels2.PackStart(lastnameLabel2, false, false, 0);
-            labels2.PackStart(mailLabel2, false, false, 0);
-            
-            VBox Entry = new VBox();
-            Entry.BorderWidth = 20;
-            Entry.Spacing = 10;
-
-            Button idButton = new Button("Buscar");
-            idButton.MarginBottom = 5;
-            idButton.Clicked += buscarUsuario;
-
-            nameEntry = new Entry();
-            nameEntry.MarginBottom = 5;
-
-            lastnameEntry = new Entry();
-            lastnameEntry.MarginBottom = 5;
-
-            mailEntry = new Entry();
-            mailEntry.MarginBottom = 5;
-
-            Entry.PackStart(idButton, false, false, 0);
-            Entry.PackStart(nameEntry, false, false, 0);
-            Entry.PackStart(lastnameEntry, false, false, 0);
-            Entry.PackStart(mailEntry, false, false, 0);
-
-            dataUsers.PackStart(labels, true, true, 0);
-            dataUsers.PackStart(labels2, true, true, 0);
-            dataUsers.PackStart(Entry, true, true, 0);
-
-            VBox joinAll = new VBox();
-            joinAll.BorderWidth = 20;
-            joinAll.Spacing = 10;
-
-            Button updateData = new Button("Actualizar");
-            updateData.MarginBottom = 5;
-            updateData.Clicked += editarUsuario;
-
-            Button deleteData = new Button("Eliminar");
-            deleteData.MarginBottom = 5;
-            deleteData.Clicked += eliminarUsuario;
-
-            Button back = new Button("Regresar");
-            back.MarginBottom = 5;
-            back.Clicked += goBack;
-
-            joinAll.PackStart(dataUsers, true, true, 0);
-            joinAll.PackStart(updateData, true, true, 0);
-            joinAll.PackStart(deleteData, true, true, 0);
-            joinAll.PackStart(back, true, true, 0);
-
-            Add(joinAll);
-
+            // Crear y configurar el contenedor principal
+            VBox mainContainer = CreateMainContainer();
+            Add(mainContainer);
         }
 
-        private void goBack(Object sender, EventArgs e)
+        // Método para crear el contenedor principal
+        private VBox CreateMainContainer()
+        {
+            VBox container = new VBox
+            {
+                BorderWidth = 20,
+                Spacing = 10
+            };
+
+            // Crear y configurar los campos de entrada y botones
+            HBox dataUsers = CreateDataUsersContainer();
+            Button updateButton = CreateButton("Actualizar", editarUsuario, 5, 5);
+            Button deleteButton = CreateButton("Eliminar", eliminarUsuario, 5, 5);
+            Button backButton = CreateButton("Regresar", goBack, 5, 5);
+
+            // Agregar widgets al contenedor principal
+            container.PackStart(dataUsers, true, true, 0);
+            container.PackStart(updateButton, true, true, 0);
+            container.PackStart(deleteButton, true, true, 0);
+            container.PackStart(backButton, true, true, 0);
+
+            return container;
+        }
+
+        // Método para crear el contenedor de datos de usuarios
+        private HBox CreateDataUsersContainer()
+        {
+            HBox container = new HBox();
+
+            // Crear y configurar los labels
+            VBox labels = CreateLabelsContainer();
+            // Crear y configurar los labels dinámicos
+            VBox labels2 = CreateDynamicLabelsContainer();
+            // Crear y configurar los campos de entrada
+            VBox entries = CreateEntriesContainer();
+
+            // Agregar widgets al contenedor
+            container.PackStart(labels, true, true, 0);
+            container.PackStart(labels2, true, true, 0);
+            container.PackStart(entries, true, true, 0);
+
+            return container;
+        }
+
+        // Método para crear el contenedor de labels estáticos
+        private VBox CreateLabelsContainer()
+        {
+            VBox container = new VBox
+            {
+                BorderWidth = 20,
+                Spacing = 10
+            };
+
+            idLabel = new Label("Id") { MarginTop = 15, MarginBottom = 20 };
+            nameLabel = new Label("Nombres") { MarginBottom = 20 };
+            lastnameLabel = new Label("Apellidos") { MarginBottom = 20 };
+            mailLabel = new Label("Correo") { MarginBottom = 20 };
+
+            container.PackStart(idLabel, false, false, 0);
+            container.PackStart(nameLabel, false, false, 0);
+            container.PackStart(lastnameLabel, false, false, 0);
+            container.PackStart(mailLabel, false, false, 0);
+
+            return container;
+        }
+
+        // Método para crear el contenedor de labels dinámicos
+        private VBox CreateDynamicLabelsContainer()
+        {
+            VBox container = new VBox
+            {
+                BorderWidth = 20,
+                Spacing = 10
+            };
+
+            idEntry = new Entry { MarginBottom = 5 };
+            nameLabel2 = new Label("") { MarginBottom = 20 };
+            lastnameLabel2 = new Label("") { MarginBottom = 20 };
+            mailLabel2 = new Label("") { MarginBottom = 20 };
+
+            container.PackStart(idEntry, false, false, 0);
+            container.PackStart(nameLabel2, false, false, 0);
+            container.PackStart(lastnameLabel2, false, false, 0);
+            container.PackStart(mailLabel2, false, false, 0);
+
+            return container;
+        }
+
+        // Método para crear el contenedor de campos de entrada
+        private VBox CreateEntriesContainer()
+        {
+            VBox container = new VBox
+            {
+                BorderWidth = 20,
+                Spacing = 10
+            };
+            Button searchButton = CreateButton("Buscar", buscarUsuario, 5, 5);
+            nameEntry = new Entry { MarginBottom = 5 };
+            lastnameEntry = new Entry { MarginBottom = 5 };
+            mailEntry = new Entry { MarginBottom = 5 };
+
+            container.PackStart(searchButton, false, false, 0);
+            container.PackStart(nameEntry, false, false, 0);
+            container.PackStart(lastnameEntry, false, false, 0);
+            container.PackStart(mailEntry, false, false, 0);
+
+            return container;
+        }
+
+        // Método para crear un botón con márgenes y manejador de eventos
+        private Button CreateButton(string label, EventHandler handler, int marginTop, int marginBottom)
+        {
+            Button button = new Button(label)
+            {
+                MarginTop = marginTop,
+                MarginBottom = marginBottom
+            };
+            button.Clicked += handler;
+            return button;
+        }
+
+        // Método para manejar el evento de clic en el botón "Regresar"
+        private void goBack(object sender, EventArgs e)
         {
             OpcionesAdmin opciones = OpcionesAdmin.Instance;
             opciones.DeleteEvent += OnWindowDelete;
@@ -137,54 +171,51 @@ namespace Interfaces
             this.Hide();
         }
 
+        // Método para manejar el evento de cierre de la ventana
         static void OnWindowDelete(object sender, DeleteEventArgs args)
         {
             ((Window)sender).Hide();
             args.RetVal = true;
         }
 
+        // Método para buscar un usuario
         private void buscarUsuario(object sender, EventArgs e)
         {
             Usuarios usuarioBuscado = listaUsuarios.BuscarUsuario(Convert.ToInt32(idEntry.Text));
 
-
-
-            if(usuarioBuscado != null)
+            if (usuarioBuscado != null)
             {
-                //private Label nameLabel2, lastnameLabel2, mailLabel2;
-                
-                string name = usuarioBuscado.nombres;
-                string lastname = usuarioBuscado.apellidos;
-                string mail = usuarioBuscado.correo;
-
-                nameLabel2.Text = name;
-                lastnameLabel2.Text = lastname;
-                mailLabel2.Text = mail;
+                nameLabel2.Text = usuarioBuscado.nombres;
+                lastnameLabel2.Text = usuarioBuscado.apellidos;
+                mailLabel2.Text = usuarioBuscado.correo;
             }
         }
 
+        // Método para editar un usuario
         private void editarUsuario(object sender, EventArgs e)
         {
             Usuarios usuarioEditar = listaUsuarios.BuscarUsuario(Convert.ToInt32(idEntry.Text));
 
-            if(usuarioEditar != null)
+            if (usuarioEditar != null)
             {
-                //private Entry nameEntry, lastnameEntry, mailEntry;
-                string newName = nameEntry.Text;
-                string newLastname = lastnameEntry.Text;
-                string newMail = mailEntry.Text;
-
-                listaUsuarios.actualizarUsuario(usuarioEditar.id, newName, newLastname, newMail);
+                listaUsuarios.actualizarUsuario(
+                    usuarioEditar.id,
+                    nameEntry.Text,
+                    lastnameEntry.Text,
+                    mailEntry.Text
+                );
             }
+
             Console.WriteLine("\n--NUEVA LISTA---");
             listaUsuarios.imprimirLista();
         }
 
+        // Método para eliminar un usuario
         private void eliminarUsuario(object sender, EventArgs e)
         {
             Usuarios usuarioEliminar = listaUsuarios.BuscarUsuario(Convert.ToInt32(idEntry.Text));
-            
-            if(usuarioEliminar != null)
+
+            if (usuarioEliminar != null)
             {
                 listaUsuarios.EliminarUsuario(usuarioEliminar.id);
             }

@@ -332,6 +332,7 @@ namespace Interfaces
                 pwEntry.Text
             );
             listaUsuarios.AgregarUsuarios(newUser);
+            Console.WriteLine("\n---LISTA NUEVA DE USUARIOS---");
             listaUsuarios.imprimirLista();
         }
 
@@ -346,6 +347,7 @@ namespace Interfaces
                 placaEntry.Text
             );
             listaVehiculos.agregarVehiculos(newVehicle);
+            Console.WriteLine("\n---LISTA NUEVA DE VEHICULOS---");
             listaVehiculos.imprimirListaDoble();
         }
 
@@ -359,6 +361,7 @@ namespace Interfaces
                 Convert.ToDouble(costoEntry.Text)
             );
             listaRepuestos.agregarRepuestos(newRepuesto);
+            Console.WriteLine("\n---LISTA NUEVA DE REPUESTOS---");
             listaRepuestos.imprimirListaCircular();
         }
 
@@ -373,6 +376,7 @@ namespace Interfaces
                 Convert.ToInt32(costoEntryS.Text)
             );
             listaServicios.agregarServicios(newService);
+            Console.WriteLine("\n---LISTA NUEVA DE SERVICIOS---");
             listaServicios.imprimir();
         }
 

@@ -171,7 +171,7 @@ namespace Interfaces
                 {
                     Console.WriteLine("No se pudo realizar la carga masiva de usuarios de forma correcta.");
                 }
-
+                Console.WriteLine("---LISTA USUARIOS---");
                 listaUsuarios.imprimirLista();
             }
             catch (JsonException jsonEx)
@@ -217,7 +217,7 @@ namespace Interfaces
                 {
                     Console.WriteLine("No se pudo realizar la carga masiva de vehículos de forma correcta.");
                 }
-
+                Console.WriteLine("---LISTA VEHICULOS---");
                 listaVehiculos.imprimirListaDoble();
             }
             catch (JsonException jsonEx)
@@ -263,7 +263,7 @@ namespace Interfaces
                 {
                     Console.WriteLine("No se pudo realizar la carga masiva de repuestos de forma correcta.");
                 }
-
+                Console.WriteLine("---LISTA REPUESTOS---");
                 listaRepuestos.imprimirListaCircular();
             }
             catch (JsonException jsonEx)
