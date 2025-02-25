@@ -6,14 +6,14 @@ namespace Interfaces
 {
     public class inicioSesion : Window
     {
-        //IN
+        // Singleton para la ventana de inicio de sesión
         private static inicioSesion _instance;
 
         public static inicioSesion Instance
         {
             get
             {
-                if(_instance == null)
+                if (_instance == null)
                 {
                     _instance = new inicioSesion();
                 }
@@ -21,89 +21,104 @@ namespace Interfaces
             }
         }
 
-        Entry mail, password;
+        // Campos para las entradas de texto
+        private Entry mailEntry, passwordEntry;
 
+        // Constructor
         public inicioSesion() : base("Login")
         {
+            // Configuración de la ventana
+            SetDefaultSize(400, 250);
+            SetPosition(WindowPosition.Center);
 
-            //Tamaño de la ventana
-            SetDefaultSize(400,250);
-            
-            //Centrar la ventana
-            this.SetPosition(WindowPosition.Center);
+            // Crear y configurar el contenedor principal
+            VBox mainContainer = new VBox
+            {
+                BorderWidth = 20,
+                Spacing = 10
+            };
 
-            //Contenedor para organizar
-            VBox container = new VBox();
+            // Crear y configurar contenedores para correo y contraseña
+            VBox mailContainer = CreateEntryContainer("Correo:", out mailEntry);
+            VBox passwordContainer = CreateEntryContainer("Contraseña:", out passwordEntry);
 
-            //Margenes del contenedor
-            container.BorderWidth = 20;
-            container.Spacing = 10;
+            // Botón de inicio de sesión
+            Button loginButton = new Button("Login");
+            loginButton.Clicked += OnLoginButtonClicked;
 
-            VBox containerMail = new VBox();
-            containerMail.Spacing = 5;
+            // Agregar widgets al contenedor principal
+            mainContainer.PackStart(mailContainer, true, true, 0);
+            mainContainer.PackStart(passwordContainer, true, true, 0);
+            mainContainer.PackStart(loginButton, true, true, 0);
 
-            VBox containerPw = new VBox();
-            containerPw.Spacing = 5;
-
-            //Cajas de texto y labels
-            Label labelMail = new Label("Correo: ");
-            mail = new Entry();
-
-            Label labelPw = new Label("Contraseña: ");
-            password = new Entry();
-
-            Button enter = new Button("Login");
-            enter.Clicked += OnButtonClicked;
-
-            //Agregar widgets al contenedor
-            containerMail.PackStart(labelMail, false, false, 0);
-            containerMail.PackStart(mail, true, true, 0);
-
-            containerPw.PackStart(labelPw, false, false, 0);
-            containerPw.PackStart(password, true, true, 0);
-            
-            container.PackStart(containerMail, true, true, 0);
-            container.PackStart(containerPw, true, true, 0);
-            container.PackStart(enter, true, true, 0);
-
-            Add(container);
+            // Añadir el contenedor principal a la ventana
+            Add(mainContainer);
         }
 
-        static void OnWindowDelete(object sender, DeleteEventArgs args)
+        // Método para crear un contenedor con una etiqueta y una entrada de texto
+        private VBox CreateEntryContainer(string labelText, out Entry entry)
         {
-            ((Window)sender).Hide();
-            args.RetVal = true;
+            VBox container = new VBox
+            {
+                Spacing = 5
+            };
+
+            Label label = new Label(labelText);
+            entry = new Entry();
+
+            container.PackStart(label, false, false, 0);
+            container.PackStart(entry, true, true, 0);
+
+            return container;
         }
 
-        private void OnButtonClicked(object sender, EventArgs e)
+        // Método para manejar el evento de clic en el botón de inicio de sesión
+        private void OnLoginButtonClicked(object sender, EventArgs e)
         {
-            //Instanciando la lista simple
+            // Instanciar la lista de usuarios
             ListaSimple listaUsuarios = ListaSimple.Instance;
 
-            //Buscando al usuario
-            Usuarios user = listaUsuarios.BuscarCorreoUsuario(mail.Text, password.Text);
-            
-            if(user != null)
+            // Buscar al usuario por correo y contraseña
+            Usuarios user = listaUsuarios.BuscarCorreoUsuario(mailEntry.Text, passwordEntry.Text);
+
+            if (user != null)
             {
-                Console.WriteLine($"Bienvenido: {user.nombres}"); //Debugeo para ver que todo salga bien
-                
+                // Usuario encontrado
+                Console.WriteLine($"Bienvenido: {user.nombres}"); // Debug
+
+                // Mostrar la ventana de opciones de administrador
                 OpcionesAdmin opciones = OpcionesAdmin.Instance;
                 opciones.DeleteEvent += OnWindowDelete;
                 opciones.ShowAll();
                 this.Hide();
-            }else
-            {
-                MessageDialog error = new MessageDialog(
-                    this, 
-                    DialogFlags.Modal,
-                    MessageType.Info,
-                    ButtonsType.Ok,
-                    "Error, correo o contraseña incorrectas"
-                );
-
-                error.Run();
-                error.Destroy();
             }
+            else
+            {
+                // Usuario no encontrado
+                ShowErrorMessage("Error, correo o contraseña incorrectas");
+            }
+        }
+
+        // Método para mostrar un mensaje de error
+        private void ShowErrorMessage(string message)
+        {
+            MessageDialog errorDialog = new MessageDialog(
+                this,
+                DialogFlags.Modal,
+                MessageType.Info,
+                ButtonsType.Ok,
+                message
+            );
+
+            errorDialog.Run();
+            errorDialog.Destroy();
+        }
+
+        // Método para manejar el evento de cierre de la ventana
+        static void OnWindowDelete(object sender, DeleteEventArgs args)
+        {
+            ((Window)sender).Hide();
+            args.RetVal = true;
         }
     }
 }

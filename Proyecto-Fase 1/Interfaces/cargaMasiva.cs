@@ -1,28 +1,30 @@
 using Gtk;
 using List;
-using Newtonsoft.Json; //Libreria para leer Json
+using Newtonsoft.Json; // Librería para leer Json
+using System;
+using System.Collections.Generic;
+using System.IO;
 
-namespace Interfaces{
-    
+namespace Interfaces
+{
     public class cargaMasiva : Window
     {
-        //INSTANCIAS
-        ListaSimple listaUsuarios = ListaSimple.Instance;
-        ListaDoble listaVehiculos = ListaDoble.Instance;
-        ListaCircular listaRepuestos = ListaCircular.Instance;
+        // Instancias de las listas
+        private ListaSimple listaUsuarios = ListaSimple.Instance;
+        private ListaDoble listaVehiculos = ListaDoble.Instance;
+        private ListaCircular listaRepuestos = ListaCircular.Instance;
 
-        
-        //COMBO-BOX-TEXT PARA HACER CASI TODO DE ESTE ARCHIVO
-        ComboBoxText bulkUploadOptions = new ComboBoxText();
+        // ComboBox para seleccionar el tipo de carga masiva
+        private ComboBoxText bulkUploadOptions = new ComboBoxText();
 
-        //INSTANCIA DE VENTANA
+        // Instancia de la ventana (Singleton)
         private static cargaMasiva _instance;
 
         public static cargaMasiva Instance
         {
             get
             {
-                if(_instance == null)
+                if (_instance == null)
                 {
                     _instance = new cargaMasiva();
                 }
@@ -30,38 +32,58 @@ namespace Interfaces{
             }
         }
 
+        // Constructor
         public cargaMasiva() : base("Bulk Upload")
         {
+            // Configuración de la ventana
             SetDefaultSize(300, 300);
-            this.SetPosition(WindowPosition.Center);
+            SetPosition(WindowPosition.Center);
 
-            VBox entities = new VBox();
-            entities.BorderWidth = 20;
-            entities.Spacing = 10;
+            // Crear y configurar el contenedor principal
+            VBox mainContainer = CreateMainContainer();
+            Add(mainContainer);
+        }
 
-            
+        // Método para crear el contenedor principal
+        private VBox CreateMainContainer()
+        {
+            VBox container = new VBox
+            {
+                BorderWidth = 20,
+                Spacing = 10
+            };
+
+            // Configurar el ComboBox
             bulkUploadOptions.AppendText("Usuarios");
             bulkUploadOptions.AppendText("Vehiculos");
             bulkUploadOptions.AppendText("Repuestos");
 
-            Button upload = new Button("Cargar");
-            upload.Clicked += SeleccionarArchivo;
-            upload.MarginTop = 20;
-            upload.MarginBottom = 5;
+            // Crear botones
+            Button uploadButton = CreateButton("Cargar", SeleccionarArchivo, 20, 5);
+            Button backButton = CreateButton("Regresar", goBack, 5, 5);
 
-            Button back = new Button("Regresar");
-            back.MarginBottom = 5;
-            back.Clicked += goBack;
+            // Agregar widgets al contenedor
+            container.PackStart(bulkUploadOptions, false, false, 0);
+            container.PackStart(uploadButton, true, true, 0);
+            container.PackStart(backButton, true, true, 0);
 
-            entities.PackStart(bulkUploadOptions, false, false, 0);
-            entities.PackStart(upload, true, true, 0);
-            entities.PackStart(back, true, true, 0);
-            
-
-            Add(entities);
+            return container;
         }
 
-        private void goBack(Object sender, EventArgs e)
+        // Método para crear un botón con márgenes y manejador de eventos
+        private Button CreateButton(string label, EventHandler handler, int marginTop, int marginBottom)
+        {
+            Button button = new Button(label)
+            {
+                MarginTop = marginTop,
+                MarginBottom = marginBottom
+            };
+            button.Clicked += handler;
+            return button;
+        }
+
+        // Método para manejar el evento de clic en el botón "Regresar"
+        private void goBack(object sender, EventArgs e)
         {
             OpcionesAdmin opciones = OpcionesAdmin.Instance;
             opciones.DeleteEvent += OnWindowDelete;
@@ -69,18 +91,18 @@ namespace Interfaces{
             this.Hide();
         }
 
+        // Método para manejar el evento de cierre de la ventana
         static void OnWindowDelete(object sender, DeleteEventArgs args)
         {
             ((Window)sender).Hide();
             args.RetVal = true;
         }
 
-//###################################################### CARGAS MASIVAS ######################################################
-        //Buscar archivo Json
-        private void SeleccionarArchivo(object? sender, EventArgs e)
+        // Método para seleccionar un archivo JSON
+        private void SeleccionarArchivo(object sender, EventArgs e)
         {
-            //Crear el explorador de archivos
-            FileChooserDialog exploradorArchivos = new FileChooserDialog(
+            // Crear el explorador de archivos
+            FileChooserDialog fileChooser = new FileChooserDialog(
                 "Seleccionar un archivo Json",
                 this,
                 FileChooserAction.Open,
@@ -88,168 +110,170 @@ namespace Interfaces{
                 "Abrir", ResponseType.Accept
             );
 
-            //Filtrar archivos json
-            exploradorArchivos.Filter = new FileFilter();
-            exploradorArchivos.Filter.AddPattern("*.json");
+            // Filtrar archivos JSON
+            fileChooser.Filter = new FileFilter();
+            fileChooser.Filter.AddPattern("*.json");
 
-            if(exploradorArchivos.Run() == (int)ResponseType.Accept)
+            if (fileChooser.Run() == (int)ResponseType.Accept)
             {
-                string rutaArchivo = exploradorArchivos.Filename;
+                string filePath = fileChooser.Filename;
 
-                if(!string.IsNullOrEmpty(rutaArchivo))
+                if (!string.IsNullOrEmpty(filePath))
                 {
-                    if(bulkUploadOptions.ActiveText == "Usuarios")
+                    switch (bulkUploadOptions.ActiveText)
                     {
-                        realizarCargasUsuarios(rutaArchivo);
-                    }
-                    else if(bulkUploadOptions.ActiveText == "Vehiculos")
-                    {
-                        realizarCargasVehiculos(rutaArchivo);
-                    }else if(bulkUploadOptions.ActiveText == "Repuestos")
-                    {
-                        realizarCargasRepuestos(rutaArchivo);
+                        case "Usuarios":
+                            realizarCargasUsuarios(filePath);
+                            break;
+                        case "Vehiculos":
+                            realizarCargasVehiculos(filePath);
+                            break;
+                        case "Repuestos":
+                            realizarCargasRepuestos(filePath);
+                            break;
                     }
                 }
             }
 
-            exploradorArchivos.Destroy();
+            fileChooser.Destroy();
         }
 
-        private void realizarCargasUsuarios(string ruta)
+        // Método para realizar la carga masiva de usuarios
+        private void realizarCargasUsuarios(string filePath)
         {
             try
             {
-                //Leer archivo json
-                string contenidoJson = File.ReadAllText(ruta);
+                string jsonContent = File.ReadAllText(filePath);
 
-                if(string.IsNullOrEmpty(contenidoJson))
+                if (string.IsNullOrEmpty(jsonContent))
                 {
-                    Console.WriteLine("El archivo json esta vacio");
+                    Console.WriteLine("El archivo JSON está vacío.");
                     return;
                 }
 
-                var usuarios = JsonConvert.DeserializeObject<List<Usuarios>>(contenidoJson);
+                var usuarios = JsonConvert.DeserializeObject<List<Usuarios>>(jsonContent);
 
-                if(usuarios != null && usuarios.Count > 0)
+                if (usuarios != null && usuarios.Count > 0)
                 {
-                    foreach(var usuario in usuarios)
+                    foreach (var usuario in usuarios)
                     {
-                        if(usuario != null && !string.IsNullOrEmpty((usuario.id).ToString()))
+                        if (usuario != null && !string.IsNullOrEmpty(usuario.id.ToString()))
                         {
                             listaUsuarios.AgregarUsuarios(new Usuarios(usuario.id, usuario.nombres, usuario.apellidos, usuario.correo, usuario.contraseña));
                         }
                         else
                         {
-                            Console.WriteLine($"Usuario con ID: {usuario?.id} tiene datos invalidos");
+                            Console.WriteLine($"Usuario con ID: {usuario?.id} tiene datos inválidos.");
                         }
                     }
                 }
                 else
                 {
-                    Console.WriteLine("No se pudo realizar la carga masiva de usuario de forma correcta");
+                    Console.WriteLine("No se pudo realizar la carga masiva de usuarios de forma correcta.");
                 }
+
                 listaUsuarios.imprimirLista();
             }
-            catch(JsonException jsonE)
+            catch (JsonException jsonEx)
             {
-                Console.WriteLine($"Error al deserializar el archivo Json: {jsonE.Message}");
+                Console.WriteLine($"Error al deserializar el archivo JSON: {jsonEx.Message}");
             }
-            catch(Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine($"Error: {e.Message}");
+                Console.WriteLine($"Error: {ex.Message}");
             }
         }
 
-        private void realizarCargasVehiculos(string ruta)
+        // Método para realizar la carga masiva de vehículos
+        private void realizarCargasVehiculos(string filePath)
         {
             try
             {
-                //Leer archivo json
-                string contenidoJson = File.ReadAllText(ruta);
+                string jsonContent = File.ReadAllText(filePath);
 
-                if(string.IsNullOrEmpty(contenidoJson))
+                if (string.IsNullOrEmpty(jsonContent))
                 {
-                    Console.WriteLine("El archivo json esta vacio");
+                    Console.WriteLine("El archivo JSON está vacío.");
                     return;
                 }
 
-                var vehiculos = JsonConvert.DeserializeObject<List<Vehiculos>>(contenidoJson);
+                var vehiculos = JsonConvert.DeserializeObject<List<Vehiculos>>(jsonContent);
 
-                if(vehiculos != null && vehiculos.Count > 0)
+                if (vehiculos != null && vehiculos.Count > 0)
                 {
-                    foreach(var vehiculo in vehiculos)
+                    foreach (var vehiculo in vehiculos)
                     {
-                        if(vehiculo != null && !string.IsNullOrEmpty((vehiculo.id).ToString()))
+                        if (vehiculo != null && !string.IsNullOrEmpty(vehiculo.id.ToString()))
                         {
                             listaVehiculos.agregarVehiculos(new Vehiculos(vehiculo.id, vehiculo.id_user, vehiculo.marca, vehiculo.modelo, vehiculo.placa));
                         }
                         else
                         {
-                            Console.WriteLine($"Usuario con ID: {vehiculo?.id} tiene datos invalidos");
+                            Console.WriteLine($"Vehículo con ID: {vehiculo?.id} tiene datos inválidos.");
                         }
                     }
                 }
                 else
                 {
-                    Console.WriteLine("No se pudo realizar la carga masiva de usuario de forma correcta");
+                    Console.WriteLine("No se pudo realizar la carga masiva de vehículos de forma correcta.");
                 }
+
                 listaVehiculos.imprimirListaDoble();
             }
-            catch(JsonException jsonE)
+            catch (JsonException jsonEx)
             {
-                Console.WriteLine($"Error al deserializar el archivo Json: {jsonE.Message}");
+                Console.WriteLine($"Error al deserializar el archivo JSON: {jsonEx.Message}");
             }
-            catch(Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine($"Error: {e.Message}");
+                Console.WriteLine($"Error: {ex.Message}");
             }
         }
 
-
-        private void realizarCargasRepuestos(string ruta)
+        // Método para realizar la carga masiva de repuestos
+        private void realizarCargasRepuestos(string filePath)
         {
             try
             {
-                //Leer archivo json
-                string contenidoJson = File.ReadAllText(ruta);
+                string jsonContent = File.ReadAllText(filePath);
 
-                if(string.IsNullOrEmpty(contenidoJson))
+                if (string.IsNullOrEmpty(jsonContent))
                 {
-                    Console.WriteLine("El archivo json esta vacio");
+                    Console.WriteLine("El archivo JSON está vacío.");
                     return;
                 }
 
-                var repuestos = JsonConvert.DeserializeObject<List<Repuestos>>(contenidoJson);
+                var repuestos = JsonConvert.DeserializeObject<List<Repuestos>>(jsonContent);
 
-                if(repuestos != null && repuestos.Count > 0)
+                if (repuestos != null && repuestos.Count > 0)
                 {
-                    foreach(var repuesto in repuestos)
+                    foreach (var repuesto in repuestos)
                     {
-                        if(repuesto != null && !string.IsNullOrEmpty((repuesto.id).ToString()))
+                        if (repuesto != null && !string.IsNullOrEmpty(repuesto.id.ToString()))
                         {
                             listaRepuestos.agregarRepuestos(new Repuestos(repuesto.id, repuesto.repuesto, repuesto.detalles, repuesto.costo));
                         }
                         else
                         {
-                            Console.WriteLine($"Usuario con ID: {repuesto?.id} tiene datos invalidos");
+                            Console.WriteLine($"Repuesto con ID: {repuesto?.id} tiene datos inválidos.");
                         }
                     }
                 }
                 else
                 {
-                    Console.WriteLine("No se pudo realizar la carga masiva de usuario de forma correcta");
+                    Console.WriteLine("No se pudo realizar la carga masiva de repuestos de forma correcta.");
                 }
+
                 listaRepuestos.imprimirListaCircular();
             }
-            catch(JsonException jsonE)
+            catch (JsonException jsonEx)
             {
-                Console.WriteLine($"Error al deserializar el archivo Json: {jsonE.Message}");
+                Console.WriteLine($"Error al deserializar el archivo JSON: {jsonEx.Message}");
             }
-            catch(Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine($"Error: {e.Message}");
+                Console.WriteLine($"Error: {ex.Message}");
             }
         }
     }
-
 }
