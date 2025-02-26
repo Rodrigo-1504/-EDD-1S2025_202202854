@@ -71,6 +71,48 @@ namespace List
                 temp = temp->abajo;
             }
         }
+        
+        public string graphvizPila()
+        {
+            if(tope == null)
+            {
+                return "digraph G {\n\tnode[shape=record];\n\tNULL[label = \"{NULL}\"];\n}\n";
+            }
+
+
+            //Estructura inicial del graphviz
+            string graphviz = "digraph {\n";
+            graphviz += "\tnode[shape=record];\n";
+            graphviz += "\tgraph[pencolor=transparent];\n";
+            //graphviz += "\trankdir=LR;\n";
+            graphviz += "\tsubgraph cluster_0{\n";
+            graphviz += "\t\tlabel = \"Lista Simple\";\n";
+
+            NodoPila* temp = tope;
+            int index = 0;
+
+
+            //Creando los nodos
+            while(temp != null)
+            {
+                graphviz += $"\t\t\tn{index} [label = \"{{ID : {temp->factura.id} \\n ID_Orden: {temp->factura.id_Orden} \\n Total: {temp->factura.total}}}\"];\n";
+                temp = temp->abajo;
+                index++;
+            }
+
+            //Conectar los nodos
+            //Regresando al principio de la lista
+            temp = tope;
+            for(int i = 0; temp != null && temp->abajo != null; i++)
+            {
+                graphviz += $"\t\t\tn{i} -> n{i+1};\n";
+                temp = temp->abajo;
+            }
+
+            graphviz += "\t\t}\n";
+            graphviz += "}\n";
+            return graphviz;
+        }
 
     }
 }

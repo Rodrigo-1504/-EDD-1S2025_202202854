@@ -103,15 +103,31 @@ namespace Interfaces
             OpenWindow(inicioSesion.Instance);
             ListaSimple listaUsuarios = ListaSimple.Instance;
             ListaDoble listaVehiculos = ListaDoble.Instance;
+            ListaCircular listaRepuestos = ListaCircular.Instance;
+            Cola listaServicios = Cola.Instance;
+            Pila listaFacturas = Pila.Instance;
 
             string dotLista = listaUsuarios.graphvizLista();
             string dotDoble = listaVehiculos.graphvizDoble();
+            string dotCircular = listaRepuestos.graphvizCircular();
+            string dotCola = listaServicios.graphvizCola();
+            string dotPila = listaFacturas.graphvizPila();
+            
 
             Dot_Png.Convertidor.generarArchivoDot("Lista Simple", dotLista);
             Dot_Png.Convertidor.ConvertirDot_a_Png("Lista Simple.dot");
 
             Dot_Png.Convertidor.generarArchivoDot("Lista Doble", dotDoble);
             Dot_Png.Convertidor.ConvertirDot_a_Png("Lista Doble.dot");
+
+            Dot_Png.Convertidor.generarArchivoDot("Lista Circular", dotCircular);
+            Dot_Png.Convertidor.ConvertirDot_a_Png("Lista Circular.dot");
+
+            Dot_Png.Convertidor.generarArchivoDot("Cola", dotCola);
+            Dot_Png.Convertidor.ConvertirDot_a_Png("Cola.dot");
+
+            Dot_Png.Convertidor.generarArchivoDot("Pila", dotPila);
+            Dot_Png.Convertidor.ConvertirDot_a_Png("Pila.dot");
         }
 
         // Método para abrir una ventana y ocultar la actual

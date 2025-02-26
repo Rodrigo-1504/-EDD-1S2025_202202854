@@ -1,0 +1,13 @@
+digraph {
+	node[shape=record];
+	graph[pencolor=transparent];
+	rankdir=LR;
+	subgraph cluster_0{
+		label = "Lista Simple";
+			n0 [label = "{Servicio: 1 \n ID: 1 \n Id Repuesto: 2 \n Id Vehiculo: 5 \n Detalles: Spark necesita nueva Bujia \n Costo: 150}"];
+			n1 [label = "{Servicio: 2 \n ID: 2 \n Id Repuesto: 3 \n Id Vehiculo: 7 \n Detalles: Llego al kilometraje \n Costo: 20}"];
+			n2 [label = "{Servicio: 3 \n ID: 3 \n Id Repuesto: 7 \n Id Vehiculo: 9 \n Detalles: Cambio de motor \n Costo: 35}"];
+			n0 -> n1;
+			n1 -> n2;
+		}
+}

@@ -96,5 +96,47 @@ namespace List
                 temp = temp->siguiente;
             }
         }
+
+        public string graphvizCola()
+        {
+            if(cabeza == null)
+            {
+                return "digraph G {\n\tnode[shape=record];\n\tNULL[label = \"{NULL}\"];\n}\n";
+            }
+
+
+            //Estructura inicial del graphviz
+            string graphviz = "digraph {\n";
+            graphviz += "\tnode[shape=record];\n";
+            graphviz += "\tgraph[pencolor=transparent];\n";
+            graphviz += "\trankdir=LR;\n";
+            graphviz += "\tsubgraph cluster_0{\n";
+            graphviz += "\t\tlabel = \"Lista Simple\";\n";
+
+            NodoCola* temp = cabeza;
+            int index = 0;
+
+
+            //Creando los nodos
+            while(temp != null)
+            {
+                graphviz += $"\t\t\tn{index} [label = \"{{Servicio: {index+1} \\n ID: {temp->services.id} \\n Id Repuesto: {temp->services.id_Repuesto} \\n Id Vehiculo: {temp->services.id_Vehiculo} \\n Detalles: {temp->services.detalles} \\n Costo: {temp->services.costo}}}\"];\n";
+                temp = temp->siguiente;
+                index++;
+            }
+
+            //Conectar los nodos
+            //Regresando al principio de la lista
+            temp = cabeza;
+            for(int i = 0; temp != null && temp->siguiente != null; i++)
+            {
+                graphviz += $"\t\t\tn{i} -> n{i+1};\n";
+                temp = temp->siguiente;
+            }
+
+            graphviz += "\t\t}\n";
+            graphviz += "}\n";
+            return graphviz;
+        }
     }
 }
