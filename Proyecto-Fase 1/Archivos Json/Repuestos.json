@@ -10,5 +10,65 @@
         "Repuesto": "Bujías",
         "Detalles": "Juego de bujías para motor 2.0L",
         "Costo": 30.50
+    },
+    {
+        "ID": 3,
+        "Repuesto": "Pastillas de freno",
+        "Detalles": "Pastillas de freno delanteras para sedán",
+        "Costo": 45.00
+    },
+    {
+        "ID": 4,
+        "Repuesto": "Amortiguadores",
+        "Detalles": "Amortiguadores traseros para SUV",
+        "Costo": 120.00
+    },
+    {
+        "ID": 5,
+        "Repuesto": "Correa de distribución",
+        "Detalles": "Correa de distribución para motor 1.6L",
+        "Costo": 50.00
+    },
+    {
+        "ID": 6,
+        "Repuesto": "Batería",
+        "Detalles": "Batería 12V 60Ah para automóvil",
+        "Costo": 90.00
+    },
+    {
+        "ID": 7,
+        "Repuesto": "Aceite de motor",
+        "Detalles": "Aceite sintético 5W-30, 5 litros",
+        "Costo": 35.00
+    },
+    {
+        "ID": 8,
+        "Repuesto": "Radiador",
+        "Detalles": "Radiador para motor 2.4L",
+        "Costo": 150.00
+    },
+    {
+        "ID": 9,
+        "Repuesto": "Lámparas de faro",
+        "Detalles": "Lámparas H7 para faros delanteros",
+        "Costo": 25.00
+    },
+    {
+        "ID": 10,
+        "Repuesto": "Filtro de aire",
+        "Detalles": "Filtro de aire para motor 1.5L",
+        "Costo": 20.00
+    },
+    {
+        "ID": 11,
+        "Repuesto": "Alternador",
+        "Detalles": "Alternador para motor 2.0L",
+        "Costo": 200.00
+    },
+    {
+        "ID": 12,
+        "Repuesto": "Termostato",
+        "Detalles": "Termostato para motor 1.8L",
+        "Costo": 18.00
     }
 ]

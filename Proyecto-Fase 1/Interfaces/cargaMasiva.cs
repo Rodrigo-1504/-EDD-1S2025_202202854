@@ -205,7 +205,7 @@ namespace Interfaces
                     {
                         if (vehiculo != null && !string.IsNullOrEmpty(vehiculo.id.ToString()))
                         {
-                            listaVehiculos.agregarVehiculos(new Vehiculos(vehiculo.id, vehiculo.id_user, vehiculo.marca, vehiculo.modelo, vehiculo.placa));
+                            listaVehiculos.agregarVehiculos(new Vehiculos(vehiculo.id, vehiculo.ID_Usuario, vehiculo.marca, vehiculo.modelo, vehiculo.placa));
                         }
                         else
                         {

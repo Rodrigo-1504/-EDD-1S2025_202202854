@@ -19,6 +19,7 @@ namespace Interfaces
         private ListaDoble listaVehiculos = ListaDoble.Instance;
         private ListaCircular listaRepuestos = ListaCircular.Instance;
         private Cola listaServicios = Cola.Instance;
+        private Pila listaFacturas = Pila.Instance;
 
         // Singleton para la ventana de ingreso manual
         private static ingresoManual _instance;
@@ -368,16 +369,41 @@ namespace Interfaces
         // Método para guardar un servicio
         private void GuardarServicio()
         {
-            Servicios newService = new Servicios(
-                Convert.ToInt32(idSEntry.Text),
-                Convert.ToInt32(idRepuestoEntry.Text),
-                Convert.ToInt32(idVehiculoEntry.Text),
-                detallesEntryS.Text,
-                Convert.ToInt32(costoEntryS.Text)
-            );
-            listaServicios.agregarServicios(newService);
-            Console.WriteLine("\n---LISTA NUEVA DE SERVICIOS---");
-            listaServicios.imprimir();
+            try{
+                Repuestos buscarRepuesto = listaRepuestos.buscarRepuesto(Convert.ToInt32(idRepuestoEntry.Text));
+                Vehiculos buscarVehiculos = listaVehiculos.buscarVehiculo(Convert.ToInt32(idVehiculoEntry.Text));
+
+                if(buscarRepuesto != null && buscarVehiculos != null)
+                {
+                    Servicios newService = new Servicios(
+                        Convert.ToInt32(idSEntry.Text),
+                        Convert.ToInt32(idRepuestoEntry.Text),
+                        Convert.ToInt32(idVehiculoEntry.Text),
+                        detallesEntryS.Text,
+                        Convert.ToInt32(costoEntryS.Text)
+                    );
+                    listaServicios.agregarServicios(newService);
+                    Console.WriteLine("\n---LISTA NUEVA DE SERVICIOS---");
+                    listaServicios.imprimir();
+                    
+                    //Factura
+                    double costoServicio = Convert.ToInt32(costoEntryS.Text);
+                    double costoRepuesto = buscarRepuesto.costo;
+
+                    double total = costoServicio + costoRepuesto;
+                    int idFactura = Convert.ToInt32(idSEntry.Text);
+
+                    listaFacturas.agregarFactura(new Facturas(idFactura, idFactura, total));
+                }
+                else
+                {
+                    Console.WriteLine("El vehiculo o el repuesto no existe");
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
 
         // Método para limpiar los campos de entrada

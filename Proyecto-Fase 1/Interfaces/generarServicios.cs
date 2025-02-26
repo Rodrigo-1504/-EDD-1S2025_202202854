@@ -10,6 +10,7 @@ namespace Interfaces
         private ListaDoble listaVehiculos = ListaDoble.Instance;
         private ListaCircular listaRepuestos = ListaCircular.Instance;
         private Cola listaServicios = Cola.Instance;
+        private Pila listaFacturas = Pila.Instance;
 
         // Entradas de texto
         private Entry idEntry, replacementEntry, idCarEntry, detailsEntry, costEntry;
@@ -176,6 +177,18 @@ namespace Interfaces
 
                     Console.WriteLine("\n---LISTA DE SERVICIOS--");
                     listaServicios.imprimir();
+
+                    double costoServicio = Convert.ToDouble(costEntry.Text);
+                    double costoRepuesto = buscarRepuesto.costo;
+
+                    double total = costoServicio + costoRepuesto;
+
+                    int idFactura = Convert.ToInt32(idEntry.Text);
+
+                    listaFacturas.agregarFactura(new Facturas(idFactura, idFactura, total));
+
+                    Console.WriteLine("\n---FACTURAS---");
+                    listaFacturas.imprimir();
                 }
                 else
                 {

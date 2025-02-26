@@ -144,7 +144,7 @@ namespace List
             Vehiculos vehiculoBuscado = buscarVehiculo(id);
             if(vehiculoBuscado != null)
             {
-                vehiculoBuscado.id_user = id_User;
+                vehiculoBuscado.ID_Usuario = id_User;
                 vehiculoBuscado.marca = marcaNueva;
                 vehiculoBuscado.modelo = modeloNuevo;
                 vehiculoBuscado.placa = placaNueva;
@@ -160,7 +160,7 @@ namespace List
             NodoDoble* temp = cabeza;
             while(temp != null)
             {
-                Console.WriteLine($"ID: {temp->vehiculo.id}, ID_Usuario: {temp->vehiculo.id_user}, Marca: {temp->vehiculo.marca}, Modelo: {temp->vehiculo.modelo}, Placa: {temp->vehiculo.placa}");
+                Console.WriteLine($"ID: {temp->vehiculo.id}, ID_Usuario: {temp->vehiculo.ID_Usuario}, Marca: {temp->vehiculo.marca}, Modelo: {temp->vehiculo.modelo}, Placa: {temp->vehiculo.placa}");
                 temp = temp->siguiente;
             }
         }

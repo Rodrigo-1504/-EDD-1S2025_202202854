@@ -12,5 +12,75 @@
         "Apellidos": "Gómez",
         "Correo": "maria.gomez@mail.com",
         "Contrasenia": "password123"
+    },
+    {
+        "ID": 3,
+        "Nombres": "Carlos",
+        "Apellidos": "López",
+        "Correo": "carlos.lopez@mail.com",
+        "Contrasenia": "carlos123"
+    },
+    {
+        "ID": 4,
+        "Nombres": "Ana",
+        "Apellidos": "Martínez",
+        "Correo": "ana.martinez@mail.com",
+        "Contrasenia": "ana2023"
+    },
+    {
+        "ID": 5,
+        "Nombres": "Luis",
+        "Apellidos": "Rodríguez",
+        "Correo": "luis.rodriguez@mail.com",
+        "Contrasenia": "luis456"
+    },
+    {
+        "ID": 6,
+        "Nombres": "Sofía",
+        "Apellidos": "Hernández",
+        "Correo": "sofia.hernandez@mail.com",
+        "Contrasenia": "sofia789"
+    },
+    {
+        "ID": 7,
+        "Nombres": "Pedro",
+        "Apellidos": "García",
+        "Correo": "pedro.garcia@mail.com",
+        "Contrasenia": "pedro101"
+    },
+    {
+        "ID": 8,
+        "Nombres": "Laura",
+        "Apellidos": "Díaz",
+        "Correo": "laura.diaz@mail.com",
+        "Contrasenia": "laura2024"
+    },
+    {
+        "ID": 9,
+        "Nombres": "Jorge",
+        "Apellidos": "Fernández",
+        "Correo": "jorge.fernandez@mail.com",
+        "Contrasenia": "jorge123"
+    },
+    {
+        "ID": 10,
+        "Nombres": "Carmen",
+        "Apellidos": "Sánchez",
+        "Correo": "carmen.sanchez@mail.com",
+        "Contrasenia": "carmen456"
+    },
+    {
+        "ID": 11,
+        "Nombres": "Miguel",
+        "Apellidos": "Torres",
+        "Correo": "miguel.torres@mail.com",
+        "Contrasenia": "miguel789"
+    },
+    {
+        "ID": 12,
+        "Nombres": "Elena",
+        "Apellidos": "Ramírez",
+        "Correo": "elena.ramirez@mail.com",
+        "Contrasenia": "elena2023"
     }
 ]
