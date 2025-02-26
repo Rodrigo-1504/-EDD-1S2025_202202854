@@ -1,5 +1,6 @@
 using Gtk;
 using Interfaces;
+using List;
 
 namespace Interfaces
 {
@@ -100,6 +101,17 @@ namespace Interfaces
         private void goBack(object sender, EventArgs e)
         {
             OpenWindow(inicioSesion.Instance);
+            ListaSimple listaUsuarios = ListaSimple.Instance;
+            ListaDoble listaVehiculos = ListaDoble.Instance;
+
+            string dotLista = listaUsuarios.graphvizLista();
+            string dotDoble = listaVehiculos.graphvizDoble();
+
+            Dot_Png.Convertidor.generarArchivoDot("Lista Simple", dotLista);
+            Dot_Png.Convertidor.ConvertirDot_a_Png("Lista Simple.dot");
+
+            Dot_Png.Convertidor.generarArchivoDot("Lista Doble", dotDoble);
+            Dot_Png.Convertidor.ConvertirDot_a_Png("Lista Doble.dot");
         }
 
         // Método para abrir una ventana y ocultar la actual

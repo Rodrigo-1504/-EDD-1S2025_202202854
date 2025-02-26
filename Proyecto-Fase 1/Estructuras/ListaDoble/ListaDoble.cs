@@ -165,5 +165,52 @@ namespace List
             }
         }
 
+        public string graphvizDoble()
+        {
+            if(cabeza == null)
+            {
+                return "digraph G {\n\tnode[shape=record];\n\tNULL[label = \"{NULL}\"];\n}\n";
+            }
+
+            //Estructura inicial del graphviz
+            string graphviz = "digraph {\n";
+            graphviz += "\tnode[shape=record];\n";
+            graphviz += "\tgraph[pencolor=transparent];\n";
+            graphviz += "\trankdir=LR;\n";
+            graphviz += "\tsubgraph cluster_0{\n";
+            graphviz += "\t\tlabel = \"Lista Doble\";\n";
+
+            NodoDoble* temp = cabeza;
+            int index = 0;
+
+            //Creando los nodos
+            while(temp != null)
+            {
+                graphviz += $"\t\t\tn{index} [label = \"{{ID: {temp->vehiculo.id} \\n ID_USUARIOS: {temp->vehiculo.ID_Usuario} \\n Marca: {temp->vehiculo.marca} \\n Modelo: {temp->vehiculo.modelo} \\n Placa: {temp->vehiculo.placa}}}\"];\n";
+                temp = temp->siguiente;
+                index++;
+            }
+
+            temp = cabeza;
+            for(int i = 0; temp != null; i++)
+            {
+                if(temp->siguiente != null)
+                {
+                    graphviz += $"\t\t\tn{i}->n{i+1};\n";
+                }
+
+                if(temp->anterior != null)
+                {
+                    graphviz += $"\t\t\tn{i}->n{i-1};\n";
+                }
+                
+                temp = temp->siguiente;
+            }
+
+            graphviz += "\t\t}\n";
+            graphviz += "}\n";            
+            return graphviz;
+        }
+
     }
 }

@@ -195,7 +195,7 @@ namespace List
             graphviz += "\tgraph[pencolor=transparent];\n";
             graphviz += "\trankdir=LR;\n";
             graphviz += "\tsubgraph cluster_0{\n";
-            graphviz += "\t\tlabel = \"Lista Circular (Rodrigo Tahuite)\";\n";
+            graphviz += "\t\tlabel = \"Lista Circular\";\n";
 
             NodoCircular* temp = cabeza;
             int index = 0;

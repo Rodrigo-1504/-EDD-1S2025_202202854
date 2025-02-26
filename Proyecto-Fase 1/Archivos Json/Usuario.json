@@ -3,84 +3,84 @@
         "ID": 1,
         "Nombres": "Juan",
         "Apellidos": "Pérez",
-        "Correo": "juan.perez@mail.com",
+        "Correo": "juan.perez@gmail.com",
         "Contrasenia": "123456"
     },
     {
         "ID": 2,
         "Nombres": "María",
         "Apellidos": "Gómez",
-        "Correo": "maria.gomez@mail.com",
+        "Correo": "maria.gomez@gmail.com",
         "Contrasenia": "password123"
     },
     {
         "ID": 3,
         "Nombres": "Carlos",
         "Apellidos": "López",
-        "Correo": "carlos.lopez@mail.com",
+        "Correo": "carlos.lopez@gmail.com",
         "Contrasenia": "carlos123"
     },
     {
         "ID": 4,
         "Nombres": "Ana",
         "Apellidos": "Martínez",
-        "Correo": "ana.martinez@mail.com",
+        "Correo": "ana.martinez@gmail.com",
         "Contrasenia": "ana2023"
     },
     {
         "ID": 5,
         "Nombres": "Luis",
         "Apellidos": "Rodríguez",
-        "Correo": "luis.rodriguez@mail.com",
+        "Correo": "luis.rodriguez@gmail.com",
         "Contrasenia": "luis456"
     },
     {
         "ID": 6,
         "Nombres": "Sofía",
         "Apellidos": "Hernández",
-        "Correo": "sofia.hernandez@mail.com",
+        "Correo": "sofia.hernandez@gmail.com",
         "Contrasenia": "sofia789"
     },
     {
         "ID": 7,
         "Nombres": "Pedro",
         "Apellidos": "García",
-        "Correo": "pedro.garcia@mail.com",
+        "Correo": "pedro.garcia@gmail.com",
         "Contrasenia": "pedro101"
     },
     {
         "ID": 8,
         "Nombres": "Laura",
         "Apellidos": "Díaz",
-        "Correo": "laura.diaz@mail.com",
+        "Correo": "laura.diaz@gmail.com",
         "Contrasenia": "laura2024"
     },
     {
         "ID": 9,
         "Nombres": "Jorge",
         "Apellidos": "Fernández",
-        "Correo": "jorge.fernandez@mail.com",
+        "Correo": "jorge.fernandez@gmail.com",
         "Contrasenia": "jorge123"
     },
     {
         "ID": 10,
         "Nombres": "Carmen",
         "Apellidos": "Sánchez",
-        "Correo": "carmen.sanchez@mail.com",
+        "Correo": "carmen.sanchez@gmail.com",
         "Contrasenia": "carmen456"
     },
     {
         "ID": 11,
         "Nombres": "Miguel",
         "Apellidos": "Torres",
-        "Correo": "miguel.torres@mail.com",
+        "Correo": "miguel.torres@gmail.com",
         "Contrasenia": "miguel789"
     },
     {
         "ID": 12,
         "Nombres": "Elena",
         "Apellidos": "Ramírez",
-        "Correo": "elena.ramirez@mail.com",
+        "Correo": "elena.ramirez@gmail.com",
         "Contrasenia": "elena2023"
     }
 ]
