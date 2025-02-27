@@ -11,6 +11,7 @@ namespace Interfaces
         private ListaCircular listaRepuestos = ListaCircular.Instance;
         private Cola listaServicios = Cola.Instance;
         private Pila listaFacturas = Pila.Instance;
+        private Matriz bitacora = Matriz.Instance;
 
         // Entradas de texto
         private Entry idEntry, replacementEntry, idCarEntry, detailsEntry, costEntry;
@@ -189,6 +190,10 @@ namespace Interfaces
 
                     Console.WriteLine("\n---FACTURAS---");
                     listaFacturas.imprimir();
+
+                    bitacora.insertar(buscarVehiculo.id, buscarRepuesto.id, detailsEntry.Text);
+                    bitacora.mostrarMatriz();
+
                 }
                 else
                 {

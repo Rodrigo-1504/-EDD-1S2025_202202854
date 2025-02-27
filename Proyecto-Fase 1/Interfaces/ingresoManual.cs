@@ -20,6 +20,7 @@ namespace Interfaces
         private ListaCircular listaRepuestos = ListaCircular.Instance;
         private Cola listaServicios = Cola.Instance;
         private Pila listaFacturas = Pila.Instance;
+        private Matriz bitacora = Matriz.Instance;
 
         // Singleton para la ventana de ingreso manual
         private static ingresoManual _instance;
@@ -394,6 +395,12 @@ namespace Interfaces
                     int idFactura = Convert.ToInt32(idSEntry.Text);
 
                     listaFacturas.agregarFactura(new Facturas(idFactura, idFactura, total));
+                    Console.WriteLine("\n---LISTA DE FACTURAS---");
+                    listaFacturas.imprimir();
+
+                    bitacora.insertar(buscarVehiculos.id, buscarRepuesto.id, detallesEntryS.Text);
+                    Console.WriteLine("\n---MATRIZ DISPERSA---");
+                    bitacora.mostrarMatriz();
                 }
                 else
                 {

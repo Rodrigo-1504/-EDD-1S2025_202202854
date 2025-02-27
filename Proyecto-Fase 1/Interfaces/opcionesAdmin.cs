@@ -106,12 +106,14 @@ namespace Interfaces
             ListaCircular listaRepuestos = ListaCircular.Instance;
             Cola listaServicios = Cola.Instance;
             Pila listaFacturas = Pila.Instance;
+            Matriz bitacora = Matriz.Instance;
 
             string dotLista = listaUsuarios.graphvizLista();
             string dotDoble = listaVehiculos.graphvizDoble();
             string dotCircular = listaRepuestos.graphvizCircular();
             string dotCola = listaServicios.graphvizCola();
             string dotPila = listaFacturas.graphvizPila();
+            string dotMatriz = bitacora.graphvizMatriz();
             
 
             Dot_Png.Convertidor.generarArchivoDot("Lista Simple", dotLista);
@@ -128,6 +130,9 @@ namespace Interfaces
 
             Dot_Png.Convertidor.generarArchivoDot("Pila", dotPila);
             Dot_Png.Convertidor.ConvertirDot_a_Png("Pila.dot");
+
+            Dot_Png.Convertidor.generarArchivoDot("Matriz Dispersa", dotMatriz);
+            Dot_Png.Convertidor.ConvertirDot_a_Png("Matriz Dispersa.dot");
         }
 
         // Método para abrir una ventana y ocultar la actual

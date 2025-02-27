@@ -3,9 +3,9 @@ digraph {
 	graph[pencolor=transparent];
 	subgraph cluster_0{
 		label = "Lista Simple";
-			n0 [label = "{ID : 3 \n ID_Orden: 3 \n Total: 70}"];
-			n1 [label = "{ID : 2 \n ID_Orden: 2 \n Total: 65}"];
-			n2 [label = "{ID : 1 \n ID_Orden: 1 \n Total: 180,5}"];
+			n0 [label = "{ID : 3 \n ID_Orden: 3 \n Total: 143,6}"];
+			n1 [label = "{ID : 2 \n ID_Orden: 2 \n Total: 135}"];
+			n2 [label = "{ID : 1 \n ID_Orden: 1 \n Total: 75,5}"];
 			n0 -> n1;
 			n1 -> n2;
 		}

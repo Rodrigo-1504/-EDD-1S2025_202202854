@@ -7,7 +7,7 @@ class Program
 {
     public static void Main(string[] args)
     {
-        
+      
         try
         {
             //Inicializar Gtk
@@ -44,5 +44,4 @@ class Program
         args.RetVal = true;
     }
 }
-
 //Cualquier caso Ctrl + c para matar el programa

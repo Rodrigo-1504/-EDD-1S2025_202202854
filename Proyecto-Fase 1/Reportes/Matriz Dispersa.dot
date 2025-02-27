@@ -1,0 +1,27 @@
+digraph G {
+	node[shape=record];
+	graph[pencolor=transparent];
+	rankdir=TB;
+	subgraph cluster_0{
+		label = "Matriz";
+		f1 [label = "Fila 1"];
+		f2 [label = "Fila 2"];
+		f5 [label = "Fila 5"];
+		c1 [label = "Columna 1"];
+		c3 [label = "Columna 3"];
+		c6 [label = "Columna 6"];
+		c7 [label = "Columna 7"];
+		n1_1 [label = "Algo paso"];
+		f1 -> n1_1;
+		c1 -> n1_1;
+		n2_6 [label = "Le rayaron"];
+		f2 -> n2_6;
+		c6 -> n2_6;
+		n5_3 [label = "Roto de un lado"];
+		f5 -> n5_3;
+		c3 -> n5_3;
+		n5_7 [label = "Se le pincho una llanta"];
+		f5 -> n5_7;
+		c7 -> n5_7;
+	}
+}
