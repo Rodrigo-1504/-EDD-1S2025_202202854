@@ -21,6 +21,13 @@ namespace List
             }
         }
 
+        //PARA EL TOP 5
+        public struct IdContador
+        {
+            public int id;
+            public int count;
+        }
+
         //Características
         private NodoCola* cabeza;
         private NodoCola* cola;
@@ -84,6 +91,57 @@ namespace List
             }
             Marshal.FreeHGlobal((IntPtr)temp);
             return servicios;
+        }
+
+        public Servicios buscarServicio(int id)
+        {
+            NodoCola* temp = cabeza;
+            while(temp != null)
+            {
+                if(temp->services.id == id)
+                {
+                    return temp->services;
+                }
+                temp = temp->siguiente;
+            }
+            return null;
+        }
+
+        public void ContarServicios(IdContador* contador, int* size, int id)
+        {
+            bool found = false;
+            for(int i = 0; i < *size; i++)
+            {
+                if(contador[i].id == id)
+                {
+                    contador[i].count++;
+                    found = true;
+                    break;
+                }
+            }
+
+            if(!found)
+            {
+                contador[*size].id = id;
+                contador[*size].count = 1;
+                (*size)++;
+            }
+        }
+
+        public static void ordenarTop5(IdContador* contador, int size)
+        {
+            for(int i = 0; i < size - 1; i++)
+            {
+                for(int j = 0; j < size; j++)
+                {
+                    if(contador[i].count < contador[j].count)
+                    {
+                        IdContador temp = contador[i];
+                        contador[i] = contador[j];
+                        contador[j] = temp;
+                    }
+                }
+            }
         }
 
         public void imprimir()

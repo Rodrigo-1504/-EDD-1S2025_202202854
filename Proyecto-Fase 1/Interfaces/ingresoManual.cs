@@ -333,9 +333,19 @@ namespace Interfaces
                 mailEntry.Text,
                 pwEntry.Text
             );
-            listaUsuarios.AgregarUsuarios(newUser);
-            Console.WriteLine("\n---LISTA NUEVA DE USUARIOS---");
-            listaUsuarios.imprimirLista();
+
+            Usuarios usuarioRepetido = listaUsuarios.BuscarUsuario(Convert.ToInt32(idEntry.Text));
+            if(usuarioRepetido == null)
+            {
+                listaUsuarios.AgregarUsuarios(newUser);
+                Console.WriteLine("\n---LISTA NUEVA DE USUARIOS---");
+                listaUsuarios.imprimirLista();
+            }
+            else
+            {
+                Console.WriteLine("El id de ese usuario ya existe");
+            }
+            
         }
 
         // Método para guardar un vehículo
@@ -348,9 +358,18 @@ namespace Interfaces
                 Convert.ToInt32(modeloEntry.Text),
                 placaEntry.Text
             );
-            listaVehiculos.agregarVehiculos(newVehicle);
-            Console.WriteLine("\n---LISTA NUEVA DE VEHICULOS---");
-            listaVehiculos.imprimirListaDoble();
+
+            Vehiculos vehiculoRepetido = listaVehiculos.buscarVehiculo(Convert.ToInt32(idVehiculoEntry.Text));
+            if(vehiculoRepetido == null)
+            {
+                listaVehiculos.agregarVehiculos(newVehicle);
+                Console.WriteLine("\n---LISTA NUEVA DE VEHICULOS---");
+                listaVehiculos.imprimirListaDoble();
+            }
+            else
+            {
+                Console.WriteLine("El id de ese vehiculo ya existe");
+            }
         }
 
         // Método para guardar un repuesto
@@ -362,9 +381,19 @@ namespace Interfaces
                 detallesEntry.Text,
                 Convert.ToDouble(costoEntry.Text)
             );
-            listaRepuestos.agregarRepuestos(newRepuesto);
-            Console.WriteLine("\n---LISTA NUEVA DE REPUESTOS---");
-            listaRepuestos.imprimirListaCircular();
+
+            Repuestos repuestoRepetido = listaRepuestos.buscarRepuesto(Convert.ToInt32(idREntry.Text));
+
+            if(repuestoRepetido == null)
+            {
+                listaRepuestos.agregarRepuestos(newRepuesto);
+                Console.WriteLine("\n---LISTA NUEVA DE REPUESTOS---");
+                listaRepuestos.imprimirListaCircular();
+            }
+            else
+            {
+                Console.WriteLine("El id del repuesto ya exístia");
+            }
         }
 
         // Método para guardar un servicio
@@ -383,24 +412,34 @@ namespace Interfaces
                         detallesEntryS.Text,
                         Convert.ToInt32(costoEntryS.Text)
                     );
-                    listaServicios.agregarServicios(newService);
-                    Console.WriteLine("\n---LISTA NUEVA DE SERVICIOS---");
-                    listaServicios.imprimir();
+
+                    Servicios servicioRepetido = listaServicios.buscarServicio(Convert.ToInt32(idSEntry.Text));
+                    if(servicioRepetido == null)
+                    {
+                        listaServicios.agregarServicios(newService);
+                        Console.WriteLine("\n---LISTA NUEVA DE SERVICIOS---");
+                        listaServicios.imprimir();
+
+                        //Factura
+                        double costoServicio = Convert.ToInt32(costoEntryS.Text);
+                        double costoRepuesto = buscarRepuesto.costo;
+
+                        double total = costoServicio + costoRepuesto;
+                        int idFactura = Convert.ToInt32(idSEntry.Text);
+
+                        listaFacturas.agregarFactura(new Facturas(idFactura, idFactura, total));
+                        Console.WriteLine("\n---LISTA DE FACTURAS---");
+                        listaFacturas.imprimir();
+
+                        bitacora.insertar(buscarVehiculos.id, buscarRepuesto.id, detallesEntryS.Text);
+                        Console.WriteLine("\n---MATRIZ DISPERSA---");
+                        bitacora.mostrarMatriz();
+                    }
+                    else
+                    {
+                        Console.WriteLine("El id del Servicio ya existe");
+                    }
                     
-                    //Factura
-                    double costoServicio = Convert.ToInt32(costoEntryS.Text);
-                    double costoRepuesto = buscarRepuesto.costo;
-
-                    double total = costoServicio + costoRepuesto;
-                    int idFactura = Convert.ToInt32(idSEntry.Text);
-
-                    listaFacturas.agregarFactura(new Facturas(idFactura, idFactura, total));
-                    Console.WriteLine("\n---LISTA DE FACTURAS---");
-                    listaFacturas.imprimir();
-
-                    bitacora.insertar(buscarVehiculos.id, buscarRepuesto.id, detallesEntryS.Text);
-                    Console.WriteLine("\n---MATRIZ DISPERSA---");
-                    bitacora.mostrarMatriz();
                 }
                 else
                 {

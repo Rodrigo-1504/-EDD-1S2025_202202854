@@ -8,6 +8,7 @@ namespace Interfaces
     {
         // Instancia de la lista de usuarios
         private ListaSimple listaUsuarios = ListaSimple.Instance;
+        private ListaDoble listaVehiculos = ListaDoble.Instance;
 
         // Labels y Entries
         private Label idLabel, nameLabel, lastnameLabel, mailLabel;
@@ -183,11 +184,15 @@ namespace Interfaces
         {
             Usuarios usuarioBuscado = listaUsuarios.BuscarUsuario(Convert.ToInt32(idEntry.Text));
 
+
+
             if (usuarioBuscado != null)
             {
                 nameLabel2.Text = usuarioBuscado.nombres;
                 lastnameLabel2.Text = usuarioBuscado.apellidos;
                 mailLabel2.Text = usuarioBuscado.correo;
+                Console.WriteLine("Vehiculo del usuario: ");
+                listaVehiculos.buscarVehiculoUsuario(usuarioBuscado.id);
             }
         }
 

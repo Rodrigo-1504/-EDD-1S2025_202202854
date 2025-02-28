@@ -139,6 +139,20 @@ namespace List
             return null;
         }
 
+        public void buscarVehiculoUsuario(int idUser)
+        {
+            NodoDoble* temp = cabeza;
+            while(temp != null)
+            {
+                if(temp->vehiculo.ID_Usuario == idUser)
+                {
+                    Console.WriteLine($"Carro: {temp->vehiculo.marca}");
+                }
+                temp = temp->siguiente;
+            }
+            
+        }
+
         public bool actualizarVehiculo(int id, int id_User, string marcaNueva, int modeloNuevo, string placaNueva)
         {
             Vehiculos vehiculoBuscado = buscarVehiculo(id);

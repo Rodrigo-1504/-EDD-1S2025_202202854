@@ -104,7 +104,8 @@ namespace Interfaces
                 idLabelData.Text = facturaCancelada.id.ToString();
                 idOrdenLabelData.Text = facturaCancelada.id_Orden.ToString();
                 totalLabelData.Text = facturaCancelada.total.ToString();
-
+                
+                Console.WriteLine("\n---FACTURAS---");
                 listaFacturas.imprimir();
             }
             catch(Exception ex)

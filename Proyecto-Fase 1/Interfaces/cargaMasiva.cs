@@ -205,7 +205,24 @@ namespace Interfaces
                     {
                         if (vehiculo != null && !string.IsNullOrEmpty(vehiculo.id.ToString()))
                         {
-                            listaVehiculos.agregarVehiculos(new Vehiculos(vehiculo.id, vehiculo.ID_Usuario, vehiculo.marca, vehiculo.modelo, vehiculo.placa));
+                            Usuarios usuarioDelCarro = listaUsuarios.BuscarUsuario(vehiculo.ID_Usuario);
+                            if(usuarioDelCarro == null)
+                            {
+                                Console.WriteLine("El usuario del vehiculo no existe, el vehiculo no fue ingresado");
+                            }
+                            else
+                            {   
+                                listaVehiculos.agregarVehiculos(new Vehiculos(vehiculo.id, vehiculo.ID_Usuario, vehiculo.marca, vehiculo.modelo, vehiculo.placa));
+                                /*Vehiculos idVehiculo = listaVehiculos.buscarVehiculo(vehiculo.id);
+                                if(idVehiculo != null)
+                                {
+                                    Console.WriteLine("El el id de ese vehiculo ya existe, no se pudo ingresar el vehiculo");
+                                }
+                                else
+                                {
+                                    
+                                }*/
+                            }
                         }
                         else
                         {

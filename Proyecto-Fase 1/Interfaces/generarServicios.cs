@@ -194,6 +194,7 @@ namespace Interfaces
                     bitacora.insertar(buscarVehiculo.id, buscarRepuesto.id, detailsEntry.Text);
                     bitacora.mostrarMatriz();
 
+
                 }
                 else
                 {
