@@ -169,7 +169,7 @@ namespace List
             graphviz += "\tgraph[pencolor=transparent];\n";
             graphviz += "\trankdir=LR;\n";
             graphviz += "\tsubgraph cluster_0{\n";
-            graphviz += "\t\tlabel = \"Lista Simple\";\n";
+            graphviz += "\t\tlabel = \"Cola\";\n";
 
             NodoCola* temp = cabeza;
             int index = 0;

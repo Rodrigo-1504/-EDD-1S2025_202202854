@@ -4,24 +4,21 @@ digraph G {
 	rankdir=TB;
 	subgraph cluster_0{
 		label = "Matriz";
-		f1 [label = "Fila 1"];
-		f2 [label = "Fila 2"];
-		f5 [label = "Fila 5"];
+		f4 [label = "Fila 4"];
+		f9 [label = "Fila 9"];
+		f15 [label = "Fila 15"];
 		c1 [label = "Columna 1"];
-		c3 [label = "Columna 3"];
-		c6 [label = "Columna 6"];
-		c7 [label = "Columna 7"];
-		n1_1 [label = "Algo paso"];
-		f1 -> n1_1;
-		c1 -> n1_1;
-		n2_6 [label = "Le rayaron"];
-		f2 -> n2_6;
-		c6 -> n2_6;
-		n5_3 [label = "Roto de un lado"];
-		f5 -> n5_3;
-		c3 -> n5_3;
-		n5_7 [label = "Se le pincho una llanta"];
-		f5 -> n5_7;
-		c7 -> n5_7;
+		c5 [label = "Columna 5"];
+		c10 [label = "Columna 10"];
+		c15 [label = "Columna 15"];
+		n4_5 [label = "Llantas pinchadas"];
+		f4 -> n4_5;
+		c5 -> n4_5;
+		n9_10 [label = "Chocó"];
+		f9 -> n9_10;
+		c10 -> n9_10;
+		n15_15 [label = "Algo le paso al carro"];
+		f15 -> n15_15;
+		c15 -> n15_15;
 	}
 }
