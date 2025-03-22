@@ -3,15 +3,13 @@ digraph {
 	graph[pencolor=transparent];
 	rankdir=LR;
 	subgraph cluster_0{
-		label = "Lista Simple";
-			n0 [label = "{Servicio: 1 \n ID: 1 \n Id Repuesto: 15 \n Id Vehiculo: 15 \n Detalles: Algo le paso al carro \n Costo: 250}"];
-			n1 [label = "{Servicio: 2 \n ID: 2 \n Id Repuesto: 10 \n Id Vehiculo: 9 \n Detalles: Chocó \n Costo: 125}"];
-			n2 [label = "{Servicio: 3 \n ID: 3 \n Id Repuesto: 1 \n Id Vehiculo: 9 \n Detalles: Se le rompió la ventana \n Costo: 75}"];
-			n3 [label = "{Servicio: 4 \n ID: 4 \n Id Repuesto: 5 \n Id Vehiculo: 4 \n Detalles: Llantas pinchadas \n Costo: 400}"];
-			n4 [label = "{Servicio: 5 \n ID: 5 \n Id Repuesto: 1 \n Id Vehiculo: 9 \n Detalles: Reparación \n Costo: 500}"];
+		label = "Cola";
+			n0 [label = "{Servicio: 1 \n ID: 1 \n Id Repuesto: 2 \n Id Vehiculo: 2 \n Detalles: algo \n Costo: 75}"];
+			n1 [label = "{Servicio: 2 \n ID: 4 \n Id Repuesto: 3 \n Id Vehiculo: 3 \n Detalles: algoo \n Costo: 100}"];
+			n2 [label = "{Servicio: 3 \n ID: 6 \n Id Repuesto: 12 \n Id Vehiculo: 12 \n Detalles: algooo \n Costo: 150}"];
+			n3 [label = "{Servicio: 4 \n ID: 9 \n Id Repuesto: 5 \n Id Vehiculo: 12 \n Detalles: algoooo \n Costo: 150}"];
 			n0 -> n1;
 			n1 -> n2;
 			n2 -> n3;
-			n3 -> n4;
 		}
 }

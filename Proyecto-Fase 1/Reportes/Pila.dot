@@ -2,13 +2,11 @@ digraph {
 	node[shape=record];
 	graph[pencolor=transparent];
 	subgraph cluster_0{
-		label = "Lista Simple";
-			n0 [label = "{ID : 4 \n ID_Orden: 4 \n Total: 495,2}"];
-			n1 [label = "{ID : 3 \n ID_Orden: 3 \n Total: 100,5}"];
-			n2 [label = "{ID : 2 \n ID_Orden: 2 \n Total: 225,5}"];
-			n3 [label = "{ID : 1 \n ID_Orden: 1 \n Total: 325}"];
+		label = "Pila";
+			n0 [label = "{ID : 6 \n ID_Orden: 6 \n Total: 200}"];
+			n1 [label = "{ID : 4 \n ID_Orden: 4 \n Total: 160}"];
+			n2 [label = "{ID : 1 \n ID_Orden: 1 \n Total: 90,75}"];
 			n0 -> n1;
 			n1 -> n2;
-			n2 -> n3;
 		}
 }

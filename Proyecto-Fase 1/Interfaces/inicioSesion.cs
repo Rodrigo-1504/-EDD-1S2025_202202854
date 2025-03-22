@@ -25,7 +25,7 @@ namespace Interfaces
         private Entry mailEntry, passwordEntry;
 
         // Constructor
-        public inicioSesion() : base("Login")
+        public inicioSesion() : base("Rodrigo Tahuite - 202202854")
         {
             // Configuración de la ventana
             SetDefaultSize(400, 250);
