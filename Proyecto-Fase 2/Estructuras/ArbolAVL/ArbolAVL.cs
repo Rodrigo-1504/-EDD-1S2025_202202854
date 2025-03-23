@@ -1,7 +1,5 @@
 using System;
 using System.Runtime.ExceptionServices;
-using Cairo;
-using Gtk;
 
 namespace Structures
 {
