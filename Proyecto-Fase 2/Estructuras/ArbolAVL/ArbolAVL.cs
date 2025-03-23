@@ -1,5 +1,7 @@
 using System;
 using System.Runtime.ExceptionServices;
+using Cairo;
+using Gtk;
 
 namespace Structures
 {
@@ -32,16 +34,9 @@ namespace Structures
         //INSERTAR E INSERTAR RECURSIVAMENTE
         public void agregarRepuestos(Repuestos repuesto)
         {
-            if(raiz != null)
-            {
-                raiz = insertarRecursivamente(raiz, repuesto);
-            }
-            else
-            {
-                raiz = new NodoAVL(repuesto);
-            }
-            
+            raiz = insertarRecursivamente(raiz, repuesto);         
         }
+
         private NodoAVL insertarRecursivamente(NodoAVL nodo, Repuestos repuesto)
         {
             if(nodo == null)
@@ -118,22 +113,26 @@ namespace Structures
             */
 
 
-            if(equilibrio > 1 && repuesto.id < nodo.izquierda.repuestos.id) //CASO 1
+            if (equilibrio > 1 && repuesto.id < nodo.izquierda.repuestos.id) // CASO 1 (LL)
             {
+                Console.WriteLine("Rotacion derecha (LL)");
                 return rotacionDerecha(nodo);
             }
-            else if(equilibrio > 1 && repuesto.id > nodo.izquierda.repuestos.id) //CASO 2
+            else if (equilibrio > 1 && repuesto.id > nodo.izquierda.repuestos.id) // CASO 2 (LR)
             {
                 nodo.izquierda = rotacionIzquierda(nodo.izquierda);
+                Console.WriteLine("Rotacion izquierda-derecha (LR)");
                 return rotacionDerecha(nodo);
             }
-            else if(equilibrio < -1 && repuesto.id > nodo.derecha.repuestos.id) //CASO 3
+            else if (equilibrio < -1 && repuesto.id > nodo.derecha.repuestos.id) // CASO 3 (RR)
             {
+                Console.WriteLine("Rotacion izquierda (RR)");
                 return rotacionIzquierda(nodo);
             }
-            else if(equilibrio < -1 && repuesto.id < nodo.derecha.repuestos.id) //CASO 4
+            else if (equilibrio < -1 && repuesto.id < nodo.derecha.repuestos.id) // CASO 4 (RL)
             {
                 nodo.derecha = rotacionDerecha(nodo.derecha);
+                Console.WriteLine("Rotacion derecha-izquierda (RL)");
                 return rotacionIzquierda(nodo);
             }
 
@@ -145,7 +144,7 @@ namespace Structures
         {
             if(nodo == null)
             {
-                return 0;
+                return -1;
             }
             return nodo.height;
         }
@@ -154,7 +153,7 @@ namespace Structures
         {
             if(nodo == null)
             {
-                return 0;
+                return -1;
             }
             return Altura(nodo.izquierda) - Altura(nodo.derecha);
         }
@@ -187,6 +186,57 @@ namespace Structures
             return y;
         }
 
+        public NodoAVL Buscar(int id)
+        {
+            return Buscar(raiz, id);
+        }
+
+        private NodoAVL Buscar(NodoAVL nodo, int id)
+        {
+            if(nodo == null) return null;
+            
+            if(id == nodo.repuestos.id)
+            {
+                return nodo;
+            }
+
+
+            if(id < nodo.repuestos.id)
+            {
+                return Buscar(nodo.izquierda, id);
+            }
+            
+            return Buscar(nodo.derecha, id);
+        }
+
+        public void Actualizar(int id, String repuesto, String detalles, double Costo)
+        {
+            
+            NodoAVL nodoActualizar = Buscar(id);
+            
+            if(nodoActualizar != null)
+            {
+                nodoActualizar.repuestos.repuesto = repuesto;
+                nodoActualizar.repuestos.detalles = detalles;
+                nodoActualizar.repuestos.costo = Costo;
+            }
+        }
+
+        public void RecorridoPreOrden()
+        {
+            RecorridoPreOrdenRecursivo(raiz);
+        }
+
+        private void RecorridoPreOrdenRecursivo(NodoAVL nodo)
+        {
+            if(nodo != null)
+            {
+                Console.WriteLine(nodo.repuestos.id + " ");
+                RecorridoPreOrdenRecursivo(nodo.izquierda);
+                RecorridoPreOrdenRecursivo(nodo.derecha);
+            }
+        }
+
         public void RecorridoEnOrden()
         {
             RecorridoEnOrdenRecursivo(raiz);
@@ -200,6 +250,69 @@ namespace Structures
                 Console.WriteLine(nodo.repuestos.id + " ");
                 RecorridoEnOrdenRecursivo(nodo.derecha);
             }
+        }
+
+        public void RecorridoPostOrden()
+        {
+            RecorridoPostOrdenRecursivo(raiz);
+        }
+
+        private void RecorridoPostOrdenRecursivo(NodoAVL nodo)
+        {
+            if(nodo != null)
+            {
+                RecorridoPostOrdenRecursivo(nodo.izquierda);
+                RecorridoPostOrdenRecursivo(nodo.derecha);
+                Console.WriteLine(nodo.repuestos.id + " ");
+            }
+        }
+
+
+        public string graphvizAVL()
+        {
+            if(raiz == null)
+            {
+                return "digraph G {\n\tnode[shape=record];\n\tNULL[label = \"{NULL}\"];\n}\n";
+            }
+
+            string graphviz = "";
+            graphviz += "digraph AVL{\n";
+            graphviz += "\tnode[shape=circle];\n";
+            graphviz += "\tgraph[pencolor=transparent];\n";
+            graphviz += "\tsubgraph cluster_0{\n";
+            graphviz += "\t\tlabel = \"Arbol AVL\";\n";
+
+            graphviz += graphvizAVLRecursivo(raiz);
+            
+            graphviz += "\t\t}\n";
+            graphviz += "}\n";            
+            return graphviz;
+        }
+
+        private string graphvizAVLRecursivo(NodoAVL nodo)
+        {
+            string graphviz = "";
+
+            if (nodo != null)
+            {
+                // Agregar la relación con el hijo izquierdo
+                if (nodo.izquierda != null)
+                {
+                    graphviz += $"\t\"{nodo.repuestos.id}\" -> \"{nodo.izquierda.repuestos.id}\";\n";
+                }
+
+                // Agregar la relación con el hijo derecho
+                if (nodo.derecha != null)
+                {
+                    graphviz += $"\t\"{nodo.repuestos.id}\" -> \"{nodo.derecha.repuestos.id}\";\n";
+                }
+
+                // Recorrer los subárboles
+                graphviz += graphvizAVLRecursivo(nodo.izquierda);
+                graphviz += graphvizAVLRecursivo(nodo.derecha);
+            }
+
+            return graphviz;
         }
 
     }
