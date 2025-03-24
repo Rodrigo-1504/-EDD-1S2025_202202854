@@ -45,6 +45,12 @@ namespace Structures
                 return;
             }
 
+            if(BuscarUsuario(users.correo, users.contrasenia) != null)
+            {
+                Console.WriteLine("Ya existe el correo");
+                return;
+            }
+
             //LISTA VACIA
             if(cabeza == null)
             {
@@ -94,28 +100,28 @@ namespace Structures
 
         }
 
-        public Nodo BuscarUsuario(String correo, String contraseña)
+        public Usuarios BuscarUsuario(String correo, String contraseña)
         {
             Nodo temporal = cabeza;
             while(temporal != null)
             {
-                if(temporal.usuarios.correo == correo && temporal.usuarios.contraseña == contraseña)
+                if(temporal.usuarios.correo == correo && temporal.usuarios.contrasenia == contraseña)
                 {
-                    return temporal;
+                    return temporal.usuarios;
                 }
                 temporal = temporal.siguiente;
             }
             return null;
         }
 
-        public Nodo BuscarId(int id)
+        public Usuarios BuscarId(int id)
         {
             Nodo temporal = cabeza;
             while(temporal != null)
             {
                 if(temporal.usuarios.id == id)
                 {
-                    return temporal;
+                    return temporal.usuarios;
                 }
                 temporal = temporal.siguiente;
             }
@@ -127,7 +133,7 @@ namespace Structures
             Nodo temporal = cabeza;
             while(temporal != null)
             {
-                Console.WriteLine($"ID: {temporal.usuarios.id}, Nombre: {temporal.usuarios.nombres}, Apellido: {temporal.usuarios.apellidos}, Correo: {temporal.usuarios.correo}, Contraseña: {temporal.usuarios.contraseña}");
+                Console.WriteLine($"ID: {temporal.usuarios.id}, Nombre: {temporal.usuarios.nombres}, Apellido: {temporal.usuarios.apellidos}, Correo: {temporal.usuarios.correo}, Edad: {temporal.usuarios.edades}, Contraseña: {temporal.usuarios.contrasenia}");
                 temporal = temporal.siguiente;
             }
         }
@@ -155,7 +161,7 @@ namespace Structures
             //CREANDO LOS NODOS
             while(temp != null)
             {
-                graphviz += $"\t\t\tn{index} [label = \"{{ID : {temp.usuarios.id} \\n Nombres: {temp.usuarios.nombres} {temp.usuarios.apellidos} \\n Correo: {temp.usuarios.correo}}}\"];\n";
+                graphviz += $"\t\t\tn{index} [label = \"{{ID : {temp.usuarios.id} \\n Nombres: {temp.usuarios.nombres} {temp.usuarios.apellidos} \\n Correo: {temp.usuarios.correo} \\Edad: {temp.usuarios.edades}}}\"];\n";
                 temp = temp.siguiente;
                 index++;
             }

@@ -5,7 +5,8 @@ namespace Structures
 {
     public class ArbolBST
     {
-
+        ListaDoble listaVehiculos = ListaDoble.Instance;
+        ArbolAVL listaRepuestos = ArbolAVL.Instance;
 
         //INSTANCIAR
         private static ArbolBST _instance;
@@ -32,6 +33,24 @@ namespace Structures
         //INSERTAR E INSERTAR RECURSIVAMENTE
         public void agregarServicios(Servicios servicio)
         {
+            if(Buscar(servicio.id) != null)
+            {
+                Console.WriteLine("El id del servicio ya existe");
+                return;
+            }
+
+            if(listaVehiculos.BuscarVehiculo(servicio.id_Vehiculo) == null)
+            {
+                Console.WriteLine("El vehiculo no existe");
+                return;
+            }
+
+            if(listaRepuestos.Buscar(servicio.id_Repuesto) == null)
+            {
+                Console.WriteLine("El repuesto no existe");
+                return;
+            }
+
             raiz = insertarRecursivamente(raiz, servicio);         
         }
 

@@ -22,7 +22,7 @@ namespace Structures
         }
 
         //CARACTERÍSTICAS
-        private NodoAVL raiz;
+        public NodoAVL raiz;
 
         public ArbolAVL()
         {
@@ -32,6 +32,12 @@ namespace Structures
         //INSERTAR E INSERTAR RECURSIVAMENTE
         public void agregarRepuestos(Repuestos repuesto)
         {
+            if(Buscar(repuesto.id) != null)
+            {
+                Console.WriteLine("El id del repuesto ya existe");
+                return;
+            }
+            
             raiz = insertarRecursivamente(raiz, repuesto);         
         }
 
@@ -113,24 +119,24 @@ namespace Structures
 
             if (equilibrio > 1 && repuesto.id < nodo.izquierda.repuestos.id) // CASO 1 (LL)
             {
-                Console.WriteLine("Rotacion derecha (LL)");
+                //Console.WriteLine("Rotacion derecha (LL)");
                 return rotacionDerecha(nodo);
             }
             else if (equilibrio > 1 && repuesto.id > nodo.izquierda.repuestos.id) // CASO 2 (LR)
             {
                 nodo.izquierda = rotacionIzquierda(nodo.izquierda);
-                Console.WriteLine("Rotacion izquierda-derecha (LR)");
+                //Console.WriteLine("Rotacion izquierda-derecha (LR)");
                 return rotacionDerecha(nodo);
             }
             else if (equilibrio < -1 && repuesto.id > nodo.derecha.repuestos.id) // CASO 3 (RR)
             {
-                Console.WriteLine("Rotacion izquierda (RR)");
+                //Console.WriteLine("Rotacion izquierda (RR)");
                 return rotacionIzquierda(nodo);
             }
             else if (equilibrio < -1 && repuesto.id < nodo.derecha.repuestos.id) // CASO 4 (RL)
             {
                 nodo.derecha = rotacionDerecha(nodo.derecha);
-                Console.WriteLine("Rotacion derecha-izquierda (RL)");
+                //Console.WriteLine("Rotacion derecha-izquierda (RL)");
                 return rotacionIzquierda(nodo);
             }
 
@@ -222,6 +228,7 @@ namespace Structures
 
         public void RecorridoPreOrden()
         {
+            //RAIZ - IZQUIERDA - DERECHA
             RecorridoPreOrdenRecursivo(raiz);
         }
 
@@ -229,7 +236,7 @@ namespace Structures
         {
             if(nodo != null)
             {
-                Console.WriteLine(nodo.repuestos.id + " ");
+                Console.WriteLine($"ID: {nodo.repuestos.id}, Repuesto: {nodo.repuestos.repuesto}, Detalles: {nodo.repuestos.detalles}, Costo: {nodo.repuestos.costo}");
                 RecorridoPreOrdenRecursivo(nodo.izquierda);
                 RecorridoPreOrdenRecursivo(nodo.derecha);
             }
@@ -237,6 +244,7 @@ namespace Structures
 
         public void RecorridoEnOrden()
         {
+            //IZQUIERDA - RAIZ - DERECHA
             RecorridoEnOrdenRecursivo(raiz);
         }
 
@@ -245,13 +253,14 @@ namespace Structures
             if(nodo != null)
             {
                 RecorridoEnOrdenRecursivo(nodo.izquierda);
-                Console.WriteLine(nodo.repuestos.id + " ");
+                Console.WriteLine($"ID: {nodo.repuestos.id}, Repuesto: {nodo.repuestos.repuesto}, Detalles: {nodo.repuestos.detalles}, Costo: {nodo.repuestos.costo}");
                 RecorridoEnOrdenRecursivo(nodo.derecha);
             }
         }
 
         public void RecorridoPostOrden()
         {
+            //IZQUIERDA - DERECHA - RAIZ
             RecorridoPostOrdenRecursivo(raiz);
         }
 
@@ -261,7 +270,7 @@ namespace Structures
             {
                 RecorridoPostOrdenRecursivo(nodo.izquierda);
                 RecorridoPostOrdenRecursivo(nodo.derecha);
-                Console.WriteLine(nodo.repuestos.id + " ");
+                Console.WriteLine($"ID: {nodo.repuestos.id}, Repuesto: {nodo.repuestos.repuesto}, Detalles: {nodo.repuestos.detalles}, Costo: {nodo.repuestos.costo}");
             }
         }
 

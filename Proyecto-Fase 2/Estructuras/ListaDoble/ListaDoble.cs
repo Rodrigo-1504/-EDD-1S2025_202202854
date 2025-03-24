@@ -106,14 +106,14 @@ namespace Structures
             }
         }
 
-        public NodoDoble BuscarVehiculo(int id)
+        public Vehiculos BuscarVehiculo(int id)
         {
             NodoDoble temporal = cabeza;
             while(temporal != null)
             {
                 if(temporal.vehiculo.id == id)
                 {
-                    return temporal;
+                    return temporal.vehiculo;
                 }
                 temporal = temporal.siguiente;
             }

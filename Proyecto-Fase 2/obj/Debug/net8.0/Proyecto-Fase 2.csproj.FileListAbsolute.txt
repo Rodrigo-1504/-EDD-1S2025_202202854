@@ -22,3 +22,4 @@
 /home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 2/bin/Debug/net8.0/PangoSharp.dll
 /home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 2/obj/Debug/net8.0/Proyecto-Fase 2.csproj.AssemblyReference.cache
 /home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 2/obj/Debug/net8.0/Proyecto-Fase 2.csproj.CopyComplete
+/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 2/bin/Debug/net8.0/Newtonsoft.Json.dll

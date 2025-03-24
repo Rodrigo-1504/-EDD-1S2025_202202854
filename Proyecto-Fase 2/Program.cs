@@ -2,22 +2,36 @@
 using System.Runtime;
 using Gtk;
 using Structures;
+using Interfaces2;
 
 class Program
 {
     public static void Main(string[] args)
     {
-        ArbolBST bst = ArbolBST.Instance;
+        try
+        {
+            Application.Init();
 
-        bst.agregarServicios(new Servicios(3, 1, 1, "Limpieza", 25.00));
-        bst.agregarServicios(new Servicios(4, 1, 1, "Limpieza", 25.00));
-        bst.agregarServicios(new Servicios(1, 1, 1, "Limpieza", 25.00));
-        bst.agregarServicios(new Servicios(2, 1, 1, "Limpieza", 25.00));
-        bst.agregarServicios(new Servicios(7, 1, 1, "Limpieza", 25.00));
+            Login inicio = Login.Instance;
 
-        string dotBST = bst.graphvizBST();
-        Dot_Png.Convertidor.generarArchivoDot("BST", dotBST);
-        Dot_Png.Convertidor.ConvertirDot_a_Png("BST.dot");
+            ListaSimple ls = ListaSimple.Instance;
+            ls.AgregarUsuarios(new Usuarios(0, "Admin", "Admin", "admin@usac.com", "admin123", 20));
 
+            inicio.DeleteEvent += OnWindowDelete;
+
+            inicio.ShowAll();
+
+            Application.Run();
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("Error en Program.cs: " + e.Message);
+        }
+    }
+
+    public static void OnWindowDelete(object sender, DeleteEventArgs args)
+    {
+        ((Window)sender).Hide();
+        args.RetVal = true;
     }
 }
