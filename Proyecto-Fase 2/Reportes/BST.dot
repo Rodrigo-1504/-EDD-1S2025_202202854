@@ -1,8 +1,4 @@
-digraph AVL{
+digraph G {
 	node[shape=circle];
-	graph[pencolor=transparent];
-	subgraph cluster_0{
-		label = "Arbol AVL";
-	"1" -> "2";
-		}
+	NULL[label = "{NULL}"];
 }

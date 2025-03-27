@@ -1,5 +1,6 @@
 using Gtk;
 using Structures;
+using Interfaces2;
 
 namespace Interfaces2
 {
@@ -88,6 +89,14 @@ namespace Interfaces2
                     Opciones opciones = Opciones.Instance;
                     opciones.DeleteEvent += OnWindowDelete;
                     opciones.ShowAll();
+                    this.Hide();
+                }
+                else
+                {
+                    manejoSesion.Login(user.id, user.correo, false);
+                    OpcionesUsuario opciones2 = OpcionesUsuario.Instance;
+                    opciones2.DeleteEvent += OnWindowDelete;
+                    opciones2.ShowAll();
                     this.Hide();
                 }
                 

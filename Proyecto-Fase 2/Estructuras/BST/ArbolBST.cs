@@ -23,7 +23,7 @@ namespace Structures
         }
 
         //CARACTERÍSTICAS
-        private NodoBST raiz;
+        public NodoBST raiz;
 
         public ArbolBST()
         {
@@ -105,7 +105,7 @@ namespace Structures
         {
             if(nodo != null)
             {
-                Console.WriteLine(nodo.servicios.id + " ");
+                Console.WriteLine($"ID: {nodo.servicios.id}, ID_Repuesto: {nodo.servicios.id_Repuesto}, ID_Vehiculo: {nodo.servicios.id_Vehiculo}, Detalles: {nodo.servicios.detalles}, Costo: {nodo.servicios.costo}");
                 RecorridoPreOrdenRecursivo(nodo.izquierda);
                 RecorridoPreOrdenRecursivo(nodo.derecha);
             }
@@ -121,7 +121,7 @@ namespace Structures
             if(nodo != null)
             {
                 RecorridoEnOrdenRecursivo(nodo.izquierda);
-                Console.WriteLine(nodo.servicios.id + " ");
+                Console.WriteLine($"ID: {nodo.servicios.id}, ID_Repuesto: {nodo.servicios.id_Repuesto}, ID_Vehiculo: {nodo.servicios.id_Vehiculo}, Detalles: {nodo.servicios.detalles}, Costo: {nodo.servicios.costo}");
                 RecorridoEnOrdenRecursivo(nodo.derecha);
             }
         }
@@ -137,7 +137,7 @@ namespace Structures
             {
                 RecorridoPostOrdenRecursivo(nodo.izquierda);
                 RecorridoPostOrdenRecursivo(nodo.derecha);
-                Console.WriteLine(nodo.servicios.id + " ");
+                Console.WriteLine($"ID: {nodo.servicios.id}, ID_Repuesto: {nodo.servicios.id_Repuesto}, ID_Vehiculo: {nodo.servicios.id_Vehiculo}, Detalles: {nodo.servicios.detalles}, Costo: {nodo.servicios.costo}");
             }
         }
 
@@ -146,15 +146,16 @@ namespace Structures
         {
             if(raiz == null)
             {
-                return "digraph G {\n\tnode[shape=record];\n\tNULL[label = \"{NULL}\"];\n}\n";
+                return "digraph G {\n\tnode[shape=circle];\n\tNULL[label = \"{NULL}\"];\n}\n";
             }
 
             string graphviz = "";
             graphviz += "digraph AVL{\n";
+            //graphviz += "\tnode[shape=circle, fixedsize=true, width=5.0, height=5.0, margin=0.1, style=filled, fillcolor=lightgray];\n";
             graphviz += "\tnode[shape=circle];\n";
             graphviz += "\tgraph[pencolor=transparent];\n";
             graphviz += "\tsubgraph cluster_0{\n";
-            graphviz += "\t\tlabel = \"Arbol AVL\";\n";
+            graphviz += "\t\tlabel = \"Arbol BST\";\n";
 
             graphviz += graphvizBSTRecursivo(raiz);
             
@@ -169,6 +170,10 @@ namespace Structures
 
             if (nodo != null)
             {
+                // Crear la etiqueta del nodo con todos los datos del servicio
+                string label = $"ID: {nodo.servicios.id}\nRepuesto: {nodo.servicios.id_Repuesto}\nVehiculo: {nodo.servicios.id_Vehiculo}\nDetalles: {nodo.servicios.detalles}\nCosto: {nodo.servicios.costo}";
+                graphviz += $"\t\"{nodo.servicios.id}\" [label = \"{label}\"];\n";
+
                 // Agregar la relación con el hijo izquierdo
                 if (nodo.izquierda != null)
                 {

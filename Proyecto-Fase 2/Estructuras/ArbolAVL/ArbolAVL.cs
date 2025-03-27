@@ -279,11 +279,12 @@ namespace Structures
         {
             if(raiz == null)
             {
-                return "digraph G {\n\tnode[shape=record];\n\tNULL[label = \"{NULL}\"];\n}\n";
+                return "digraph G {\n\tnode[shape=circle];\n\tNULL[label = \"{NULL}\"];\n}\n";
             }
 
             string graphviz = "";
             graphviz += "digraph AVL{\n";
+            //graphviz += "\tnode[shape=circle, fixedsize=true, width=5.0, height=5.0, margin=0.1, style=filled, fillcolor=lightgray];\n";
             graphviz += "\tnode[shape=circle];\n";
             graphviz += "\tgraph[pencolor=transparent];\n";
             graphviz += "\tsubgraph cluster_0{\n";
@@ -299,28 +300,31 @@ namespace Structures
         private string graphvizAVLRecursivo(NodoAVL nodo)
         {
             string graphviz = "";
-
+        
             if (nodo != null)
             {
+                // Crear la etiqueta del nodo con todos los datos del repuesto
+                string label = $"ID: {nodo.repuestos.id} \nRepuesto: {nodo.repuestos.repuesto}\nDetalles: {nodo.repuestos.detalles}\nCosto: {nodo.repuestos.costo}";
+                graphviz += $"\t\"{nodo.repuestos.id}\" [label = \"{label}\"];\n";
+        
                 // Agregar la relación con el hijo izquierdo
                 if (nodo.izquierda != null)
                 {
                     graphviz += $"\t\"{nodo.repuestos.id}\" -> \"{nodo.izquierda.repuestos.id}\";\n";
                 }
-
+        
                 // Agregar la relación con el hijo derecho
                 if (nodo.derecha != null)
                 {
                     graphviz += $"\t\"{nodo.repuestos.id}\" -> \"{nodo.derecha.repuestos.id}\";\n";
                 }
-
+        
                 // Recorrer los subárboles
                 graphviz += graphvizAVLRecursivo(nodo.izquierda);
                 graphviz += graphvizAVLRecursivo(nodo.derecha);
             }
-
+        
             return graphviz;
         }
-
     }
 }
