@@ -105,7 +105,44 @@ namespace Structures
                 temporal = temporal.siguiente;
             }
         }
+/*      //VER SI SE IMPLEMENTA O NO
+        public void EliminarVehiculoPorUsuario(int idUsuario)
+        {
+            // LISTA VACÍA
+            if (cabeza == null) return;
 
+            // ELIMINAR TODOS LOS NODOS CON ID_Usuario = idUsuario
+            NodoDoble temporal = cabeza;
+            while (temporal != null)
+            {
+                if (temporal.vehiculo.ID_Usuario == idUsuario)
+                {
+                    // CASO 1: EL NODO A ELIMINAR ES LA CABEZA
+                    if (temporal == cabeza)
+                    {
+                        cabeza = cabeza.siguiente;
+                        if (cabeza != null)
+                        {
+                            cabeza.anterior = null;
+                        }
+                    }
+                    // CASO 2: EL NODO ESTÁ EN MEDIO O AL FINAL
+                    else
+                    {
+                        if (temporal.anterior != null)
+                        {
+                            temporal.anterior.siguiente = temporal.siguiente;
+                        }
+                        if (temporal.siguiente != null)
+                        {
+                            temporal.siguiente.anterior = temporal.anterior;
+                        }
+                    }
+                }
+                temporal = temporal.siguiente; // SIGUIENTE NODO
+            }
+        }
+*/
         public Vehiculos BuscarVehiculo(int id)
         {
             NodoDoble temporal = cabeza;
@@ -161,12 +198,12 @@ namespace Structures
             {
                 if(temp.siguiente != null)
                 {
-                    graphviz += $"\t\t\tn{i}.n{i+1};\n";
+                    graphviz += $"\t\t\tn{i}->n{i+1};\n";
                 }
 
                 if(temp.anterior != null)
                 {
-                    graphviz += $"\t\t\tn{i}.n{i-1};\n";
+                    graphviz += $"\t\t\tn{i}->n{i-1};\n";
                 }
                 
                 temp = temp.siguiente;

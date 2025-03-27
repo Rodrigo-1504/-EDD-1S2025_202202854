@@ -7,6 +7,7 @@ namespace Structures
 {
     public class ListaSimple
     {
+        
         //INSTANCIAR
         private static ListaSimple _instance;
         public static ListaSimple Instance
@@ -72,6 +73,7 @@ namespace Structures
         //ELIMINAR NODO DE LA LISTA
         public void EliminarUsuario(int id)
         {
+            ListaDoble listaVehiculos = ListaDoble.Instance;
             //LISTA VACIA
             if(cabeza == null) return;
 
@@ -97,6 +99,8 @@ namespace Structures
                 anterior = temporal;
                 temporal = temporal.siguiente;
             }
+
+            //listaVehiculos.EliminarVehiculoPorUsuario(id);
 
         }
 
@@ -161,7 +165,7 @@ namespace Structures
             //CREANDO LOS NODOS
             while(temp != null)
             {
-                graphviz += $"\t\t\tn{index} [label = \"{{ID : {temp.usuarios.id} \\n Nombres: {temp.usuarios.nombres} {temp.usuarios.apellidos} \\n Correo: {temp.usuarios.correo} \\Edad: {temp.usuarios.edades}}}\"];\n";
+                graphviz += $"\t\t\tn{index} [label = \"{{ID : {temp.usuarios.id} \\n Nombres: {temp.usuarios.nombres} {temp.usuarios.apellidos} \\n Correo: {temp.usuarios.correo} \\n Edad: {temp.usuarios.edades}}}\"];\n";
                 temp = temp.siguiente;
                 index++;
             }

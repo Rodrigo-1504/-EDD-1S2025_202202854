@@ -96,7 +96,7 @@ namespace Interfaces2
 
         private void goServicios(object sender, EventArgs e)
         {
-            //OpenWindow(GenerarServicios.Instance);
+            OpenWindow(GenerarServicios.Instance);
         }
 
         private void goControl(object sender, EventArgs e)
@@ -109,16 +109,33 @@ namespace Interfaces2
             OpenWindow(Login.Instance);
             ListaSimple listaUsuarios = ListaSimple.Instance;
             ListaDoble listaVehiculos = ListaDoble.Instance;
+            ArbolBST listaServicios = ArbolBST.Instance;
+            ArbolAVL listaRepuestos = ArbolAVL.Instance;
 
             string dotLista = listaUsuarios.graphvizLista();
             string dotDoble = listaVehiculos.graphvizDoble();
+            string dotBST = listaServicios.graphvizBST();
+            string dotAVL = listaRepuestos.graphvizAVL();
             
 
-            Dot_Png.Convertidor.generarArchivoDot("Lista Simple", dotLista);
-            Dot_Png.Convertidor.ConvertirDot_a_Png("Lista Simple.dot");
+            try
+            {
+                Dot_Png.Convertidor.generarArchivoDot("Lista Simple", dotLista);
+                Dot_Png.Convertidor.ConvertirDot_a_Png("Lista Simple.dot");
 
-            Dot_Png.Convertidor.generarArchivoDot("Lista Doble", dotDoble);
-            Dot_Png.Convertidor.ConvertirDot_a_Png("Lista Doble.dot");
+                Dot_Png.Convertidor.generarArchivoDot("Lista Doble", dotDoble);
+                Dot_Png.Convertidor.ConvertirDot_a_Png("Lista Doble.dot");
+
+                Dot_Png.Convertidor.generarArchivoDot("BST", dotBST);
+                Dot_Png.Convertidor.ConvertirDot_a_Png("BST.dot");
+
+                Dot_Png.Convertidor.generarArchivoDot("AVL", dotAVL);
+                Dot_Png.Convertidor.ConvertirDot_a_Png("AVL.dot");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error Reportes: " + ex.Message);
+            }
 
         }
 

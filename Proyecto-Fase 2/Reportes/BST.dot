@@ -3,9 +3,6 @@ digraph AVL{
 	graph[pencolor=transparent];
 	subgraph cluster_0{
 		label = "Arbol AVL";
-	"3" -> "1";
-	"3" -> "4";
 	"1" -> "2";
-	"4" -> "7";
 		}
 }

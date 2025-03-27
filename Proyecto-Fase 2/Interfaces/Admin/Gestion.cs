@@ -378,8 +378,11 @@ namespace Interfaces2
                 listaUsuarios.EliminarUsuario(usuarioEliminar.id);
             }
 
-            Console.WriteLine("\n---NUEVA LISTA---");
+            Console.WriteLine("\n---NUEVA LISTA DE USUARIOS---");
             listaUsuarios.Imprimir();
+
+            /*Console.WriteLine("\n---NUEVA LISTA DE VEHICULOS---");
+            listaVehiculos.Imprimir();*/
         }
 
         // Método para eliminar un vehículo
