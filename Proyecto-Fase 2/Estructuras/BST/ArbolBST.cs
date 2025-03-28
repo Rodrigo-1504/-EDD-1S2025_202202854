@@ -96,6 +96,29 @@ namespace Structures
             return BuscarRecursivamente(nodo.derecha, id);
         }
 
+        public NodoBST Buscar2(int id)
+        {
+            return BuscarRecursivamente2(raiz, id);
+        }
+
+        private NodoBST BuscarRecursivamente2(NodoBST nodo, int id_Vehiculo)
+        {
+            if(nodo == null) return null;
+            
+            if(id_Vehiculo == nodo.servicios.id_Vehiculo)
+            {
+                return nodo;
+            }
+
+
+            if(id_Vehiculo < nodo.servicios.id_Vehiculo)
+            {
+                return BuscarRecursivamente2(nodo.izquierda, id_Vehiculo);
+            }
+            
+            return BuscarRecursivamente2(nodo.derecha, id_Vehiculo);
+        }
+
         public void RecorridoPreOrden()
         {
             RecorridoPreOrdenRecursivo(raiz);

@@ -88,7 +88,7 @@ namespace Interfaces2
 
         private void seeBills(object sender, EventArgs e)
         {
-            //OpenWindow(verFacturas.Instance);
+            OpenWindow(verFacturas.Instance);
         }
 
         private void cancelBill(object sender, EventArgs e)

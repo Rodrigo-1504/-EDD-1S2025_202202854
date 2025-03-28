@@ -111,12 +111,13 @@ namespace Interfaces2
             ListaDoble listaVehiculos = ListaDoble.Instance;
             ArbolBST listaServicios = ArbolBST.Instance;
             ArbolAVL listaRepuestos = ArbolAVL.Instance;
+            ArbolB listaFacturas = ArbolB.Instance;
 
             string dotLista = listaUsuarios.graphvizLista();
             string dotDoble = listaVehiculos.graphvizDoble();
             string dotBST = listaServicios.graphvizBST();
             string dotAVL = listaRepuestos.graphvizAVL();
-            
+            string dotB = listaFacturas.graphvizB();
 
             try
             {
@@ -131,6 +132,10 @@ namespace Interfaces2
 
                 Dot_Png.Convertidor.generarArchivoDot("AVL", dotAVL);
                 Dot_Png.Convertidor.ConvertirDot_a_Png("AVL.dot");
+
+                Dot_Png.Convertidor.generarArchivoDot("B", dotB);
+                Dot_Png.Convertidor.ConvertirDot_a_Png("B.dot");
+
             }
             catch(Exception ex)
             {

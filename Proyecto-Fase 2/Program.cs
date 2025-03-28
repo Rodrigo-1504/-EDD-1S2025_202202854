@@ -27,6 +27,16 @@ class Program
         {
             Console.WriteLine("Error en Program.cs: " + e.Message);
         }
+
+        /*ArbolB listaFacturas = ArbolB.Instance;
+        listaFacturas.Insertar(new Facturas(1, 50, 30.0));
+        listaFacturas.Insertar(new Facturas(2, 25, 40.0));
+        listaFacturas.Insertar(new Facturas(3, 30, 50.0));
+        listaFacturas.Insertar(new Facturas(4, 60, 60.0));
+        listaFacturas.Insertar(new Facturas(5, 70, 70.0));
+
+        listaFacturas.ImprimirEnOrden();
+        */
     }
 
     public static void OnWindowDelete(object sender, DeleteEventArgs args)

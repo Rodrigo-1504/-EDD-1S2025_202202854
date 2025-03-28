@@ -8,10 +8,14 @@ namespace Interfaces2
     {
         // Instancias de las listas
         ArbolBST listasServicios = ArbolBST.Instance;
+        ArbolB listaFacturas = ArbolB.Instance;
+        ArbolAVL listaRepuestos = ArbolAVL.Instance;
+        
 
         // Entradas de texto
         private Entry idEntry, replacementEntry, idCarEntry, detailsEntry, costEntry;
 
+        private int idFactura = 0;
         // Singleton para la ventana de generar servicios
         private static GenerarServicios _instance;
 
@@ -157,6 +161,7 @@ namespace Interfaces2
         // Método para generar un servicio
         private void generarServicio(object sender, EventArgs e)
         {
+            NodoAVL buscarRepuesto = listaRepuestos.Buscar(Convert.ToInt32(replacementEntry.Text));
             try
             {
                 listasServicios.agregarServicios(new Servicios(
@@ -167,14 +172,29 @@ namespace Interfaces2
                 Convert.ToInt32(costEntry.Text)
             ));
 
-            Console.WriteLine("\n--- LISTA DE SERVICIOS---");
-            listasServicios.RecorridoEnOrden();
+                Console.WriteLine("\n--- LISTA DE SERVICIOS---");
+                listasServicios.RecorridoEnOrden();
 
-            //FALTA LA PARTE DE LAS FACTURAS
+                idFactura ++;
+                double CostoServicio = Convert.ToDouble(costEntry.Text);
+                double CostoRepuesto = buscarRepuesto.repuestos.costo;
+                double total = CostoServicio + CostoRepuesto;
+
+                //FACTURAS
+                listaFacturas.Insertar(new Facturas(
+                    idFactura,
+                    Convert.ToInt32(idEntry.Text),
+                    total
+                ));
+
+                Console.WriteLine("\n--- LISTA DE FACTURAS ---");
+                listaFacturas.ImprimirEnOrden();
+                //listaFacturas.VerificarIntegridadCompleta();
             }
             catch(Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
+                listaFacturas.VerificarIntegridadCompleta();
             }
         } 
 

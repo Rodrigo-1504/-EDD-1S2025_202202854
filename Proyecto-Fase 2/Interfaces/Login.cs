@@ -126,7 +126,7 @@ namespace Interfaces2
         // Método para manejar el evento de cierre de la ventana
         static void OnWindowDelete(object sender, DeleteEventArgs args)
         {
-            Application.Quit();
+            ((Window)sender).Hide();
             args.RetVal = true;
         }
     }

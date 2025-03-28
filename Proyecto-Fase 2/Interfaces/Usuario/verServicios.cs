@@ -6,14 +6,15 @@ namespace Interfaces2
 {
     public class verServicios : Window
     {
-
         private ComboBoxText opciones = new ComboBoxText();
-        private Grid table;
+        private Grid tabla;
         private int filaActual = 1;
 
-        //LISTAS
-        ArbolBST listaServicios = ArbolBST.Instance;
-
+        // Estructuras de datos
+        ArbolBST arbolServicios = ArbolBST.Instance;
+        ListaDoble listaVehiculos = ListaDoble.Instance;
+        
+        // Singleton pattern
         private static verServicios _instance;
         public static verServicios Instance
         {
@@ -27,35 +28,43 @@ namespace Interfaces2
             }
         }
 
-        public verServicios() : base("Visualizacion de Servicios")
+        public verServicios() : base("Mis Servicios")
         {
             try
             {
                 SetDefaultSize(900, 400);
                 SetPosition(WindowPosition.Center);
 
+                // Verificar sesión primero
+                /*if(!manejoSesion.Login())
+                {
+                    throw new InvalidOperationException("No hay sesión activa");
+                }*/
+
                 VBox contenedor = new VBox();
                 contenedor.BorderWidth = 20;
                 contenedor.Spacing = 10;
 
+                // Configurar combo box de opciones de orden
                 opciones.AppendText("PRE - ORDEN");
                 opciones.AppendText("IN - ORDEN");
                 opciones.AppendText("POST - ORDEN");
                 opciones.Active = 0;
-                opciones.Changed += cambioOpciones;
+                opciones.Changed += CambioOpciones;
 
+                // Configurar tabla con scroll
                 var scroll = new ScrolledWindow();
-                table = new Grid
+                tabla = new Grid
                 {
                     ColumnSpacing = 10,
                     RowSpacing = 10,
                     Margin = 20,
                     ColumnHomogeneous = false
                 };
-                scroll.Add(table);
+                scroll.Add(tabla);
 
                 Button back = new Button("Regresar");
-                back.Clicked += goBack;
+                back.Clicked += Regresar;
 
                 CrearEncabezados();
 
@@ -69,57 +78,70 @@ namespace Interfaces2
             }
             catch(Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("Error al inicializar: " + ex.Message);
+                MessageDialog md = new MessageDialog(this, 
+                    DialogFlags.Modal, 
+                    MessageType.Error, 
+                    ButtonsType.Ok, 
+                    "Error: " + ex.Message);
+                md.Run();
+                md.Destroy();
+                this.Destroy();
             }
-            
         }
 
-        private void cambioOpciones(object sender, EventArgs e)
+        private void CambioOpciones(object sender, EventArgs e)
         {
-            LimipiarDatos();
+            LimpiarDatos();
             MostrarDatosOpcion();
         }
 
         private void MostrarDatosOpcion()
         {
-            switch(opciones.Active)
+            try
             {
-                case 0:
-                    if(listaServicios.raiz != null)
-                    {
-                        tablePreOrden();
-                    }
-                    break;
+                switch(opciones.Active)
+                {
+                    case 0:
+                        if(arbolServicios.raiz != null)
+                        {
+                            TablaPreOrden();
+                        }
+                        break;
 
-                case 1:
-                    if(listaServicios.raiz != null)
-                    {
-                        tableInOrden();
-                    }
-                    break;
+                    case 1:
+                        if(arbolServicios.raiz != null)
+                        {
+                            TablaInOrden();
+                        }
+                        break;
 
-                case 2:
-                    if(listaServicios.raiz != null)
-                    {
-                        tablePostOrden();
-                    }
-                    break;
+                    case 2:
+                        if(arbolServicios.raiz != null)
+                        {
+                            TablaPostOrden();
+                        }
+                        break;
+                }
+
+                tabla.ShowAll();
             }
-
-            table.ShowAll();
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error al mostrar datos: " + ex.Message);
+                MostrarError("Error al cargar servicios");
+            }
         }
 
         private void CrearEncabezados()
         {
-            // Limpiar el grid completamente
-            // En GTK, para limpiar un Grid, podemos simplemente crear uno nuevo
-            var parent = table.Parent;
+            var parent = tabla.Parent;
             if (parent != null)
             {
-                ((Container)parent).Remove(table);
+                ((Container)parent).Remove(tabla);
             }
             
-            table = new Grid
+            tabla = new Grid
             {
                 ColumnSpacing = 10,
                 RowSpacing = 10,
@@ -129,122 +151,175 @@ namespace Interfaces2
 
             if (parent != null)
             {
-                ((Container)parent).Add(table);
+                ((Container)parent).Add(tabla);
             }
 
-            // Crear encabezados manualmente sin usar arrays
-            var idHeader = new Label("ID");
+            // Encabezados
+            var idHeader = new Label("ID Servicio");
             idHeader.Xalign = 0f;
-            table.Attach(idHeader, 0, 0, 1, 1);
+            tabla.Attach(idHeader, 0, 0, 1, 1);
+
+            var vehiculoHeader = new Label("Vehículo");
+            vehiculoHeader.Xalign = 0f;
+            tabla.Attach(vehiculoHeader, 1, 0, 1, 1);
 
             var repuestoHeader = new Label("Repuesto");
             repuestoHeader.Xalign = 0f;
-            table.Attach(repuestoHeader, 1, 0, 1, 1);
-
-            var VehiculoHeader = new Label("Vehiculo");
-            VehiculoHeader.Xalign = 0f;
-            table.Attach(VehiculoHeader, 2, 0, 1, 1);
+            tabla.Attach(repuestoHeader, 2, 0, 1, 1);
 
             var detallesHeader = new Label("Detalles");
             detallesHeader.Xalign = 0f;
-            table.Attach(detallesHeader, 3, 0, 1, 1);
+            tabla.Attach(detallesHeader, 3, 0, 1, 1);
 
             var costoHeader = new Label("Costo ($)");
             costoHeader.Xalign = 1f;
-            table.Attach(costoHeader, 4, 0, 1, 1);
+            tabla.Attach(costoHeader, 4, 0, 1, 1);
+
+            filaActual = 1;
         }
 
-        private void LimipiarDatos()
+        private void LimpiarDatos()
         {
             filaActual = 1;
             CrearEncabezados();
         }
 
-        private void tablePreOrden()
+        private void TablaPreOrden()
         {
-            tablePreOrdenRecursivo(listaServicios.raiz);
+            TablaPreOrdenRecursivo(arbolServicios.raiz);
         }
 
-        private void tablePreOrdenRecursivo(NodoBST nodo)
-        {
-            if(nodo != null)
-            {
-                AgregarFilatable(nodo.servicios);
-                tablePreOrdenRecursivo(nodo.izquierda);
-                tablePreOrdenRecursivo(nodo.derecha);
-            }
-        }
-
-        private void tableInOrden()
-        {
-            tableInOrdenRecursivo(listaServicios.raiz);
-        }
-
-        private void tableInOrdenRecursivo(NodoBST nodo)
+        private void TablaPreOrdenRecursivo(NodoBST nodo)
         {
             if(nodo != null)
             {
-                tableInOrdenRecursivo(nodo.izquierda);
-                AgregarFilatable(nodo.servicios);
-                tableInOrdenRecursivo(nodo.derecha);
+                // Filtrar por ID de usuario actual
+                if(EsServicioDelUsuario(nodo.servicios))
+                {
+                    AgregarFilaTabla(nodo.servicios);
+                }
+                TablaPreOrdenRecursivo(nodo.izquierda);
+                TablaPreOrdenRecursivo(nodo.derecha);
             }
         }
 
-        private void tablePostOrden()
+        private void TablaInOrden()
         {
-            tablePostOrdenRecursivo(listaServicios.raiz);
+            TablaInOrdenRecursivo(arbolServicios.raiz);
         }
 
-        private void tablePostOrdenRecursivo(NodoBST nodo)
+        private void TablaInOrdenRecursivo(NodoBST nodo)
         {
             if(nodo != null)
             {
-                tablePostOrdenRecursivo(nodo.izquierda);
-                tablePostOrdenRecursivo(nodo.derecha);
-                AgregarFilatable(nodo.servicios);
+                TablaInOrdenRecursivo(nodo.izquierda);
+                if(EsServicioDelUsuario(nodo.servicios))
+                {
+                    AgregarFilaTabla(nodo.servicios);
+                }
+                TablaInOrdenRecursivo(nodo.derecha);
             }
         }
 
-        private void AgregarFilatable(Servicios servicio)
+        private void TablaPostOrden()
         {
-            // ID
-            var idLabel = new Label(servicio.id.ToString());
-            idLabel.Xalign = 0f;
-            table.Attach(idLabel, 0, filaActual, 1, 1);
-
-            // Repuesto
-            var repuestoLabel = new Label(servicio.id_Repuesto);
-            repuestoLabel.Xalign = 0f;
-            table.Attach(repuestoLabel, 1, filaActual, 1, 1);
-
-            // Vehiculos
-            var vehiculosLabel = new Label(servicio.id_Vehiculo);
-            vehiculosLabel.Xalign = 0f;
-            table.Attach(vehiculosLabel, 2, filaActual, 1, 1);
-
-            // Detalles
-            var detallesLabel = new Label(servicio.detalles);
-            detallesLabel.Xalign = 0f;
-            table.Attach(detallesLabel, 3, filaActual, 1, 1);
-
-            // Costo
-            var costoLabel = new Label(servicio.costo.ToString("0.00"));
-            costoLabel.Xalign = 1f; // Alinear a la derecha
-            table.Attach(costoLabel, 4, filaActual, 1, 1);
-
-            filaActual++;
+            TablaPostOrdenRecursivo(arbolServicios.raiz);
         }
 
-        // Método para manejar el evento de clic en el botón "Regresar"
-        private void goBack(object sender, EventArgs e)
+        private void TablaPostOrdenRecursivo(NodoBST nodo)
         {
-            OpcionesUsuario opciones = OpcionesUsuario.Instance;
-            opciones.DeleteEvent += OnWindowDelete;
-            opciones.ShowAll();
-            this.Hide();
+            if(nodo != null)
+            {
+                TablaPostOrdenRecursivo(nodo.izquierda);
+                TablaPostOrdenRecursivo(nodo.derecha);
+                if(EsServicioDelUsuario(nodo.servicios))
+                {
+                    AgregarFilaTabla(nodo.servicios);
+                }
+            }
         }
 
-        // Método para manejar el evento de cierre de la ventana
+        private bool EsServicioDelUsuario(Servicios servicio)
+        {
+            // Obtener el vehículo asociado al servicio
+            var vehiculo = listaVehiculos.BuscarVehiculo(servicio.id_Vehiculo);
+            
+            // Verificar si el vehículo pertenece al usuario actual
+            return vehiculo != null && vehiculo.ID_Usuario == manejoSesion.currentUserId;
+        }
+
+        private void AgregarFilaTabla(Servicios servicio)
+        {
+            try
+            {
+                // Obtener información del vehículo
+                var vehiculo = listaVehiculos.BuscarVehiculo(servicio.id_Vehiculo);
+                string infoVehiculo = vehiculo != null ? $"{vehiculo.marca} {vehiculo.modelo}" : "Desconocido";
+
+                // ID Servicio
+                var idLabel = new Label(servicio.id.ToString());
+                idLabel.Xalign = 0f;
+                tabla.Attach(idLabel, 0, filaActual, 1, 1);
+
+                // Vehículo
+                var vehiculoLabel = new Label(infoVehiculo);
+                vehiculoLabel.Xalign = 0f;
+                tabla.Attach(vehiculoLabel, 1, filaActual, 1, 1);
+
+                // ID Repuesto (o nombre si lo tienes)
+                var repuestoLabel = new Label(servicio.id_Repuesto.ToString());
+                repuestoLabel.Xalign = 0f;
+                tabla.Attach(repuestoLabel, 2, filaActual, 1, 1);
+
+                // Detalles
+                var detallesLabel = new Label(servicio.detalles);
+                detallesLabel.Xalign = 0f;
+                tabla.Attach(detallesLabel, 3, filaActual, 1, 1);
+
+                // Costo
+                var costoLabel = new Label(servicio.costo.ToString("0.00"));
+                costoLabel.Xalign = 1f;
+                tabla.Attach(costoLabel, 4, filaActual, 1, 1);
+
+                // Estado (podrías añadir esta propiedad a tu clase Servicios)
+                var estadoLabel = new Label("Completado"); // o "En progreso", etc.
+                estadoLabel.Xalign = 0f;
+                tabla.Attach(estadoLabel, 5, filaActual, 1, 1);
+
+                filaActual++;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error al agregar fila: " + ex.Message);
+            }
+        }
+
+        private void Regresar(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Hide();
+                var opciones = OpcionesUsuario.Instance;
+                opciones.ShowAll();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error al regresar: " + ex.Message);
+                MostrarError("Error al regresar al menú");
+            }
+        }
+
+        private void MostrarError(string mensaje)
+        {
+            MessageDialog md = new MessageDialog(this, 
+                DialogFlags.Modal, 
+                MessageType.Error, 
+                ButtonsType.Ok, 
+                mensaje);
+            md.Run();
+            md.Destroy();
+        }
+
         static void OnWindowDelete(object sender, DeleteEventArgs args)
         {
             ((Window)sender).Hide();
