@@ -1,6 +1,3 @@
-using System;
-using System.Runtime.ExceptionServices;
-
 namespace Structures
 {
     public class ArbolBST
@@ -96,7 +93,7 @@ namespace Structures
             return BuscarRecursivamente(nodo.derecha, id);
         }
 
-        public NodoBST Buscar2(int id)
+        /*public NodoBST Buscar2(int id)
         {
             return BuscarRecursivamente2(raiz, id);
         }
@@ -117,7 +114,7 @@ namespace Structures
             }
             
             return BuscarRecursivamente2(nodo.derecha, id_Vehiculo);
-        }
+        }*/
 
         public void RecorridoPreOrden()
         {

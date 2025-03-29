@@ -171,7 +171,7 @@ namespace Interfaces2
             detallesHeader.Xalign = 0f;
             tabla.Attach(detallesHeader, 3, 0, 1, 1);
 
-            var costoHeader = new Label("Costo ($)");
+            var costoHeader = new Label("Costo");
             costoHeader.Xalign = 1f;
             tabla.Attach(costoHeader, 4, 0, 1, 1);
 
@@ -280,11 +280,6 @@ namespace Interfaces2
                 var costoLabel = new Label(servicio.costo.ToString("0.00"));
                 costoLabel.Xalign = 1f;
                 tabla.Attach(costoLabel, 4, filaActual, 1, 1);
-
-                // Estado (podrías añadir esta propiedad a tu clase Servicios)
-                var estadoLabel = new Label("Completado"); // o "En progreso", etc.
-                estadoLabel.Xalign = 0f;
-                tabla.Attach(estadoLabel, 5, filaActual, 1, 1);
 
                 filaActual++;
             }

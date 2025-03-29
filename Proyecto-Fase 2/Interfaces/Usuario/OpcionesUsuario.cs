@@ -46,12 +46,14 @@ namespace Interfaces2
             Button gestionEntidades = CreateButton("Visualizacion de Servicios", seeServices);
             Button actualizacionRepuestos = CreateButton("Visualizacion de Facturas", seeBills);
             Button visualizarRepuestos = CreateButton("Cancelar Facturas", cancelBill);
+            Button regresar = CreateButton("Regresar", goBack);
 
             // Agregar botones al contenedor
             container.PackStart(bulkUploadButton, true, true, 0);
             container.PackStart(gestionEntidades, true, true, 0);
             container.PackStart(actualizacionRepuestos, true, true, 0);
             container.PackStart(visualizarRepuestos, true, true, 0);
+            container.PackStart(regresar, true, true, 0);
 
             return container;
         }
@@ -93,7 +95,12 @@ namespace Interfaces2
 
         private void cancelBill(object sender, EventArgs e)
         {
-            //OpenWindow(cancelarFactura.Instance);
+            OpenWindow(cancelarFactura.Instance);
+        }
+
+        private void goBack(object sender, EventArgs e)
+        {
+            OpenWindow(Login.Instance);
         }
 
         // Método para abrir una ventana y ocultar la actual

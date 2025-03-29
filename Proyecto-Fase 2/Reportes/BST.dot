@@ -3,34 +3,40 @@ digraph AVL{
 	graph[pencolor=transparent];
 	subgraph cluster_0{
 		label = "Arbol BST";
-	"30" [label = "ID: 30
-Repuesto: 2
+	"25" [label = "ID: 25
+Repuesto: 1
 Vehiculo: 1
 Detalles: Prueba 1
-Costo: 20"];
-	"30" -> "25";
-	"30" -> "45";
-	"25" [label = "ID: 25
-Repuesto: 3
+Costo: 25"];
+	"25" -> "12";
+	"25" -> "50";
+	"12" [label = "ID: 12
+Repuesto: 14
+Vehiculo: 1
+Detalles: Prueba 3
+Costo: 12"];
+	"12" -> "10";
+	"10" [label = "ID: 10
+Repuesto: 4
+Vehiculo: 1
+Detalles: Prueba 6
+Costo: 50"];
+	"50" [label = "ID: 50
+Repuesto: 9
 Vehiculo: 1
 Detalles: Prueba 2
 Costo: 30"];
-	"25" -> "27";
-	"27" [label = "ID: 27
-Repuesto: 5
-Vehiculo: 2
-Detalles: Prueba 3
-Costo: 65"];
-	"45" [label = "ID: 45
-Repuesto: 9
-Vehiculo: 2
-Detalles: Prueba 4
-Costo: 25"];
-	"45" -> "40";
-	"40" [label = "ID: 40
-Repuesto: 5
+	"50" -> "30";
+	"50" -> "60";
+	"30" [label = "ID: 30
+Repuesto: 8
 Vehiculo: 3
 Detalles: Prueba 5
-Costo: 61"];
+Costo: 80"];
+	"60" [label = "ID: 60
+Repuesto: 1
+Vehiculo: 2
+Detalles: Prueba 4
+Costo: 66"];
 		}
 }

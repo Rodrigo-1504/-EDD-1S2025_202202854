@@ -21,7 +21,7 @@ namespace Structures
             }
         }
 
-        private NodoB raiz;
+        public NodoB raiz;
 
         public ArbolB()
         {
@@ -44,6 +44,12 @@ namespace Structures
                 Console.WriteLine($"Error: Factura con ID {factura.id} ya existe");
                 return;
             }
+
+            /*if(Buscar(factura.id_Servicio) != null)
+            {
+                Console.WriteLine($"Error: Factura con Servicio del id {factura.id_Servicio} ya existe");
+                return;
+            }*/
 
             // Si la raíz está llena, dividirla
             if (raiz.Lleno())
@@ -155,7 +161,7 @@ namespace Structures
             return BuscarRecursivo(nodo.hijos[i], id);
         }
 
-        public Facturas Buscar2(int id)
+        /*public Facturas Buscar2(int id)
         {
             return BuscarRecursivo2(raiz, id);
         }
@@ -181,7 +187,7 @@ namespace Structures
             }
 
             return BuscarRecursivo2(nodo.hijos[i], id);
-        }
+        }*/
 
         // Elimina una factura por ID
         public void Eliminar(int id)
