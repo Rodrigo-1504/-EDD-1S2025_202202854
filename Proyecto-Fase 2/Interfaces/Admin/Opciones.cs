@@ -101,7 +101,73 @@ namespace Interfaces2
 
         private void goControl(object sender, EventArgs e)
         {
-            //OpenWindow(ControlLogueo.Instance);
+            // Crear ventana para mostrar logs
+            Window logWindow = new Window("Control de Logueo")
+            {
+                DefaultWidth = 800,
+                DefaultHeight = 600,
+                WindowPosition = WindowPosition.Center
+            };
+
+            // Crear contenedor principal
+            VBox mainBox = new VBox
+            {
+                BorderWidth = 20,
+                Spacing = 10
+            };
+
+            // Crear tabla con scroll
+            ScrolledWindow scroll = new ScrolledWindow();
+            Grid grid = new Grid
+            {
+                ColumnSpacing = 10,
+                RowSpacing = 10,
+                Margin = 10
+            };
+            scroll.Add(grid);
+
+            // Crear encabezados
+            grid.Attach(new Label("Usuario") { Xalign = 0f }, 0, 0, 1, 1);
+            grid.Attach(new Label("Acción") { Xalign = 0f }, 1, 0, 1, 1);
+            grid.Attach(new Label("Fecha/Hora") { Xalign = 0f }, 2, 0, 1, 1);
+
+            // Obtener logs
+            var logs = manejoSesion.GetAccessLogs();
+            int row = 1;
+
+            // Mostrar logs en la tabla
+            foreach (var log in logs)
+            {
+                grid.Attach(new Label(log["usuario"]) { Xalign = 0f }, 0, row, 1, 1);
+                grid.Attach(new Label(log["accion"]) { Xalign = 0f }, 1, row, 1, 1);
+                grid.Attach(new Label(log["fecha"]) { Xalign = 0f }, 2, row, 1, 1);
+                row++;
+            }
+
+            // Botón para regresar
+            Button backButton = new Button("Regresar");
+            backButton.Clicked += (s, args) => 
+            {
+                logWindow.Hide();
+                this.ShowAll();
+            };
+
+            // Agregar elementos al contenedor principal
+            mainBox.PackStart(scroll, true, true, 0);
+            mainBox.PackStart(backButton, false, false, 5);
+
+            // Configurar ventana
+            logWindow.Add(mainBox);
+            logWindow.DeleteEvent += (s, args) => 
+            {
+                logWindow.Hide();
+                this.ShowAll();
+                args.RetVal = true;
+            };
+
+            // Mostrar ventana y ocultar la actual
+            logWindow.ShowAll();
+            this.Hide();
         }
 
         private void goReportes(object sender, EventArgs e)

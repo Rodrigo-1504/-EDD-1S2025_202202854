@@ -1,12 +1,4 @@
-digraph BTree {
+digraph G {
 	node[shape=record];
-	graph[pencolor=transparent];
-	subgraph cluster_0{
-		label = "Árbol B (Orden 5)";
-	"node0" [label = "{ID: 2\nServ: 50\nTotal: 180,00}"];
-	"node1" [label = "{ID: 1\nServ: 25\nTotal: 50,50}"];
-	"node0" -> "node1";
-	"node2" [label = "{ID: 3\nServ: 12\nTotal: 132,00|ID: 4\nServ: 60\nTotal: 91,50|ID: 5\nServ: 30\nTotal: 160,00|ID: 6\nServ: 10\nTotal: 95,30}"];
-	"node0" -> "node2";
-	}
+	NULL[label = "{Árbol B vacío}"];
 }
