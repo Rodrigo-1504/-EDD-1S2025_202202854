@@ -2,93 +2,146 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
-using Structures;
+using System.Text.Json.Serialization;
+using System.Globalization;
 
 namespace Interfaces2
 {
-    public static class manejoSesion
+    public static class ManejoSesion
     {
-        public static int currentUserId { get; set; }
-        public static string currentUserMail { get; set; }
-        public static bool isAdmin { get; set; }
+        private static readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            Converters = { new DateTimeConverter() }
+        };
+
+        public static int CurrentUserId { get; private set; }
+        public static string CurrentUserMail { get; private set; }
+        public static bool IsAdmin { get; private set; }
         public static DateTime LoginTime { get; private set; }
-        public static readonly string logFilePath = "Reportes/accesos.json";
+        public static string LogFilePath { get; } = Path.Combine("Reportes", "accesos.json");
 
         public static void Login(int userId, string email, bool admin)
         {
-            currentUserId = userId;
-            currentUserMail = email;
-            isAdmin = admin;
+            CurrentUserId = userId;
+            CurrentUserMail = email ?? throw new ArgumentNullException(nameof(email));
+            IsAdmin = admin;
             LoginTime = DateTime.Now;
 
-            // Registrar el inicio de sesión
-            LogAccess("Entrada");
+            LogAccess("Inicio de sesión");
         }
 
         public static void Logout()
         {
-            // Registrar el cierre de sesión
-            LogAccess("Salida");
+            if (CurrentUserId == 0) return; // No hay sesión activa
 
-            // Limpiar datos
-            currentUserId = 0;
-            currentUserMail = null;
-            isAdmin = false;
+            LogAccess("Cierre de sesión");
+            ClearSession();
+        }
+
+        private static void ClearSession()
+        {
+            CurrentUserId = 0;
+            CurrentUserMail = null;
+            IsAdmin = false;
         }
 
         public static void LogAccess(string action)
         {
             try
             {
-                // Crear directorio si no existe
-                Directory.CreateDirectory(Path.GetDirectoryName(logFilePath));
+                if (string.IsNullOrEmpty(action))
+                    throw new ArgumentException("La acción no puede estar vacía", nameof(action));
 
-                // Crear objeto de log
-                var logEntry = new
+                EnsureLogDirectoryExists();
+
+                var logEntry = new AccessLog
                 {
-                    usuario = currentUserMail,
-                    accion = action,
-                    fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff")
+                    Usuario = CurrentUserMail,
+                    Accion = action,
+                    Fecha = DateTime.Now
                 };
 
-                // Leer logs existentes
-                List<object> logs = new List<object>();
-                if (File.Exists(logFilePath))
-                {
-                    string jsonData = File.ReadAllText(logFilePath);
-                    logs = JsonSerializer.Deserialize<List<object>>(jsonData) ?? new List<object>();
-                }
-
-                // Agregar nuevo log
+                var logs = GetExistingLogs();
                 logs.Add(logEntry);
 
-                // Escribir archivo JSON
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                string jsonString = JsonSerializer.Serialize(logs, options);
-                File.WriteAllText(logFilePath, jsonString);
+                SaveLogsToFile(logs);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al registrar log de acceso: {ex.Message}");
+                Console.WriteLine($"Error al registrar acceso: {ex.Message}");
+                // Considerar agregar un sistema de reintentos o notificación
             }
         }
 
-        // Método para obtener todos los logs (para el administrador)
-        public static List<Dictionary<string, string>> GetAccessLogs()
+        private static void EnsureLogDirectoryExists()
+        {
+            var directory = Path.GetDirectoryName(LogFilePath);
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+        }
+
+        private static List<AccessLog> GetExistingLogs()
+        {
+            if (!File.Exists(LogFilePath))
+                return new List<AccessLog>();
+
+            try
+            {
+                string jsonData = File.ReadAllText(LogFilePath);
+                return JsonSerializer.Deserialize<List<AccessLog>>(jsonData, _jsonOptions) 
+                    ?? new List<AccessLog>();
+            }
+            catch (JsonException)
+            {
+                // Si el archivo está corrupto, crear uno nuevo
+                File.Delete(LogFilePath);
+                return new List<AccessLog>();
+            }
+        }
+
+        private static void SaveLogsToFile(List<AccessLog> logs)
+        {
+            string jsonString = JsonSerializer.Serialize(logs, _jsonOptions);
+            File.WriteAllText(LogFilePath, jsonString);
+        }
+
+        public static IReadOnlyList<AccessLog> GetAccessLogs()
         {
             try
             {
-                if (File.Exists(logFilePath))
-                {
-                    string jsonData = File.ReadAllText(logFilePath);
-                    return JsonSerializer.Deserialize<List<Dictionary<string, string>>>(jsonData) ?? new List<Dictionary<string, string>>();
-                }
+                return GetExistingLogs().AsReadOnly();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al leer logs de acceso: {ex.Message}");
+                Console.WriteLine($"Error al obtener logs: {ex.Message}");
+                return new List<AccessLog>().AsReadOnly();
             }
-            return new List<Dictionary<string, string>>();
+        }
+
+        public class AccessLog
+        {
+            public string Usuario { get; set; }
+            public string Accion { get; set; }
+            public DateTime Fecha { get; set; }
+        }
+
+        private class DateTimeConverter : JsonConverter<DateTime>
+        {
+            private const string Format = "yyyy-MM-dd HH:mm:ss.ff";
+
+            public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+            {
+                return DateTime.ParseExact(reader.GetString(), Format, CultureInfo.InvariantCulture);
+            }
+
+            public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
+            {
+                writer.WriteStringValue(value.ToString(Format, CultureInfo.InvariantCulture));
+            }
         }
     }
 }

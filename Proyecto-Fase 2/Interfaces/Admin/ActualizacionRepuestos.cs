@@ -162,50 +162,119 @@ namespace Interfaces2
         // Método para manejar el evento de clic en el botón "Regresar"
         private void goBack(object sender, EventArgs e)
         {
-            Opciones opciones = Opciones.Instance;
-            opciones.DeleteEvent += OnWindowDelete;
-            opciones.ShowAll();
-            this.Hide();
+            try
+            {
+                Opciones opciones = Opciones.Instance;
+                opciones.DeleteEvent += OnWindowDelete;
+                opciones.ShowAll();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al regresar: {ex.Message}");
+                // Podrías mostrar un mensaje al usuario aquí
+            }
         }
 
         // Método para manejar el evento de cierre de la ventana
         static void OnWindowDelete(object sender, DeleteEventArgs args)
         {
-            ((Window)sender).Hide();
-            args.RetVal = true;
+            try
+            {
+                ((Window)sender).Hide();
+                args.RetVal = true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al cerrar ventana: {ex.Message}");
+            }
         }
 
         // Método para buscar un usuario
         private void buscarRepuesto(object sender, EventArgs e)
         {
-            NodoAVL repuestoBuscado = listaRepuestos.Buscar(Convert.ToInt32(idEntry.Text));
-
-            if (repuestoBuscado != null)
+            try
             {
-                repuestoLabel2.Text = repuestoBuscado.repuestos.repuesto;
-                detallesLabel2.Text = repuestoBuscado.repuestos.detalles;
-                costoLabel2.Text = repuestoBuscado.repuestos.costo.ToString();
+                if (string.IsNullOrEmpty(idEntry.Text))
+                {
+                    Console.WriteLine("El campo ID no puede estar vacío");
+                    return;
+                }
+
+                int id = Convert.ToInt32(idEntry.Text);
+                NodoAVL repuestoBuscado = listaRepuestos.Buscar(id);
+
+                if (repuestoBuscado != null)
+                {
+                    repuestoLabel2.Text = repuestoBuscado.repuestos.repuesto;
+                    detallesLabel2.Text = repuestoBuscado.repuestos.detalles;
+                    costoLabel2.Text = repuestoBuscado.repuestos.costo.ToString();
+                }
+                else
+                {
+                    Console.WriteLine("Repuesto no encontrado");
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("El ID debe ser un número válido");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al buscar repuesto: {ex.Message}");
             }
         }
 
         // Método para editar un usuario
         private void editarRepuesto(object sender, EventArgs e)
         {
-            NodoAVL repuestoBuscado = listaRepuestos.Buscar(Convert.ToInt32(idEntry.Text));
-
-            if (repuestoBuscado != null)
+            try
             {
-                listaRepuestos.Actualizar(
-                    repuestoBuscado.repuestos.id,
-                    repuestoEntry.Text, 
-                    detallesEntry.Text, 
-                    Convert.ToDouble(costoEntry.Text)
-                );
+                if (string.IsNullOrEmpty(idEntry.Text))
+                {
+                    Console.WriteLine("El campo ID no puede estar vacío");
+                    return;
+                }
+
+                int id = Convert.ToInt32(idEntry.Text);
+                NodoAVL repuestoBuscado = listaRepuestos.Buscar(id);
+
+                if (repuestoBuscado != null)
+                {
+                    // Validar campos vacíos
+                    if (string.IsNullOrEmpty(repuestoEntry.Text) || 
+                        string.IsNullOrEmpty(detallesEntry.Text) || 
+                        string.IsNullOrEmpty(costoEntry.Text))
+                    {
+                        Console.WriteLine("Todos los campos son obligatorios");
+                        return;
+                    }
+
+                    double costo = Convert.ToDouble(costoEntry.Text);
+                    
+                    listaRepuestos.Actualizar(
+                        repuestoBuscado.repuestos.id,
+                        repuestoEntry.Text, 
+                        detallesEntry.Text, 
+                        costo
+                    );
+                }
+                else
+                {
+                    Console.WriteLine("Repuesto no encontrado");
+                }
+
+                Console.WriteLine("\n--NUEVA LISTA---");
+                listaRepuestos.RecorridoEnOrden();
             }
-
-            Console.WriteLine("\n--NUEVA LISTA---");
-            listaRepuestos.RecorridoEnOrden();
+            catch (FormatException)
+            {
+                Console.WriteLine("El ID y el costo deben ser valores numéricos válidos");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al editar repuesto: {ex.Message}");
+            }
         }
-
     }
 }

@@ -1,12 +1,17 @@
 [
   {
-    "usuario": "isabel.cristina@usac.com",
-    "accion": "Entrada",
-    "fecha": "2025-03-28 22:58:17.37"
+    "usuario": "carlos.alberto@usac.com",
+    "accion": "Inicio de sesi\u00F3n",
+    "fecha": "2025-03-28 23:46:26.86"
   },
   {
-    "usuario": "rafael.alejandro@usac.com",
-    "accion": "Entrada",
-    "fecha": "2025-03-28 22:58:37.60"
+    "usuario": "ana.lucia@usac.com",
+    "accion": "Inicio de sesi\u00F3n",
+    "fecha": "2025-03-28 23:47:48.82"
+  },
+  {
+    "usuario": "admin@usac.com",
+    "accion": "Inicio de sesi\u00F3n",
+    "fecha": "2025-03-28 23:47:57.10"
   }
 ]

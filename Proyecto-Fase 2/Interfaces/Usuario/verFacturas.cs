@@ -164,7 +164,7 @@ namespace Interfaces2
             var vehiculo = listaVehiculos.BuscarVehiculo(servicio.servicios.id_Vehiculo);
             
             // 3. Verificar si el vehículo pertenece al usuario actual
-            return vehiculo != null && vehiculo.ID_Usuario == manejoSesion.currentUserId;
+            return vehiculo != null && vehiculo.ID_Usuario == ManejoSesion.CurrentUserId;
         }
 
         private void AgregarFilaTabla(Facturas factura)

@@ -1,4 +1,42 @@
-digraph G {
+digraph AVL{
 	node[shape=circle];
-	NULL[label = "{NULL}"];
+	graph[pencolor=transparent];
+	subgraph cluster_0{
+		label = "Arbol BST";
+	"25" [label = "ID: 25
+Repuesto: 1
+Vehiculo: 1
+Detalles: Prueba 1
+Costo: 25"];
+	"25" -> "15";
+	"25" -> "35";
+	"15" [label = "ID: 15
+Repuesto: 2
+Vehiculo: 1
+Detalles: Prueba 2
+Costo: 100"];
+	"15" -> "10";
+	"10" [label = "ID: 10
+Repuesto: 4
+Vehiculo: 1
+Detalles: Prueba 4
+Costo: 52"];
+	"35" [label = "ID: 35
+Repuesto: 3
+Vehiculo: 1
+Detalles: Prueba 3
+Costo: 51"];
+	"35" -> "50";
+	"50" [label = "ID: 50
+Repuesto: 6
+Vehiculo: 2
+Detalles: Prueba 5
+Costo: 23"];
+	"50" -> "67";
+	"67" [label = "ID: 67
+Repuesto: 9
+Vehiculo: 1
+Detalles: Prueba 6
+Costo: 20"];
+		}
 }

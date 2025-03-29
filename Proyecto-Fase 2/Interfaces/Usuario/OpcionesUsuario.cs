@@ -5,7 +5,6 @@ namespace Interfaces2
 {
     public class OpcionesUsuario : Window
     {
-        // Singleton para la ventana de OpcionesUsuario de administrador
         private static OpcionesUsuario _instance;
 
         public static OpcionesUsuario Instance
@@ -20,59 +19,57 @@ namespace Interfaces2
             }
         }
 
-        // Constructor
         public OpcionesUsuario() : base("Users Options")
         {
-            // Configuración de la ventana
-            SetDefaultSize(300, 400);
-            SetPosition(WindowPosition.Center);
-
-            // Crear y configurar el contenedor de botones
-            VBox buttonsContainer = CreateButtonsContainer();
-            Add(buttonsContainer);
+            try
+            {
+                SetDefaultSize(300, 400);
+                SetPosition(WindowPosition.Center);
+                VBox buttonsContainer = CreateButtonsContainer();
+                Add(buttonsContainer);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error inicializando la ventana: " + ex.Message);
+            }
         }
 
-        // Método para crear el contenedor de botones
         private VBox CreateButtonsContainer()
         {
-            VBox container = new VBox
+            VBox container = new VBox { BorderWidth = 20, Spacing = 10 };
+
+            try
             {
-                BorderWidth = 20,
-                Spacing = 10
-            };
+                Button bulkUploadButton = CreateButton("Insertar Vehiculo", insertVehicles);
+                Button gestionEntidades = CreateButton("Visualizacion de Servicios", seeServices);
+                Button actualizacionRepuestos = CreateButton("Visualizacion de Facturas", seeBills);
+                Button visualizarRepuestos = CreateButton("Cancelar Facturas", cancelBill);
+                Button regresar = CreateButton("Regresar", goBack);
 
-            // Crear y configurar los botones
-            Button bulkUploadButton = CreateButton("Insertar Vehiculo", insertVehicles);
-            Button gestionEntidades = CreateButton("Visualizacion de Servicios", seeServices);
-            Button actualizacionRepuestos = CreateButton("Visualizacion de Facturas", seeBills);
-            Button visualizarRepuestos = CreateButton("Cancelar Facturas", cancelBill);
-            Button regresar = CreateButton("Regresar", goBack);
-
-            // Agregar botones al contenedor
-            container.PackStart(bulkUploadButton, true, true, 0);
-            container.PackStart(gestionEntidades, true, true, 0);
-            container.PackStart(actualizacionRepuestos, true, true, 0);
-            container.PackStart(visualizarRepuestos, true, true, 0);
-            container.PackStart(regresar, true, true, 0);
+                container.PackStart(bulkUploadButton, true, true, 0);
+                container.PackStart(gestionEntidades, true, true, 0);
+                container.PackStart(actualizacionRepuestos, true, true, 0);
+                container.PackStart(visualizarRepuestos, true, true, 0);
+                container.PackStart(regresar, true, true, 0);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error creando botones: " + ex.Message);
+            }
 
             return container;
         }
 
-        // Método para crear un botón con un manejador de eventos
         private Button CreateButton(string label, EventHandler handler)
         {
-            Button button = new Button(label)
-            {
-                MarginBottom = 5
-            };
+            Button button = new Button(label) { MarginBottom = 5 };
             button.Clicked += handler;
             return button;
         }
 
-        // Métodos para manejar los eventos de clic en los botones
         private void insertVehicles(object sender, EventArgs e)
         {
-            OpenWindow(insertarVehiculo.Instance);
+            OpenWindow(InsertarVehiculo.Instance);
         }
 
         private void seeServices(object sender, EventArgs e)
@@ -81,37 +78,62 @@ namespace Interfaces2
             {
                 OpenWindow(verServicios.Instance);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("Error abriendo la ventana de servicios: " + ex.Message);
             }
-            
         }
 
         private void seeBills(object sender, EventArgs e)
         {
-            OpenWindow(verFacturas.Instance);
+            try
+            {
+                OpenWindow(verFacturas.Instance);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error abriendo la ventana de facturas: " + ex.Message);
+            }
         }
 
         private void cancelBill(object sender, EventArgs e)
         {
-            OpenWindow(cancelarFactura.Instance);
+            try
+            {
+                OpenWindow(cancelarFactura.Instance);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error abriendo la ventana de cancelación de facturas: " + ex.Message);
+            }
         }
 
         private void goBack(object sender, EventArgs e)
         {
-            OpenWindow(Login.Instance);
+            try
+            {
+                OpenWindow(Login.Instance);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error regresando a la ventana de login: " + ex.Message);
+            }
         }
 
-        // Método para abrir una ventana y ocultar la actual
         private void OpenWindow(Window window)
         {
-            window.DeleteEvent += OnWindowDelete;
-            window.ShowAll();
-            this.Hide();
+            try
+            {
+                window.DeleteEvent += OnWindowDelete;
+                window.ShowAll();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al abrir la ventana: " + ex.Message);
+            }
         }
 
-        // Método para manejar el evento de cierre de la ventana
         static void OnWindowDelete(object sender, DeleteEventArgs args)
         {
             ((Window)sender).Hide();
