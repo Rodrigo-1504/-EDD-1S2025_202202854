@@ -1,0 +1,21 @@
+graph GrafoVehiculosRepuestos {
+	label="Grafo No Dirigido: Vehiculos - Repuestos";
+	label="Rodrigo Tahuite - 202202854";
+	node [shape=box, style=filled];
+	rankdir=LR;
+	fontsize=20;
+
+	"V1" [label="Vehículo\nID: V1\nMarca: Toyota", shape=box, color=lightblue];
+	"V2" [label="Vehículo\nID: V2\nMarca: Mercedes", shape=box, color=lightblue];
+	"V3" [label="Vehículo\nID: V3\nMarca: BMW", shape=box, color=lightblue];
+	"R1" [label="Repuesto\nID: R1\nNombre: Neumatico\nDetalles: Se rompio\nCosto: 20", shape=ellipse, color=lightgreen];
+	"R2" [label="Repuesto\nID: R2\nNombre: ALGO\nDetalles: Se rompio 2\nCosto: 21", shape=ellipse, color=lightgreen];
+	"R3" [label="Repuesto\nID: R3\nNombre: ALGO 2\nDetalles: Se rompio 3\nCosto: 22", shape=ellipse, color=lightgreen];
+	"R4" [label="Repuesto\nID: R4\nNombre: ALGO 3\nDetalles: Se rompio 4\nCosto: 23", shape=ellipse, color=lightgreen];
+	"V1" -- "R1";
+	"V1" -- "R2";
+	"V2" -- "R2";
+	"V3" -- "R1";
+	"V3" -- "R3";
+	"V3" -- "R4";
+}

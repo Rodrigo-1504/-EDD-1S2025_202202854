@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "8xvFWLF21XCzCVWbdHHiZqwg7MuiWMv8leuS2qlLYRu5Artn164Kxrf5caXddngcXAdOP+jCwcL5dY9lT8GWSA==",
+  "success": true,
+  "projectFilePath": "/home/rodrigo-linux/Documentos/EDD_LAB/-EDD-1S2025_202202854/Proyecto-Fase 3/Proyecto-Fase 3.csproj",
+  "expectedPackageFiles": [
+    "/home/rodrigo-linux/.nuget/packages/atksharp/3.24.24.95/atksharp.3.24.24.95.nupkg.sha512",
+    "/home/rodrigo-linux/.nuget/packages/cairosharp/3.24.24.95/cairosharp.3.24.24.95.nupkg.sha512",
+    "/home/rodrigo-linux/.nuget/packages/gdksharp/3.24.24.95/gdksharp.3.24.24.95.nupkg.sha512",
+    "/home/rodrigo-linux/.nuget/packages/giosharp/3.24.24.95/giosharp.3.24.24.95.nupkg.sha512",
+    "/home/rodrigo-linux/.nuget/packages/glibsharp/3.24.24.95/glibsharp.3.24.24.95.nupkg.sha512",
+    "/home/rodrigo-linux/.nuget/packages/gtksharp/3.24.24.95/gtksharp.3.24.24.95.nupkg.sha512",
+    "/home/rodrigo-linux/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
+    "/home/rodrigo-linux/.nuget/packages/pangosharp/3.24.24.95/pangosharp.3.24.24.95.nupkg.sha512"
+  ],
+  "logs": []
+}

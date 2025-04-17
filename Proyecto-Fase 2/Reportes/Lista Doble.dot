@@ -19,7 +19,6 @@ digraph {
 			n12 [label = "{ID: 13 \n ID_USUARIOS: 8 \n Marca: Toyota Camry \n Modelo: 2014 \n Placa: OIJ6R4F}"];
 			n13 [label = "{ID: 14 \n ID_USUARIOS: 9 \n Marca: Chevrolet Spark \n Modelo: 2011 \n Placa: XTR9E1Q}"];
 			n14 [label = "{ID: 15 \n ID_USUARIOS: 10 \n Marca: Mazda CX-5 \n Modelo: 2017 \n Placa: VWL3P0D}"];
-			n15 [label = "{ID: 16 \n ID_USUARIOS: 1 \n Marca: Kia Picanto \n Modelo: 2021 \n Placa: JJAJAAJA}"];
 			n0->n1;
 			n1->n2;
 			n1->n0;
@@ -47,8 +46,6 @@ digraph {
 			n12->n11;
 			n13->n14;
 			n13->n12;
-			n14->n15;
 			n14->n13;
-			n15->n14;
 		}
 }

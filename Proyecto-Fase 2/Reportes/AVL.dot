@@ -23,8 +23,8 @@ Costo: 15,75"];
 	"2" -> "3";
 	"1" [label = "ID: 1 
 Repuesto: Filtro de aceite
-Detalles: Filtra impurezas del aceite del motor.
-Costo: 25,5"];
+Detalles: Filtrado de calificación
+Costo: 25"];
 	"3" [label = "ID: 3 
 Repuesto: Frenos delanteros
 Detalles: Piezas para frenar el vehículo en la parte delantera.
@@ -76,6 +76,11 @@ Costo: 20,8"];
 	"15" [label = "ID: 15 
 Repuesto: Bombas de freno
 Detalles: Componente que genera presión para accionar los frenos.
+Costo: 75"];
+	"15" -> "16";
+	"16" [label = "ID: 16 
+Repuesto: Batería
+Detalles: Componente necesario para energia del carro y funcione.
 Costo: 75"];
 		}
 }

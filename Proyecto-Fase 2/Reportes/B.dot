@@ -3,10 +3,12 @@ digraph BTree {
 	graph[pencolor=transparent];
 	subgraph cluster_0{
 		label = "Árbol B (Orden 5)";
-	"node0" [label = "{ID: 2\nServ: 15\nTotal: 115,75}"];
-	"node1" [label = "{ID: 1\nServ: 25\nTotal: 50,50}"];
+	"node0" [label = "{ID: 4\nServ: 9\nTotal: 245,20|ID: 6\nServ: 20\nTotal: 145,30}"];
+	"node1" [label = "{ID: 2\nServ: 4\nTotal: 160,00|ID: 3\nServ: 6\nTotal: 200,00}"];
 	"node0" -> "node1";
-	"node2" [label = "{ID: 3\nServ: 35\nTotal: 111,00|ID: 5\nServ: 50\nTotal: 41,60|ID: 6\nServ: 67\nTotal: 170,00}"];
+	"node2" [label = "{ID: 5\nServ: 15\nTotal: 245,20}"];
 	"node0" -> "node2";
+	"node3" [label = "{ID: 7\nServ: 20\nTotal: 145,30|ID: 8\nServ: 15\nTotal: 35,00|ID: 9\nServ: 0\nTotal: 35,00}"];
+	"node0" -> "node3";
 	}
 }
