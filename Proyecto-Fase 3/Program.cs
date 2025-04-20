@@ -1,5 +1,4 @@
-﻿using System;
-using Gtk;
+﻿using Gtk;
 using DS;
 using System.Security.Cryptography;
 using System.Text;
@@ -38,18 +37,18 @@ namespace Interfaces3
         private static void CreateAdminUser()
         {
             try
-            {
-                if(BlockChain.Instance.BuscarUsuario("admin@usac.com", "admin123") != null) return;
-                
+            {  
                 var adminUser = new Usuarios(
                     ID: 0,
                     names: "Admin",
                     lastnames: "Admin",
                     mail: "admin@usac.com",
-                    password: EncriptarSHA256("admin123"),
-                    edad: 20);
+                    edad: 20,
+                    //password: EncriptarSHA256("admin123"));
+                    password: "admin123");
 
                 BlockChain.Instance.addUser(adminUser);
+                BlockChain.Instance.Imprimir();
                 
             }
             catch (Exception ex)
@@ -62,15 +61,6 @@ namespace Interfaces3
         private static void RunApplication()
         {
             Application.Run();
-        }
-
-        private static string EncriptarSHA256(string contraseña)
-        {
-            using(SHA256 sha256 = SHA256.Create())
-            {
-                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(contraseña));
-                return BitConverter.ToString(bytes).Replace("-", "").ToLower();
-            }
         }
 
         private static void OnWindowDelete(object sender, DeleteEventArgs args)

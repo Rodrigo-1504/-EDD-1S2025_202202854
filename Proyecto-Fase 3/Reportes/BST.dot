@@ -1,0 +1,32 @@
+digraph AVL{
+	ordering=out;
+	node[shape=circle];
+	graph[pencolor=transparent];
+	subgraph cluster_0{
+		label = "Arbol BST";
+	"4" [label = "ID: 4
+Repuesto: 3
+Vehiculo: 3
+Detalles: Calificacion servicio 2
+Costo: 100"];
+	"4" -> "1";
+	"4" -> "6";
+	{rank=same; "1"; "6"};
+	"1" [label = "ID: 1
+Repuesto: 2
+Vehiculo: 2
+Detalles: Calificacion servicio 1
+Costo: 75"];
+	"6" [label = "ID: 6
+Repuesto: 12
+Vehiculo: 12
+Detalles: Calificacion servicio 2
+Costo: 150"];
+	"6" -> "9";
+	"9" [label = "ID: 9
+Repuesto: 5
+Vehiculo: 12
+Detalles: Calificacion servicio 3
+Costo: 150"];
+		}
+}

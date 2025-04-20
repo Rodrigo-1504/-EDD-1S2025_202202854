@@ -8,10 +8,10 @@ namespace DS
     {
         public int Index { get; set; }
         public  DateTime TimeStap { get; set; }
-        public Usuarios? Data { get; set; }
+        public Usuarios Data { get; set; }
         public int Nonce { get; set; }
-        public string? PreviousHash { get; set; }
-        public string? Hash { get; set; }
+        public string PreviousHash { get; set; }
+        public string Hash { get; set; }
 
         public NodoBlockChain(int index, Usuarios user, string prevHash)
         {
@@ -46,8 +46,8 @@ namespace DS
 
         private string SerializeUsuario(Usuarios usuario)
         {
-            if(usuario == null) return "GenesisBlock";
 
+            if(usuario == null) return "genesisBlock";
             return $"{usuario.id}{usuario.nombres}{usuario.apellidos}{usuario.correo}{usuario.edades}{usuario.contrasenia}";
         }
     }

@@ -7,7 +7,7 @@ namespace DS
     {
         
         //Estructura para Usuarios
-        //PENDIENTE
+        BlockChain listaUsuarios = BlockChain.Instance;
         
         //INSTANCIAR
         private static ListaDoble _instance;
@@ -45,14 +45,13 @@ namespace DS
             }
 
             //VERIFICAR QUE EL USUARIO EXISTA
-            /*
-            if(ls.BuscarId(veh.ID_Usuario) == null)
+            
+            if(listaUsuarios.BuscarUsuarioID(veh.ID_Usuario) == null)
             {
                 Console.WriteLine("El usuario no existe");
                 return;
             }
-            */
-            
+        
             //SI LA LISTA ESTA VACIA, AGREGAR NODO A LA CABEZA
             if(cabeza == null)
             {
@@ -108,44 +107,7 @@ namespace DS
                 temporal = temporal.siguiente;
             }
         }
-/*      //VER SI SE IMPLEMENTA O NO
-        public void EliminarVehiculoPorUsuario(int idUsuario)
-        {
-            // LISTA VACÍA
-            if (cabeza == null) return;
 
-            // ELIMINAR TODOS LOS NODOS CON ID_Usuario = idUsuario
-            NodoDoble temporal = cabeza;
-            while (temporal != null)
-            {
-                if (temporal.vehiculo.ID_Usuario == idUsuario)
-                {
-                    // CASO 1: EL NODO A ELIMINAR ES LA CABEZA
-                    if (temporal == cabeza)
-                    {
-                        cabeza = cabeza.siguiente;
-                        if (cabeza != null)
-                        {
-                            cabeza.anterior = null;
-                        }
-                    }
-                    // CASO 2: EL NODO ESTÁ EN MEDIO O AL FINAL
-                    else
-                    {
-                        if (temporal.anterior != null)
-                        {
-                            temporal.anterior.siguiente = temporal.siguiente;
-                        }
-                        if (temporal.siguiente != null)
-                        {
-                            temporal.siguiente.anterior = temporal.anterior;
-                        }
-                    }
-                }
-                temporal = temporal.siguiente; // SIGUIENTE NODO
-            }
-        }
-*/
         public Vehiculos BuscarVehiculo(int id)
         {
             NodoDoble temporal = cabeza;

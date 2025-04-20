@@ -62,10 +62,12 @@ namespace DS
             if(servicio.id < nodo.servicios.id)
             {
                 nodo.izquierda = insertarRecursivamente(nodo.izquierda, servicio);
+                nodo = RotarDerecha(nodo);
             }
             else if(servicio.id > nodo.servicios.id)
             {
                 nodo.derecha = insertarRecursivamente(nodo.derecha, servicio);
+                nodo = RotarIzquierda(nodo);
             }
             return nodo;
         }
@@ -93,28 +95,29 @@ namespace DS
             return BuscarRecursivamente(nodo.derecha, id);
         }
 
-        /*public NodoBST Buscar2(int id)
+
+        // ROTACIONES PARA ACTUALIZAR EL NODO RAIZ
+        private NodoBST RotarDerecha(NodoBST nodo)
         {
-            return BuscarRecursivamente2(raiz, id);
+            if (nodo == null || nodo.izquierda == null)
+                return nodo;
+
+            NodoBST nuevaRaiz = nodo.izquierda;
+            nodo.izquierda = nuevaRaiz.derecha;
+            nuevaRaiz.derecha = nodo;
+            return nuevaRaiz;
         }
 
-        private NodoBST BuscarRecursivamente2(NodoBST nodo, int id_Vehiculo)
+        private NodoBST RotarIzquierda(NodoBST nodo)
         {
-            if(nodo == null) return null;
-            
-            if(id_Vehiculo == nodo.servicios.id_Vehiculo)
-            {
+            if (nodo == null || nodo.derecha == null)
                 return nodo;
-            }
 
-
-            if(id_Vehiculo < nodo.servicios.id_Vehiculo)
-            {
-                return BuscarRecursivamente2(nodo.izquierda, id_Vehiculo);
-            }
-            
-            return BuscarRecursivamente2(nodo.derecha, id_Vehiculo);
-        }*/
+            NodoBST nuevaRaiz = nodo.derecha;
+            nodo.derecha = nuevaRaiz.izquierda;
+            nuevaRaiz.izquierda = nodo;
+            return nuevaRaiz;
+        }
 
         public void RecorridoPreOrden()
         {
@@ -171,7 +174,7 @@ namespace DS
 
             string graphviz = "";
             graphviz += "digraph AVL{\n";
-            //graphviz += "\tnode[shape=circle, fixedsize=true, width=5.0, height=5.0, margin=0.1, style=filled, fillcolor=lightgray];\n";
+            graphviz += "\tordering=out;\n";
             graphviz += "\tnode[shape=circle];\n";
             graphviz += "\tgraph[pencolor=transparent];\n";
             graphviz += "\tsubgraph cluster_0{\n";
@@ -204,6 +207,11 @@ namespace DS
                 if (nodo.derecha != null)
                 {
                     graphviz += $"\t\"{nodo.servicios.id}\" -> \"{nodo.derecha.servicios.id}\";\n";
+                }
+
+                if(nodo.izquierda != null && nodo.derecha != null)
+                {
+                    graphviz += $"\t{{rank=same; \"{nodo.izquierda.servicios.id}\"; \"{nodo.derecha.servicios.id}\"}};\n";
                 }
 
                 // Recorrer los subárboles

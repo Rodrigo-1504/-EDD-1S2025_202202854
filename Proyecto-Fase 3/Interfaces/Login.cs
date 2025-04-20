@@ -61,7 +61,7 @@ namespace Interfaces3
 
                 // Configurar campo de contraseña
                 passwordEntry.Visibility = false; // Ocultar caracteres
-                passwordEntry.InvisibleChar = '•'; // Carácter de reemplazo
+                passwordEntry.InvisibleChar = '*'; // Carácter de reemplazo
             }
             catch (Exception ex)
             {
@@ -122,7 +122,7 @@ namespace Interfaces3
                 else
                 {
                     ManejoSesion.Login(user.id, user.correo, false);
-                    //ShowWindow(OpcionesUsuario.Instance);
+                    ShowWindow(OpcionesUsuario.Instance);
                 }
             }
             catch (Exception ex)
@@ -135,8 +135,14 @@ namespace Interfaces3
 
         private bool IsAdminUser(Usuarios user)
         {
-            return user.correo.Equals("admin@usac.com", StringComparison.Ordinal) && 
-                   user.contrasenia.Equals("admin123", StringComparison.Ordinal);
+
+            var admin = BlockChain.Instance.BuscarUsuario("admin@usac.com", "admin123");
+            if(admin != null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void ShowWindow(Window window)

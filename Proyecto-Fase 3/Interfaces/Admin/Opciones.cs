@@ -68,8 +68,8 @@ namespace Interfaces3
                 container.PackStart(insertarUsuarios, true, true, 0);
                 container.PackStart(visualizarUsuarios, true, true, 0);
                 container.PackStart(visualizarRepuestos, true, true, 0);
-                container.PackStart(generarServicios, true, true, 0);            
                 container.PackStart(controlLogueo, true, true, 0);
+                container.PackStart(generarServicios, true, true, 0);            
                 container.PackStart(generarBackUp, true, true, 0);
                 container.PackStart(cargarBackUp, true, true, 0);
                 container.PackStart(generarReportes, true, true, 0);
@@ -112,7 +112,7 @@ namespace Interfaces3
         {
             try
             {
-                //OpenWindow(CargaMasiva.Instance);
+                OpenWindow(InsertarUsuarios.Instance);
             }
             catch (Exception ex)
             {
@@ -125,7 +125,7 @@ namespace Interfaces3
         {
             try
             {
-                //OpenWindow(CargaMasiva.Instance);
+                OpenWindow(visualizarUsuarios.Instance);
             }
             catch (Exception ex)
             {
@@ -138,7 +138,7 @@ namespace Interfaces3
         {
             try
             {
-                //OpenWindow(VisualizarRepuestos.Instance);
+                OpenWindow(VisualizarRepuestos.Instance);
             }
             catch (Exception ex)
             {
@@ -290,7 +290,7 @@ namespace Interfaces3
                 ArbolAVL listaRepuestos = ArbolAVL.Instance;
                 //ArbolB listaFacturas = ArbolB.Instance;
 
-                //string dotLista = listaUsuarios.graphvizLista();
+                string dotBlockChain = listaUsuarios.GenerarDot();
                 string dotDoble = listaVehiculos.graphvizDoble();
                 string dotBST = listaServicios.graphvizBST();
                 string dotAVL = listaRepuestos.graphvizAVL();
@@ -298,7 +298,7 @@ namespace Interfaces3
 
                 try
                 {
-                    //GenerateReport("Lista Simple", dotLista);
+                    GenerateReport("Block Chain", dotBlockChain);
                     GenerateReport("Lista Doble", dotDoble);
                     GenerateReport("BST", dotBST);
                     GenerateReport("AVL", dotAVL);
@@ -321,8 +321,8 @@ namespace Interfaces3
         {
             try
             {
-                //Dot_Png.Convertidor.generarArchivoDot(name, dotContent);
-                //Dot_Png.Convertidor.ConvertirDot_a_Png($"{name}.dot");
+                Dot_Png.Convertidor.generarArchivoDot(name, dotContent);
+                Dot_Png.Convertidor.ConvertirDot_a_Png($"{name}.dot");
             }
             catch (Exception ex)
             {
