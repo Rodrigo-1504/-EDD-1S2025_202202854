@@ -1,11 +1,11 @@
 namespace DS
 {
-    public class Subnodo
+    public class SubNodo
     {
         public int valor { get; set; }
-        public Subnodo siguiente { get; set; }
+        public SubNodo? siguiente { get; set; }
 
-        public Subnodo(int val)
+        public SubNodo(int val)
         {
             valor = val;
             siguiente = null;

@@ -4,6 +4,7 @@ namespace DS
     {
         ListaDoble listaVehiculos = ListaDoble.Instance;
         ArbolAVL listaRepuestos = ArbolAVL.Instance;
+        GrafoNoDirigido relaciones = GrafoNoDirigido.Instance;
 
         //INSTANCIAR
         private static ArbolBST _instance;
@@ -48,7 +49,8 @@ namespace DS
                 return;
             }
 
-            raiz = insertarRecursivamente(raiz, servicio);         
+            raiz = insertarRecursivamente(raiz, servicio);
+            relaciones.AgregarRelacion(servicio.id_Repuesto, servicio.id_Vehiculo);
         }
 
         private NodoBST insertarRecursivamente(NodoBST nodo, Servicios servicio)

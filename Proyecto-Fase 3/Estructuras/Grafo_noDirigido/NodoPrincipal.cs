@@ -2,23 +2,24 @@ using System.Text;
 
 namespace DS
 {
-    public class NodoGrafo
+    public class NodoPrincipal
     {
         public int Indice { get; set; }
-        public NodoGrafo? siguiente { get; set; }
-        public NodoGrafo? anterior { get; set; }
-        public Subnodo Lista { get; set; }
+        public NodoPrincipal? siguiente { get; set; }
+        public NodoPrincipal? anterior { get; set; }
+        public SubNodo? Lista { get; set; }
 
-        public void agregar(int val)
+        public void agregarSubNodo(int val)
         {
-            Subnodo nuevoNodo = new Subnodo(val);
+            //SE AGREGAR EL SUBNODO AL NODO PRINCIPAL CREANDO ASÍ LA LISTA DE LISTAS
+            SubNodo nuevoNodo = new SubNodo(val);
             if(Lista == null)
             {
                 Lista = nuevoNodo;
             }
             else
             {
-                Subnodo aux = Lista;
+                SubNodo aux = Lista;
                 while(aux.siguiente != null)
                 {
                     aux = aux.siguiente;
@@ -29,7 +30,7 @@ namespace DS
 
         public void Imprimir()
         {
-            Subnodo aux = Lista;
+            SubNodo aux = Lista;
             while(aux != null)
             {
                 Console.Write($"{aux.valor}");
@@ -40,7 +41,7 @@ namespace DS
         public string ObtenerCadena()
         {
             StringBuilder sb = new StringBuilder();
-            Subnodo aux = Lista;
+            SubNodo aux = Lista;
             while(aux != null)
             {
                 sb.Append($"{aux.valor}");

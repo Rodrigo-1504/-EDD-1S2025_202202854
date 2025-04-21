@@ -2,26 +2,27 @@ using System.Text;
 
 namespace DS
 {
+    //CLASE QUE UNE LOS NODOS, OSEA QUE HACE LA LISTA DE LISTAS
     public class ListaDeListas
     {
-        public NodoGrafo Cabecera { get; set; }
-        public NodoGrafo Cola { get; set; }
+        public NodoPrincipal Cabecera { get; set; }
+        public NodoPrincipal Cola { get; set; }
 
         public void Insertar(int indice, int valor)
         {
-            NodoGrafo nodoExistente = BuscarNodo(indice);
+            NodoPrincipal nodoExistente = BuscarNodo(indice);
             if(nodoExistente != null)
             {
                 if(!ExistenteEnSubNodos(nodoExistente.Lista, valor))
                 {
-                    nodoExistente.agregar(valor);
+                    nodoExistente.agregarSubNodo(valor);
                 }
             }
             else
             {
-                NodoGrafo newNodo = new NodoGrafo();
+                NodoPrincipal newNodo = new NodoPrincipal();
                 newNodo.Indice = indice;
-                newNodo.agregar(valor);
+                newNodo.agregarSubNodo(valor);
 
                 if(Cabecera == null)
                 {
@@ -36,7 +37,7 @@ namespace DS
                 }
                 else
                 {
-                    NodoGrafo aux = Cabecera;
+                    NodoPrincipal aux = Cabecera;
                     while(aux.siguiente != null && indice > aux.siguiente.Indice)
                     {
                         aux = aux.siguiente;
@@ -58,9 +59,9 @@ namespace DS
             }
         }
 
-        private NodoGrafo BuscarNodo(int indice)
+        private NodoPrincipal BuscarNodo(int indice)
         {
-            NodoGrafo aux = Cabecera;
+            NodoPrincipal aux = Cabecera;
             while(aux != null)
             {
                 if(aux.Indice == indice)
@@ -72,9 +73,9 @@ namespace DS
             return null;
         }
 
-        private bool ExistenteEnSubNodos(Subnodo inicio, int valor)
+        private bool ExistenteEnSubNodos(SubNodo inicio, int valor)
         {
-            Subnodo aux = inicio;
+            SubNodo aux = inicio;
             while(aux != null)
             {
                 if(aux.valor == valor)
@@ -88,7 +89,7 @@ namespace DS
 
         public void ImprimirLista()
         {
-            NodoGrafo aux = Cabecera;
+            NodoPrincipal aux = Cabecera;
             while(aux != null)
             {
                 Console.WriteLine($"Nodo {aux.Indice}: ");
@@ -117,7 +118,7 @@ namespace DS
             }
         }
 
-        public void AgregarRelacion(int idVehiculo, int idRepuesto)
+        public void AgregarRelacion(int idRepuesto, int idVehiculo)
         {
             if(!ExisteVehiculo(idVehiculo))
             {
@@ -132,6 +133,7 @@ namespace DS
             }
 
             relaciones.Insertar(idVehiculo, idRepuesto);
+            this.ImprimirGrafoNoDirigido();
 
             Console.WriteLine($"Relacion creada: Vehiculo {idVehiculo} <-> {idRepuesto}");
         }
@@ -146,26 +148,20 @@ namespace DS
             return listaRepuestos.Buscar(id) != null;
         }
 
-        public void MostrarRelaciones()
+        public void ImprimirGrafoNoDirigido()
         {
-            Console.WriteLine("\nRelaciones en el grafo no dirigido");
-
-            NodoGrafo aux = relaciones.Cabecera;
+            Console.WriteLine("\n=== Relaciones en el grafo ===");
+            
+            NodoPrincipal aux = relaciones.Cabecera;
             while(aux != null)
             {
-                if(ExisteVehiculo(aux.Indice))
-                {
-                    Console.WriteLine($"Vehiculo {aux.Indice} esta relacionado con repuestos: ");
-                }
-                else
-                {
-                    Console.WriteLine($"Repuesto {aux.Indice} esta relacionado con vehiculos: ");
-                }
-
-                Subnodo subAux = aux.Lista;
+                string tipo = ExisteVehiculo(aux.Indice) ? "Vehículo" : "Repuesto";
+                Console.Write($"{tipo} {aux.Indice} está relacionado con los Repuestos: ");
+                
+                SubNodo subAux = aux.Lista;
                 while(subAux != null)
                 {
-                    Console.Write($"{subAux.valor}");
+                    Console.Write($"{subAux.valor} ");
                     subAux = subAux.siguiente;
                 }
                 Console.WriteLine();
@@ -173,93 +169,53 @@ namespace DS
             }
         }
 
-        public string GraphvizGrafo()
+        public string GenerarDOT()
         {
-            if(relaciones.Cabecera == null)
+            string graphviz = "";
+
+            graphviz += "graph G {\n";
+            graphviz += "\tnode[style=filled, fillcolor=white];\n";
+
+            // Forma para vehículos
+            graphviz += "\tnode [shape=ellipse, fillcolor=lightblue];\n";
+
+            NodoPrincipal nodoActual = relaciones.Cabecera;
+            while (nodoActual != null)
             {
-                return "graph G {\n\tnode[shape=circle];\n\t\"Grafo Vacío\" [label=\"Grafo Vacío\"];\n}\n";
+                graphviz += $"\tV{nodoActual.Indice};\n";
+                nodoActual = nodoActual.siguiente;
             }
 
-            StringBuilder graphviz = new StringBuilder();
-            graphviz.AppendLine("graph GrafoVehiculosRepuestos {");
-            graphviz.AppendLine("\tlabel=\"Grafo No Dirigido: Vehiculos - Repuestos\";");
-            graphviz.AppendLine("\tlabel=\"Rodrigo Tahuite - 202202854\";");
-            graphviz.AppendLine("\tnode [shape=box, style=filled];");
-            graphviz.AppendLine("\trankdir=LR;");
-            graphviz.AppendLine("\tfontsize=20;");
-            graphviz.AppendLine();
+            // Forma para repuestos
+            graphviz += "\tnode [shape=box, fillcolor=lightyellow];\n";
 
-            // Agregar nodos de vehículos (cajas azules)
-            NodoDoble auxVehiculos = listaVehiculos.cabeza;
-            while(auxVehiculos != null)
+            nodoActual = relaciones.Cabecera;
+            while (nodoActual != null)
             {
-                string label = $"Vehículo\\nID: V{auxVehiculos.vehiculo.id}\\nMarca: {auxVehiculos.vehiculo.marca}";
-                graphviz.AppendLine($"\t\"V{auxVehiculos.vehiculo.id}\" [label=\"{label}\", shape=box, color=lightblue];");
-                auxVehiculos = auxVehiculos.siguiente;
-            }
-
-            // Agregar nodos de repuestos (elipses verdes)
-            if (listaRepuestos.raiz != null)
-            {
-                Stack<NodoAVL> pila = new Stack<NodoAVL>();
-                NodoAVL actual = listaRepuestos.raiz;
-
-                while (actual != null || pila.Count > 0)
+                SubNodo subNodoActual = nodoActual.Lista;
+                while (subNodoActual != null)
                 {
-                    while (actual != null)
-                    {
-                        pila.Push(actual);
-                        actual = actual.izquierda;
-                    }
-
-                    actual = pila.Pop();
-                    
-                    string label = $"Repuesto\\nID: R{actual.repuestos.id}\\nNombre: {actual.repuestos.repuesto}";
-                    if (!string.IsNullOrEmpty(actual.repuestos.detalles))
-                    {
-                        label += $"\\nDetalles: {actual.repuestos.detalles}";
-                    }
-                    if (actual.repuestos.costo > 0)
-                    {
-                        label += $"\\nCosto: {actual.repuestos.costo}";
-                    }
-                    
-                    graphviz.AppendLine($"\t\"R{actual.repuestos.id}\" [label=\"{label}\", shape=ellipse, color=lightgreen];");
-
-                    actual = actual.derecha;
+                    graphviz += $"\tR{subNodoActual.valor};\n";
+                    subNodoActual = subNodoActual.siguiente;
                 }
+                nodoActual = nodoActual.siguiente;
             }
 
-            // Agregar relaciones (conexiones no dirigidas)
-            HashSet<string> relacionesAgregadas = new HashSet<string>();
-            
-            NodoGrafo aux = relaciones.Cabecera;
-            while(aux != null)
+            // Relaciones
+            nodoActual = relaciones.Cabecera;
+            while (nodoActual != null)
             {
-                // Solo procesamos nodos que sean vehículos (asumimos que los índices corresponden a vehículos)
-                if(ExisteVehiculo(aux.Indice))
+                SubNodo subNodoActual = nodoActual.Lista;
+                while (subNodoActual != null)
                 {
-                    Subnodo subAux = aux.Lista;
-                    while(subAux != null)
-                    {
-                        string from = $"V{aux.Indice}";
-                        string to = $"R{subAux.valor}";
-                        
-                        string claveRelacion = $"{from}-{to}"; // No necesitamos ordenar porque siempre será V-R
-                        
-                        if(!relacionesAgregadas.Contains(claveRelacion))
-                        {
-                            graphviz.AppendLine($"\t\"{from}\" -- \"{to}\";");
-                            relacionesAgregadas.Add(claveRelacion);
-                        }
-                        subAux = subAux.siguiente;
-                    }
+                    graphviz += $"\tV{nodoActual.Indice} -- R{subNodoActual.valor};\n";
+                    subNodoActual = subNodoActual.siguiente;
                 }
-                aux = aux.siguiente;
+                nodoActual = nodoActual.siguiente;
             }
 
-            graphviz.AppendLine("}");
-            return graphviz.ToString();
+            graphviz += "}";
+            return graphviz;
         }
     }
 }

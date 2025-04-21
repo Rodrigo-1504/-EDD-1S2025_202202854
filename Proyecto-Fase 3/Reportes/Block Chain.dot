@@ -1,28 +1,28 @@
 digraph {
 	node[shape=record, style=filled];
-	Block0 [label="{ INDEX: 12 | TIMESTAP: 20/4/2025 5:47:28 | ID: 11 | Nombre: Carlos Juan | Contraseña: 79ad278b6b8c506bc2f5a5bc4848e0e3eaceaa6ed7a92fa5d4d945ba6bc6365a | HASH: 0000c1 | PrevHASH: 0000f7 }"]
-;	Block1 [label="{ INDEX: 11 | TIMESTAP: 20/4/2025 5:47:27 | ID: 10 | Nombre: Isabel Cristina | Contraseña: 74db8c7378c0d11172f67a435eee91f1050c332eb9dfeacf0c470d0403f0c127 | HASH: 0000f7 | PrevHASH: 000061 }"]
+	Block0 [label="{ INDEX: 12 | TIMESTAP: 21/4/2025 5:38:23 | ID: 11 | Nombre: Carlos Juan | Contraseña: 79ad278b6b8c506bc2f5a5bc4848e0e3eaceaa6ed7a92fa5d4d945ba6bc6365a | HASH: 000073 | PrevHASH: 000018 }"]
+;	Block1 [label="{ INDEX: 11 | TIMESTAP: 21/4/2025 5:38:22 | ID: 10 | Nombre: Isabel Cristina | Contraseña: 74db8c7378c0d11172f67a435eee91f1050c332eb9dfeacf0c470d0403f0c127 | HASH: 000018 | PrevHASH: 0000ea }"]
 ;	Block1 -> Block0;
-	Block2 [label="{ INDEX: 10 | TIMESTAP: 20/4/2025 5:47:27 | ID: 9 | Nombre: Rafael Alejandro | Contraseña: a3f240069140b703e298ba80b706c21260cfc6b2f58a40ff267b98f1f05c9de3 | HASH: 000061 | PrevHASH: 000045 }"]
+	Block2 [label="{ INDEX: 10 | TIMESTAP: 21/4/2025 5:38:22 | ID: 9 | Nombre: Rafael Alejandro | Contraseña: a3f240069140b703e298ba80b706c21260cfc6b2f58a40ff267b98f1f05c9de3 | HASH: 0000ea | PrevHASH: 00004f }"]
 ;	Block2 -> Block1;
-	Block3 [label="{ INDEX: 9 | TIMESTAP: 20/4/2025 5:47:27 | ID: 8 | Nombre: Laura Isabel | Contraseña: c8b52f8f6658d575e47f80e6d1dd2921845868bc787ff279c564d807eb37fde8 | HASH: 000045 | PrevHASH: 0000b2 }"]
+	Block3 [label="{ INDEX: 9 | TIMESTAP: 21/4/2025 5:38:22 | ID: 8 | Nombre: Laura Isabel | Contraseña: c8b52f8f6658d575e47f80e6d1dd2921845868bc787ff279c564d807eb37fde8 | HASH: 00004f | PrevHASH: 000056 }"]
 ;	Block3 -> Block2;
-	Block4 [label="{ INDEX: 8 | TIMESTAP: 20/4/2025 5:47:27 | ID: 7 | Nombre: Pedro Pablo | Contraseña: 37221c5c448531a16f21a01c66f01818fa4fe656c6e69bc606cf33504f964706 | HASH: 0000b2 | PrevHASH: 00000c }"]
+	Block4 [label="{ INDEX: 8 | TIMESTAP: 21/4/2025 5:38:22 | ID: 7 | Nombre: Pedro Pablo | Contraseña: 37221c5c448531a16f21a01c66f01818fa4fe656c6e69bc606cf33504f964706 | HASH: 000056 | PrevHASH: 000094 }"]
 ;	Block4 -> Block3;
-	Block5 [label="{ INDEX: 7 | TIMESTAP: 20/4/2025 5:47:26 | ID: 6 | Nombre: Maria Fernanda | Contraseña: 58c86c60cbe0bbed8cd468e8d2673ca9e9d3206bad3d48f24a8a76174ce09558 | HASH: 00000c | PrevHASH: 000076 }"]
+	Block5 [label="{ INDEX: 7 | TIMESTAP: 21/4/2025 5:38:22 | ID: 6 | Nombre: Maria Fernanda | Contraseña: 58c86c60cbe0bbed8cd468e8d2673ca9e9d3206bad3d48f24a8a76174ce09558 | HASH: 000094 | PrevHASH: 000002 }"]
 ;	Block5 -> Block4;
-	Block6 [label="{ INDEX: 6 | TIMESTAP: 20/4/2025 5:47:26 | ID: 5 | Nombre: Juan Carlos | Contraseña: 2674daccd27ed82a4a953227e8bd5995eca966c9fc5db46ae2ce5170cc42d00a | HASH: 000076 | PrevHASH: 0000df }"]
+	Block6 [label="{ INDEX: 6 | TIMESTAP: 21/4/2025 5:38:21 | ID: 5 | Nombre: Juan Carlos | Contraseña: 2674daccd27ed82a4a953227e8bd5995eca966c9fc5db46ae2ce5170cc42d00a | HASH: 000002 | PrevHASH: 000033 }"]
 ;	Block6 -> Block5;
-	Block7 [label="{ INDEX: 5 | TIMESTAP: 20/4/2025 5:47:25 | ID: 4 | Nombre: Marta Isabel | Contraseña: a3598a09cb67e595d3d1137bd50c3a432eca4f3f5a063cef7b168ca2b85a0003 | HASH: 0000df | PrevHASH: 0000fb }"]
+	Block7 [label="{ INDEX: 5 | TIMESTAP: 21/4/2025 5:38:21 | ID: 4 | Nombre: Marta Isabel | Contraseña: a3598a09cb67e595d3d1137bd50c3a432eca4f3f5a063cef7b168ca2b85a0003 | HASH: 000033 | PrevHASH: 00002c }"]
 ;	Block7 -> Block6;
-	Block8 [label="{ INDEX: 4 | TIMESTAP: 20/4/2025 5:47:25 | ID: 3 | Nombre: Luis Enrique | Contraseña: 21f47fe6b46c4b03921a9442f5ec4a6cd1c44e55fa1fde5924ac27c8f38cfa80 | HASH: 0000fb | PrevHASH: 0000f4 }"]
+	Block8 [label="{ INDEX: 4 | TIMESTAP: 21/4/2025 5:38:21 | ID: 3 | Nombre: Luis Enrique | Contraseña: 21f47fe6b46c4b03921a9442f5ec4a6cd1c44e55fa1fde5924ac27c8f38cfa80 | HASH: 00002c | PrevHASH: 000026 }"]
 ;	Block8 -> Block7;
-	Block9 [label="{ INDEX: 3 | TIMESTAP: 20/4/2025 5:47:25 | ID: 2 | Nombre: Ana Lucia | Contraseña: baf59e20c3a7bd4e92886deae00293c0e1f3a8b84faa211f7a102240009314e9 | HASH: 0000f4 | PrevHASH: 0000b2 }"]
+	Block9 [label="{ INDEX: 3 | TIMESTAP: 21/4/2025 5:38:21 | ID: 2 | Nombre: Ana Lucia | Contraseña: baf59e20c3a7bd4e92886deae00293c0e1f3a8b84faa211f7a102240009314e9 | HASH: 000026 | PrevHASH: 000021 }"]
 ;	Block9 -> Block8;
-	Block10 [label="{ INDEX: 2 | TIMESTAP: 20/4/2025 5:47:24 | ID: 1 | Nombre: Carlos Alberto | Contraseña: 79ad278b6b8c506bc2f5a5bc4848e0e3eaceaa6ed7a92fa5d4d945ba6bc6365a | HASH: 0000b2 | PrevHASH: 000059 }"]
+	Block10 [label="{ INDEX: 2 | TIMESTAP: 21/4/2025 5:38:21 | ID: 1 | Nombre: Carlos Alberto | Contraseña: 79ad278b6b8c506bc2f5a5bc4848e0e3eaceaa6ed7a92fa5d4d945ba6bc6365a | HASH: 000021 | PrevHASH: 000039 }"]
 ;	Block10 -> Block9;
-	Block11 [label="{ INDEX: 1 | TIMESTAP: 20/4/2025 5:47:11 | ID: 0 | Nombre: Admin | Contraseña: 240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9 | HASH: 000059 | PrevHASH: 000089 }"]
+	Block11 [label="{ INDEX: 1 | TIMESTAP: 21/4/2025 5:38:06 | ID: 0 | Nombre: Admin | Contraseña: 240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9 | HASH: 000039 | PrevHASH: 0000b9 }"]
 ;	Block11 -> Block10;
-	Block12 [label="{ INDEX: 0 | TIMESTAP: 20/4/2025 5:47:11 | ID: -1 | Nombre:  | Contraseña:  | HASH: 000089 | PrevHASH: 0000 }"]
+	Block12 [label="{ INDEX: 0 | TIMESTAP: 21/4/2025 5:38:06 | ID: -1 | Nombre:  | Contraseña:  | HASH: 0000b9 | PrevHASH: 0000 }"]
 ;	Block12 -> Block11;
 }

@@ -288,12 +288,14 @@ namespace Interfaces3
                 ListaDoble listaVehiculos = ListaDoble.Instance;
                 ArbolBST listaServicios = ArbolBST.Instance;
                 ArbolAVL listaRepuestos = ArbolAVL.Instance;
+                GrafoNoDirigido relaciones = GrafoNoDirigido.Instance;
                 //ArbolB listaFacturas = ArbolB.Instance;
 
                 string dotBlockChain = listaUsuarios.GenerarDot();
                 string dotDoble = listaVehiculos.graphvizDoble();
                 string dotBST = listaServicios.graphvizBST();
                 string dotAVL = listaRepuestos.graphvizAVL();
+                string dotGrafo = relaciones.GenerarDOT();
                 //string dotB = listaFacturas.graphvizB();
 
                 try
@@ -302,6 +304,7 @@ namespace Interfaces3
                     GenerateReport("Lista Doble", dotDoble);
                     GenerateReport("BST", dotBST);
                     GenerateReport("AVL", dotAVL);
+                    GenerateReport("Grafo No Dirigido", dotGrafo);
                     //GenerateReport("B", dotB);
                 }
                 catch (Exception ex)

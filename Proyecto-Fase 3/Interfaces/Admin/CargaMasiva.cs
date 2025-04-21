@@ -14,6 +14,7 @@ namespace Interfaces3
         private readonly ListaDoble listaVehiculos = ListaDoble.Instance;
         private readonly ArbolAVL listaRepuestos = ArbolAVL.Instance;
         private readonly ArbolBST listaServicios = ArbolBST.Instance;
+        private readonly GrafoNoDirigido relaciones = GrafoNoDirigido.Instance;
 
         // ComboBox para seleccionar el tipo de carga masiva
         private readonly ComboBoxText bulkUploadOptions = new ComboBoxText();
@@ -441,6 +442,9 @@ namespace Interfaces3
                 Console.WriteLine($"Se cargaron {serviciosCargados} de {servicios.Count} repuestos.");
                 Console.WriteLine("---LISTA SERVICIOS---");
                 listaServicios.RecorridoEnOrden();
+
+                Console.WriteLine("---GRAFO NO DIRIGIDO");
+                relaciones.ImprimirGrafoNoDirigido();
             }
             catch (JsonException jsonEx)
             {
