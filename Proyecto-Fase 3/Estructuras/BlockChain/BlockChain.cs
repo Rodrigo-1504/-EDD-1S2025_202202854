@@ -90,7 +90,11 @@ namespace DS
             for (int i = Chain.Count - 1; i >= 0; i--)
             {
                 var nodo = Chain[i];
-                Console.WriteLine($"ID: {nodo.Data.id}, Nombre: {nodo.Data.nombres}, Apellido: {nodo.Data.apellidos}, Correo: {nodo.Data.correo}, Edad: {nodo.Data.edades}, Contraseña: {nodo.Data.contrasenia}");
+                string contraseniaAcortada = nodo.Data.contrasenia.Length > 8 
+                    ? nodo.Data.contrasenia.Substring(0, 8) + "..." 
+                    : nodo.Data.contrasenia;
+                    
+                Console.WriteLine($"ID: {nodo.Data.id}, Nombre: {nodo.Data.nombres}, Apellido: {nodo.Data.apellidos}, Correo: {nodo.Data.correo}, Edad: {nodo.Data.edades}, Contraseña: {contraseniaAcortada}");
             }
         }
 

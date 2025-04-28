@@ -1,6 +1,7 @@
 using Gtk;
 using DS;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Interfaces3
 {
@@ -8,7 +9,7 @@ namespace Interfaces3
     {
         // Instancias de las listas
         private readonly ArbolBST listasServicios = ArbolBST.Instance;
-        //private readonly ArbolB listaFacturas = ArbolB.Instance;
+        private readonly ArbolMerkle listaFacturas = ArbolMerkle.Instance;
         private readonly ArbolAVL listaRepuestos = ArbolAVL.Instance;
         
         // Entradas de texto
@@ -249,15 +250,14 @@ namespace Interfaces3
 
                 Console.WriteLine("\n--- LISTA DE SERVICIOS---");
                 listasServicios.RecorridoEnOrden();
-
+                
                 // Generar factura
-                /*
                 idFactura++;
-                listaFacturas.Insertar(new Facturas(idFactura, id, total));
+                listaFacturas.agregarFactura(new Facturas(idFactura, id, total, DateTime.UtcNow));
 
                 Console.WriteLine("\n--- LISTA DE FACTURAS ---");
-                listaFacturas.ImprimirEnOrden();
-                */
+                listaFacturas.ImprimirFacturas();
+                
             }
             catch (FormatException)
             {

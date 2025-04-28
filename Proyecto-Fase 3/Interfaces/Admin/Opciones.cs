@@ -151,7 +151,7 @@ namespace Interfaces3
         {
             try
             {
-                //OpenWindow(GenerarServicios.Instance);
+                OpenWindow(GenerarServicios.Instance);
             }
             catch (Exception ex)
             {
@@ -284,19 +284,21 @@ namespace Interfaces3
             try
             {
                 OpenWindow(Login.Instance);
+                ManejoSesion.Logout();
+                
                 BlockChain listaUsuarios = BlockChain.Instance;
                 ListaDoble listaVehiculos = ListaDoble.Instance;
                 ArbolBST listaServicios = ArbolBST.Instance;
                 ArbolAVL listaRepuestos = ArbolAVL.Instance;
                 GrafoNoDirigido relaciones = GrafoNoDirigido.Instance;
-                //ArbolB listaFacturas = ArbolB.Instance;
+                ArbolMerkle listaFacturas = ArbolMerkle.Instance;
 
                 string dotBlockChain = listaUsuarios.GenerarDot();
                 string dotDoble = listaVehiculos.graphvizDoble();
                 string dotBST = listaServicios.graphvizBST();
                 string dotAVL = listaRepuestos.graphvizAVL();
                 string dotGrafo = relaciones.GenerarDOT();
-                //string dotB = listaFacturas.graphvizB();
+                string dotMerkle = listaFacturas.graphvizMerkle();
 
                 try
                 {
@@ -305,13 +307,14 @@ namespace Interfaces3
                     GenerateReport("BST", dotBST);
                     GenerateReport("AVL", dotAVL);
                     GenerateReport("Grafo No Dirigido", dotGrafo);
-                    //GenerateReport("B", dotB);
+                    GenerateReport("Merkle", dotMerkle);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error al generar reportes: {ex.Message}");
                     ShowErrorMessage("Error al generar algunos reportes");
                 }
+
             }
             catch (Exception ex)
             {

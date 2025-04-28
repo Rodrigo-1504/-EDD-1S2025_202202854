@@ -232,6 +232,12 @@ namespace Interfaces3
                     return;
                 }
 
+                if (buscarUsuario.id  < 1)
+                {
+                    ShowErrorMessage("El usuario especificado no se puede ver.");
+                    return;
+                }
+
                 nombreLabel2.Text = buscarUsuario.nombres;
                 apellidoLabel2.Text = buscarUsuario.apellidos;
                 correoLabel2.Text = buscarUsuario.correo;

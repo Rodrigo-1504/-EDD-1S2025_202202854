@@ -133,9 +133,7 @@ namespace DS
             }
 
             relaciones.Insertar(idVehiculo, idRepuesto);
-            this.ImprimirGrafoNoDirigido();
-
-            Console.WriteLine($"Relacion creada: Vehiculo {idVehiculo} <-> {idRepuesto}");
+            //Console.WriteLine($"Relacion creada: Vehiculo {idVehiculo} <-> {idRepuesto}");
         }
 
         private bool ExisteVehiculo(int id)

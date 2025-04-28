@@ -98,6 +98,7 @@ namespace Interfaces3
         {
             try
             {
+                ManejoSesion.Logout();
                 OpenWindow(Login.Instance);
             }
             catch (Exception ex)

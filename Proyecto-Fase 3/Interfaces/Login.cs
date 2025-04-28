@@ -137,12 +137,7 @@ namespace Interfaces3
         {
 
             var admin = BlockChain.Instance.BuscarUsuario("admin@usac.com", "admin123");
-            if(admin != null)
-            {
-                return true;
-            }
-
-            return false;
+            return user != null && admin != null && user.id == admin.id;
         }
 
         private void ShowWindow(Window window)

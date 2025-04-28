@@ -34,10 +34,25 @@ namespace Interfaces3
 
         public static void Logout()
         {
-            if (CurrentUserId == 0) return; // No hay sesión activa
+            if (string.IsNullOrEmpty(CurrentUserMail))
+            {
+                Console.WriteLine("No hay sesión activa para cerrar.");
+                return;
+            }
 
-            LogAccess("Cierre de sesion");
-            ClearSession();
+            try
+            {
+                LogAccess("Cierre de sesion");
+                Console.WriteLine($"Sesión cerrada para {CurrentUserMail}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al registrar cierre de sesión: {ex.Message}");
+            }
+            finally
+            {
+                ClearSession(); // Siempre limpia la sesión
+            }
         }
 
         private static void ClearSession()

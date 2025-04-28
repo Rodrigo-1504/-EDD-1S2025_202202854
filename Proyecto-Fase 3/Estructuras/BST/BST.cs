@@ -5,6 +5,7 @@ namespace DS
         ListaDoble listaVehiculos = ListaDoble.Instance;
         ArbolAVL listaRepuestos = ArbolAVL.Instance;
         GrafoNoDirigido relaciones = GrafoNoDirigido.Instance;
+        ArbolMerkle listaFacturas = ArbolMerkle.Instance;
 
         //INSTANCIAR
         private static ArbolBST _instance;
@@ -19,6 +20,8 @@ namespace DS
                 return _instance;
             }
         }
+
+        private int idFactura = 0;
 
         //CARACTERÍSTICAS
         public NodoBST raiz;
@@ -51,6 +54,14 @@ namespace DS
 
             raiz = insertarRecursivamente(raiz, servicio);
             relaciones.AgregarRelacion(servicio.id_Repuesto, servicio.id_Vehiculo);
+
+            idFactura ++;
+            double costoServicio = servicio.costo;
+            var repuesto = listaRepuestos.Buscar(servicio.id_Repuesto);
+            double costoRepuesto = repuesto.repuestos.costo;
+
+            double total = costoRepuesto + costoServicio;
+            listaFacturas.agregarFactura(new Facturas(idFactura, servicio.id, total, DateTime.UtcNow));
         }
 
         private NodoBST insertarRecursivamente(NodoBST nodo, Servicios servicio)
@@ -223,6 +234,5 @@ namespace DS
 
             return graphviz;
         }
-
     }
 }

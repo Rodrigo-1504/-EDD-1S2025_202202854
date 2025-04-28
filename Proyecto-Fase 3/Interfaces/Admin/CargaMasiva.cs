@@ -14,6 +14,7 @@ namespace Interfaces3
         private readonly ListaDoble listaVehiculos = ListaDoble.Instance;
         private readonly ArbolAVL listaRepuestos = ArbolAVL.Instance;
         private readonly ArbolBST listaServicios = ArbolBST.Instance;
+        private readonly ArbolMerkle listaFacturas = ArbolMerkle.Instance;
         private readonly GrafoNoDirigido relaciones = GrafoNoDirigido.Instance;
 
         // ComboBox para seleccionar el tipo de carga masiva
@@ -409,7 +410,7 @@ namespace Interfaces3
 
                 if (servicios == null || servicios.Count == 0)
                 {
-                    Console.WriteLine("No hay repuestos válidos en el archivo.");
+                    Console.WriteLine("No hay Servicio válidos en el archivo.");
                     return;
                 }
 
@@ -430,21 +431,24 @@ namespace Interfaces3
                         }
                         else
                         {
-                            Console.WriteLine("Repuesto con datos inválidos encontrado.");
+                            Console.WriteLine("Servicio con datos inválidos encontrado.");
                         }
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Error al agregar repuesto: {ex.Message}");
+                        Console.WriteLine($"Error al agregar Servicio: {ex.Message}");
                     }
                 }
 
-                Console.WriteLine($"Se cargaron {serviciosCargados} de {servicios.Count} repuestos.");
+                Console.WriteLine($"Se cargaron {serviciosCargados} de {servicios.Count} servicios.");
                 Console.WriteLine("---LISTA SERVICIOS---");
                 listaServicios.RecorridoEnOrden();
 
                 Console.WriteLine("---GRAFO NO DIRIGIDO");
                 relaciones.ImprimirGrafoNoDirigido();
+
+                Console.WriteLine("---LISTA FACTURAS---");
+                listaFacturas.ImprimirFacturas();
             }
             catch (JsonException jsonEx)
             {
