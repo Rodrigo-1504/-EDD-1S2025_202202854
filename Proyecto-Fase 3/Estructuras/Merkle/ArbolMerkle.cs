@@ -15,8 +15,8 @@ namespace DS
             }
         }
 
-        private List<NodoMerkle>? Hojas;
-        private NodoMerkle? raiz;
+        public List<NodoMerkle>? Hojas;
+        public NodoMerkle? raiz;
 
         public ArbolMerkle()
         {

@@ -32,7 +32,7 @@ namespace DS
         }
 
         //INSERTAR E INSERTAR RECURSIVAMENTE
-        public void agregarServicios(Servicios servicio)
+        public void agregarServicios(Servicios servicio, string metodoPago)
         {
             if(Buscar(servicio.id) != null)
             {
@@ -61,7 +61,7 @@ namespace DS
             double costoRepuesto = repuesto.repuestos.costo;
 
             double total = costoRepuesto + costoServicio;
-            listaFacturas.agregarFactura(new Facturas(idFactura, servicio.id, total, DateTime.UtcNow));
+            listaFacturas.agregarFactura(new Facturas(idFactura, servicio.id, total, DateTime.UtcNow, metodoPago));
         }
 
         private NodoBST insertarRecursivamente(NodoBST nodo, Servicios servicio)
@@ -75,12 +75,12 @@ namespace DS
             if(servicio.id < nodo.servicios.id)
             {
                 nodo.izquierda = insertarRecursivamente(nodo.izquierda, servicio);
-                nodo = RotarDerecha(nodo);
+                //nodo = RotarDerecha(nodo);
             }
             else if(servicio.id > nodo.servicios.id)
             {
                 nodo.derecha = insertarRecursivamente(nodo.derecha, servicio);
-                nodo = RotarIzquierda(nodo);
+                //nodo = RotarIzquierda(nodo);
             }
             return nodo;
         }

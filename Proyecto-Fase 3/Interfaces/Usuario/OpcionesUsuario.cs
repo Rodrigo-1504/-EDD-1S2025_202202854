@@ -67,7 +67,7 @@ namespace Interfaces3
 
         private void visualizarVehiculo(object sender, EventArgs e)
         {
-            //OpenWindow(InsertarVehiculo.Instance);
+            OpenWindow(visualizarVehiculos.Instance);
         }
 
         private void seeServices(object sender, EventArgs e)
@@ -86,7 +86,7 @@ namespace Interfaces3
         {
             try
             {
-                //OpenWindow(verFacturas.Instance);
+                OpenWindow(visualizarFacturas.Instance);
             }
             catch (Exception ex)
             {

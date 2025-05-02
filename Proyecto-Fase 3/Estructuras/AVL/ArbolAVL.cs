@@ -68,55 +68,6 @@ namespace DS
             //OBTENER EL FACTOR DE EQUILIBRIO
             int equilibrio = FactorEquilibrio(nodo);
 
-            //REALIZAR LAS ROTACIONES NECESARIAS
-
-            /*
-                *VALORES PERMITIDOS
-                * 0 -> SUBARBOL IZQUIERDO A LA MISMA ALTURA QUE EL SUBARBOL DERECHO
-                * 1 -> SUBARBOL IZQUIERDO MAYOR AL SUBARBOL DERECHO
-                * -1 -> SUBARBOL IZQUIERDO MENOR AL SUBARBOL DERECHO
-            */
-
-            /*
-                *CASOS DE DESBALANCEO
-                1. 
-                                6
-                        5               8
-                    3               7       9
-                1    
-
-                EL DESEQUILIBRIO OCURRE EN EL NODO 5, PORQUE? ALTURA DEL NODO 1 = 0; ALTURA DEL NODO 3 = 1; ALTURA DEL NODO 5 = 2;
-                ENTONCES CONSIDERAMOS QUE EL SUBARBOL IZQUIERDO DEL NODO 5 ESTA MÁS PESADO, Y ES AHÍ DONDE HAY QUE REALIZAR UNA ROTACION DERECHA
-
-
-                2. 
-                                6
-                        5               8
-                    3               7       9
-                        1    
-
-                EL DESEQUILIBRIO OCURRE NUEVAMENTE EN EL NODO 5, NUEVAMENTE PORQUE ES DE ALTURA 2
-                ENTONCES PRIMERO SE REALIZA UNA ROTACION SIMPLE A LA IZQUIERDA Y LUEGO OTRA A LA DERECHA (DOBLE IZQUIERDA)
-
-                3. 
-                                6
-                        5               8
-                    3               7       9
-                                                10
-
-                SIMILAR AL CASO 1, PERO AHORA CON EL SUBARBOL DERECHO, SE REALIZAR UNA ROTACIÓN A LA IZQUIERDA
-
-                4. 
-                                6
-                        5               8
-                    3              7          10
-                                            9       
-
-                SIMILAR AL CASO 2, SE REALIZAR UNA ROTACIÓN A LA DERECHA Y LUEGO OTRA A LA IZQUIERDA (DOBLE DERECHA)
-
-            */
-
-
             if (equilibrio > 1 && repuesto.id < nodo.izquierda.repuestos.id) // CASO 1 (LL)
             {
                 //Console.WriteLine("Rotacion derecha (LL)");

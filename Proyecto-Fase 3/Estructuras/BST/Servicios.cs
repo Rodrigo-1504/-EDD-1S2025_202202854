@@ -8,15 +8,17 @@ namespace DS
         public int id_Vehiculo { get; set; }
         public string detalles { get; set; }
         public double costo { get; set; }
+        public string metodoPago { get; set; }
 
         //Constructor
-        public Servicios(int ID, int id_Repair, int id_Vehicle, string details, double cost)
+        public Servicios(int ID, int id_Repair, int id_Vehicle, string details, double cost, string pago)
         {
             id = ID;
             id_Repuesto = id_Repair;
             id_Vehiculo = id_Vehicle;
             detalles = details;
             costo = cost;
+            metodoPago = pago;
         }
     }
 }

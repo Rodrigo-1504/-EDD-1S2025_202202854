@@ -63,5 +63,95 @@
     "usuario": "carlos.alberto@usac.com",
     "accion": "Inicio de sesion",
     "fecha": "2025-04-28 01:13:45.34"
+  },
+  {
+    "usuario": "admin@usac.com",
+    "accion": "Inicio de sesion",
+    "fecha": "2025-04-30 17:12:58.55"
+  },
+  {
+    "usuario": "admin@usac.com",
+    "accion": "Cierre de sesion",
+    "fecha": "2025-04-30 17:14:47.10"
+  },
+  {
+    "usuario": "admin@usac.com",
+    "accion": "Inicio de sesion",
+    "fecha": "2025-04-30 17:51:09.61"
+  },
+  {
+    "usuario": "admin@usac.com",
+    "accion": "Cierre de sesion",
+    "fecha": "2025-04-30 17:51:38.98"
+  },
+  {
+    "usuario": "admin@usac.com",
+    "accion": "Inicio de sesion",
+    "fecha": "2025-05-01 18:27:04.74"
+  },
+  {
+    "usuario": "admin@usac.com",
+    "accion": "Cierre de sesion",
+    "fecha": "2025-05-01 18:30:01.30"
+  },
+  {
+    "usuario": "carlos.alberto@usac.com",
+    "accion": "Inicio de sesion",
+    "fecha": "2025-05-01 18:30:39.44"
+  },
+  {
+    "usuario": "carlos.alberto@usac.com",
+    "accion": "Cierre de sesion",
+    "fecha": "2025-05-01 18:31:02.60"
+  },
+  {
+    "usuario": "admin@usac.com",
+    "accion": "Inicio de sesion",
+    "fecha": "2025-05-01 18:41:32.99"
+  },
+  {
+    "usuario": "admin@usac.com",
+    "accion": "Cierre de sesion",
+    "fecha": "2025-05-01 18:42:03.41"
+  },
+  {
+    "usuario": "ana.lucia@usac.com",
+    "accion": "Inicio de sesion",
+    "fecha": "2025-05-01 18:42:21.06"
+  },
+  {
+    "usuario": "ana.lucia@usac.com",
+    "accion": "Cierre de sesion",
+    "fecha": "2025-05-01 18:43:33.72"
+  },
+  {
+    "usuario": "pedro.pablo@usac.com",
+    "accion": "Inicio de sesion",
+    "fecha": "2025-05-01 18:46:21.35"
+  },
+  {
+    "usuario": "pedro.pablo@usac.com",
+    "accion": "Cierre de sesion",
+    "fecha": "2025-05-01 18:47:16.86"
+  },
+  {
+    "usuario": "admin@usac.com",
+    "accion": "Inicio de sesion",
+    "fecha": "2025-05-01 21:56:12.90"
+  },
+  {
+    "usuario": "admin@usac.com",
+    "accion": "Cierre de sesion",
+    "fecha": "2025-05-01 22:00:58.17"
+  },
+  {
+    "usuario": "ana.lucia@usac.com",
+    "accion": "Inicio de sesion",
+    "fecha": "2025-05-01 22:01:42.56"
+  },
+  {
+    "usuario": "ana.lucia@usac.com",
+    "accion": "Cierre de sesion",
+    "fecha": "2025-05-01 22:03:23.72"
   }
 ]

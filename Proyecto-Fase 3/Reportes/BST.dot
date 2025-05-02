@@ -4,99 +4,89 @@ digraph AVL{
 	graph[pencolor=transparent];
 	subgraph cluster_0{
 		label = "Arbol BST";
-	"15" [label = "ID: 15
-Repuesto: 11
-Vehiculo: 9
-Detalles: Cables de encendido
-Costo: 40"];
-	"15" -> "12";
-	"12" [label = "ID: 12
-Repuesto: 8
-Vehiculo: 1
-Detalles: Correa distribución
-Costo: 90"];
-	"12" -> "8";
-	"12" -> "14";
-	{rank=same; "8"; "14"};
-	"8" [label = "ID: 8
-Repuesto: 10
-Vehiculo: 10
-Detalles: Nueva batería
-Costo: 120"];
-	"8" -> "7";
-	"8" -> "10";
-	{rank=same; "7"; "10"};
-	"7" [label = "ID: 7
-Repuesto: 7
-Vehiculo: 5
-Detalles: Filtro de aire nuevo
-Costo: 30"];
-	"7" -> "2";
-	"2" [label = "ID: 2
-Repuesto: 3
-Vehiculo: 3
-Detalles: Frenos delanteros
-Costo: 100"];
-	"2" -> "1";
-	"2" -> "5";
-	{rank=same; "1"; "5"};
 	"1" [label = "ID: 1
 Repuesto: 2
 Vehiculo: 2
-Detalles: Cambio de bujías
+Detalles: Calificacion servicio 1
 Costo: 75"];
-	"5" [label = "ID: 5
-Repuesto: 9
-Vehiculo: 7
-Detalles: Reemplazo radiador
-Costo: 200"];
-	"5" -> "4";
-	"5" -> "6";
-	{rank=same; "4"; "6"};
-	"4" [label = "ID: 4
-Repuesto: 12
-Vehiculo: 12
-Detalles: Espejos nuevos
-Costo: 80"];
-	"4" -> "3";
-	"3" [label = "ID: 3
+	"1" -> "9";
+	"9" [label = "ID: 9
 Repuesto: 5
 Vehiculo: 12
-Detalles: Amortiguadores traseros
-Costo: 150"];
-	"6" [label = "ID: 6
-Repuesto: 6
-Vehiculo: 5
-Detalles: Cambio de aceite
-Costo: 60"];
-	"10" [label = "ID: 10
-Repuesto: 14
-Vehiculo: 4
-Detalles: Suspensión trasera
-Costo: 140"];
-	"10" -> "9";
-	"10" -> "11";
-	{rank=same; "9"; "11"};
-	"9" [label = "ID: 9
-Repuesto: 1
-Vehiculo: 6
-Detalles: Filtro de aceite
-Costo: 45"];
-	"11" [label = "ID: 11
-Repuesto: 13
-Vehiculo: 3
-Detalles: Cambio de manguera
-Costo: 50"];
-	"14" [label = "ID: 14
+Detalles: Calificacion servicio 2
+Costo: 100"];
+	"9" -> "3";
+	"9" -> "10";
+	{rank=same; "3"; "10"};
+	"3" [label = "ID: 3
 Repuesto: 4
+Vehiculo: 4
+Detalles: Calificacion servicio 3
+Costo: 50"];
+	"3" -> "4";
+	"4" [label = "ID: 4
+Repuesto: 5
+Vehiculo: 5
+Detalles: Calificacion servicio 4
+Costo: 200"];
+	"4" -> "5";
+	"5" [label = "ID: 5
+Repuesto: 6
+Vehiculo: 6
+Detalles: Calificacion servicio 5
+Costo: 150"];
+	"5" -> "6";
+	"6" [label = "ID: 6
+Repuesto: 7
+Vehiculo: 7
+Detalles: Calificacion servicio 6
+Costo: 80"];
+	"6" -> "7";
+	"7" [label = "ID: 7
+Repuesto: 4
+Vehiculo: 8
+Detalles: Calificacion servicio 7
+Costo: 120"];
+	"7" -> "8";
+	"8" [label = "ID: 8
+Repuesto: 2
+Vehiculo: 9
+Detalles: Calificacion servicio 8
+Costo: 90"];
+	"10" [label = "ID: 10
+Repuesto: 3
+Vehiculo: 10
+Detalles: Calificacion servicio 9
+Costo: 110"];
+	"10" -> "11";
+	"11" [label = "ID: 11
+Repuesto: 3
 Vehiculo: 11
-Detalles: Pastillas de freno traseras
-Costo: 70"];
-	"14" -> "13";
+Detalles: Calificacion servicio 10
+Costo: 60"];
+	"11" -> "12";
+	"12" [label = "ID: 12
+Repuesto: 4
+Vehiculo: 12
+Detalles: Calificacion servicio 11
+Costo: 130"];
+	"12" -> "13";
 	"13" [label = "ID: 13
-Repuesto: 15
-Vehiculo: 1
-Detalles: Bombas de freno
-Costo: 85"];
+Repuesto: 2
+Vehiculo: 13
+Detalles: Calificacion servicio 12
+Costo: 140"];
+	"13" -> "14";
+	"14" [label = "ID: 14
+Repuesto: 10
+Vehiculo: 14
+Detalles: Calificacion servicio 13
+Costo: 160"];
+	"14" -> "15";
+	"15" [label = "ID: 15
+Repuesto: 1
+Vehiculo: 15
+Detalles: Calificacion servicio 14
+Costo: 170"];
 		}
 }

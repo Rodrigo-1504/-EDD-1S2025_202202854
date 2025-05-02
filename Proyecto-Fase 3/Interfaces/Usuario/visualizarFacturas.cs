@@ -4,29 +4,31 @@ using DS;
 
 namespace Interfaces3
 {
-    public class visualizarVehiculos : Window
+    public class visualizarFacturas : Window
     {
         private Grid tabla;
         private int filaActual = 1;
 
         // Estructuras de datos
-        ListaDoble listaVehiculos = ListaDoble.Instance;
-
+        private ArbolMerkle listasFacturas = ArbolMerkle.Instance;
+        private ListaDoble listaVehiculos = ListaDoble.Instance;
+        private ArbolBST listasServicios = ArbolBST.Instance;
+        
         // Singleton pattern
-        private static visualizarVehiculos _instance;
-        public static visualizarVehiculos Instance
+        private static visualizarFacturas _instance;
+        public static visualizarFacturas Instance
         {
             get
             {
                 if(_instance == null)
                 {
-                    _instance = new visualizarVehiculos();
+                    _instance = new visualizarFacturas();
                 }
                 return _instance;
             }
         }
 
-        public visualizarVehiculos() : base("Mis Vehiculos")
+        public visualizarFacturas() : base("Mis Facturas Pendientes")
         {
             try
             {
@@ -52,8 +54,7 @@ namespace Interfaces3
                 back.Clicked += Regresar;
 
                 CrearEncabezados();
-                MostrarVehiculos(listaVehiculos.cabeza);
-                
+                MostrarFacturasInOrden();
 
                 contenedor.PackStart(scroll, true, true, 0);
                 contenedor.PackStart(back, false, false, 10);
@@ -64,7 +65,7 @@ namespace Interfaces3
             catch(Exception ex)
             {
                 Console.WriteLine("Error al inicializar: " + ex.Message);
-                MostrarError("Error al cargar vehiculos");
+                MostrarError("Error al cargar facturas");
                 this.Destroy();
             }
         }
@@ -91,89 +92,80 @@ namespace Interfaces3
             }
 
             // Encabezados
-            var idHeader = new Label("ID");
+            var idHeader = new Label("ID Factura");
             idHeader.Xalign = 0f;
             tabla.Attach(idHeader, 0, 0, 1, 1);
 
-            var idUsuarioHeader = new Label("ID Usuario");
-            idUsuarioHeader.Xalign = 0f;
-            tabla.Attach(idUsuarioHeader, 1, 0, 1, 1);
+            var ordenHeader = new Label("Orden");
+            ordenHeader.Xalign = 0f;
+            tabla.Attach(ordenHeader, 1, 0, 1, 1);
 
-            var marcaHeader = new Label("Marca");
-            marcaHeader.Xalign = 0f;
-            tabla.Attach(marcaHeader, 2, 0, 1, 1);
-
-            var modeloHeader = new Label("Modelo");
-            modeloHeader.Xalign = 0f;
-            tabla.Attach(modeloHeader, 3, 0, 1, 1);
-
-            var placaHeader = new Label("Placa");
-            placaHeader.Xalign = 1f;
-            tabla.Attach(placaHeader, 4, 0, 1, 1);
+            var totalHeader = new Label("Total ($)");
+            totalHeader.Xalign = 1f;
+            tabla.Attach(totalHeader, 2, 0, 1, 1);
 
             filaActual = 1;
         }
 
-        private void MostrarVehiculos(NodoDoble nodo)
+        private void MostrarFacturasInOrden()
         {
             try
             {
                 LimpiarDatos();
-                while(nodo != null)
+                // Cambiar el recorrido del árbol B por el de Merkle
+                if(listasFacturas.Hojas != null)
                 {
-                    if(nodo.vehiculo != null && nodo.vehiculo.ID_Usuario == ManejoSesion.CurrentUserId)
+                    foreach(var hoja in listasFacturas.Hojas)
                     {
-                        AgregarFilaTabla(nodo.vehiculo);
+                        if(hoja.facturas != null && EsFacturaDelUsuario(hoja.facturas))
+                        {
+                            AgregarFilaTabla(hoja.facturas);
+                        }
                     }
-                    
-                    nodo = nodo.siguiente;
-                }    
-                
+                }
                 tabla.ShowAll();
             }
             catch(Exception ex)
             {
-                Console.WriteLine("Error al mostrar vehiculos: " + ex.Message);
-                MostrarError("Error al cargar vehiculos");
+                Console.WriteLine("Error al mostrar facturas: " + ex.Message);
+                MostrarError("Error al cargar facturas");
             }
         }
 
-        /*private bool esCarroDelUsuario(Vehiculos vehiculo)
+        private bool EsFacturaDelUsuario(Facturas factura)
         {
-            return vehiculo != null && vehiculo.ID_Usuario == ManejoSesion.CurrentUserId;
-        }*/
+            // El árbol de Merkle ya contiene las facturas directamente
+            // Solo necesitas verificar el usuario asociado
+            var servicio = listasServicios.Buscar(factura.id_Servicio);
+            if(servicio == null) return false;
 
-        private void AgregarFilaTabla(Vehiculos vehiculos)
+            var vehiculo = listaVehiculos.BuscarVehiculo(servicio.servicios.id_Vehiculo);
+            return vehiculo != null && vehiculo.ID_Usuario == ManejoSesion.CurrentUserId;
+        }
+
+        private void AgregarFilaTabla(Facturas factura)
         {
             try
             {
                 // Buscar información relacionada
-                var vehiculo = vehiculos != null ? listaVehiculos.BuscarVehiculo(vehiculos.id): null;
+                var servicio = listasServicios.Buscar(factura.id_Servicio);
+                var vehiculo = servicio != null ? listaVehiculos.BuscarVehiculo(servicio.servicios.id_Vehiculo) : null;
+                string infoVehiculo = vehiculo != null ? $"{vehiculo.marca} {vehiculo.modelo}" : "Desconocido";
 
-                // ID
-                var idLabel = new Label(vehiculos.id.ToString());
+                // ID Factura
+                var idLabel = new Label(factura.id.ToString());
                 idLabel.Xalign = 0f;
                 tabla.Attach(idLabel, 0, filaActual, 1, 1);
 
-                // ID_USUARIO
-                var idUserLabel = new Label(vehiculos.ID_Usuario.ToString());
-                idUserLabel.Xalign = 0f;
-                tabla.Attach(idUserLabel, 1, filaActual, 1, 1);
+                // ID Servicio
+                var ordenLabel = new Label(factura.metodoPago.ToString());
+                ordenLabel.Xalign = 0f;
+                tabla.Attach(ordenLabel, 1, filaActual, 1, 1);
 
-                // MARCA
-                var marcaLabel = new Label(vehiculos.marca.ToString());
-                marcaLabel.Xalign = 0f;
-                tabla.Attach(marcaLabel, 2, filaActual, 1, 1);
-
-                // MODELO
-                var modeloLabel = new Label(vehiculos.modelo.ToString());
-                modeloLabel.Xalign = 0f;
-                tabla.Attach(modeloLabel, 3, filaActual, 1, 1);
-
-                // PLACA
-                var placaLabel = new Label(vehiculos.placa.ToString());
-                placaLabel.Xalign = 1f;
-                tabla.Attach(placaLabel, 4, filaActual, 1, 1);
+                // Total
+                var totalLabel = new Label(factura.total.ToString("0.00"));
+                totalLabel.Xalign = 1f;
+                tabla.Attach(totalLabel, 2, filaActual, 1, 1);
 
                 filaActual++;
             }

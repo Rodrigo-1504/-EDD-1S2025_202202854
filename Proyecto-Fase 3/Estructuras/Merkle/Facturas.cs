@@ -12,13 +12,13 @@ namespace DS
         public DateTime fechas { get; set; }
         public string metodoPago { get; set; }
 
-        public Facturas(int ID, int Id_Services, double Total, DateTime fecha)
+        public Facturas(int ID, int Id_Services, double Total, DateTime fecha, string pago)
         {
             id = ID;
             id_Servicio = Id_Services;
             total = Total;
             fechas = fecha;
-            metodoPago = MetodoPago();
+            metodoPago = pago;
         }
 
         public string getHash()
@@ -35,7 +35,7 @@ namespace DS
                 return builder.ToString();
             }
         }
-
+        /*
         //Metodo de pago
         private static string MetodoPago()
         {
@@ -44,5 +44,6 @@ namespace DS
             int indiceAleatorio = random.Next(metodos.Length);
             return metodos[indiceAleatorio];
         }
+        */
     }
 }

@@ -37,17 +37,5 @@ namespace DS
                 aux = aux.siguiente;
             }
         }
-
-        public string ObtenerCadena()
-        {
-            StringBuilder sb = new StringBuilder();
-            SubNodo aux = Lista;
-            while(aux != null)
-            {
-                sb.Append($"{aux.valor}");
-                aux = aux.siguiente;
-            }
-            return sb.ToString();
-        }
     }
 }

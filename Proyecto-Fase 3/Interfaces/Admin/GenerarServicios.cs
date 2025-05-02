@@ -245,15 +245,15 @@ namespace Interfaces3
 
                 // Agregar servicio
                 listasServicios.agregarServicios(new Servicios(
-                    id, idRepuesto, idVehiculo, detalles, costoServicio
-                ));
+                    id, idRepuesto, idVehiculo, detalles, costoServicio, "Efectivo"
+                ), "Efectivo");
 
                 Console.WriteLine("\n--- LISTA DE SERVICIOS---");
                 listasServicios.RecorridoEnOrden();
                 
                 // Generar factura
                 idFactura++;
-                listaFacturas.agregarFactura(new Facturas(idFactura, id, total, DateTime.UtcNow));
+                listaFacturas.agregarFactura(new Facturas(idFactura, id, total, DateTime.UtcNow, "Efectivo"));
 
                 Console.WriteLine("\n--- LISTA DE FACTURAS ---");
                 listaFacturas.ImprimirFacturas();

@@ -421,12 +421,15 @@ namespace Interfaces3
                     {
                         if (servicio != null && !string.IsNullOrWhiteSpace(servicio.id.ToString()))
                         {
+
+                            string metodoPago = servicio.metodoPago ?? "Efectivo";
+
                             listaServicios.agregarServicios(new Servicios(
                                 servicio.id,
                                 servicio.id_Repuesto,
                                 servicio.id_Vehiculo,
                                 servicio.detalles,
-                                servicio.costo));
+                                servicio.costo, metodoPago), metodoPago);
                             serviciosCargados++;
                         }
                         else
